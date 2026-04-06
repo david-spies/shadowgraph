@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHADOWGRAPH v1.0 // 6°NASA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  /* Font fallbacks if Google Fonts is blocked */
+  :root {
+    --font-mono-stack: 'Share Tech Mono', 'Courier New', 'Lucida Console', monospace;
+    --font-body-stack: 'Rajdhani', 'Trebuchet MS', Arial, sans-serif;
+    --font-title-stack: 'Orbitron', 'Courier New', monospace;
+  }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<style>
+  :root {
+    --bg-deep:    #000b14;
+    --bg-mid:     #041220;
+    --bg-panel:   #071928;
+    --bg-card:    #0a1f30;
+    --accent:     #859900;
+    --accent-dim: #4a5500;
+    --accent-glow:#b8cc00;
+    --slate:      #2e4a5e;
+    --slate-light:#3d6280;
+    --text-pri:   #c8d8e0;
+    --text-sec:   #7a9db5;
+    --text-dim:   #3a5a70;
+    --deceased:   #dc322f;
+    --missing:    #b58900;
+    --active:     #268bd2;
+    --edge-work:  #268bd2;
+    --edge-acq:   #6c71c4;
+    --edge-inst:  #2aa198;
+    --border:     #1a3a50;
+    --mono: 'Share Tech Mono', 'Courier New', monospace;
+    --title: 'Orbitron', 'Courier New', monospace;
+    --body: 'Rajdhani', 'Trebuchet MS', Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg-deep);
+    color: var(--text-pri);
+    font-family: var(--body);
+    font-size: 14px;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--bg-panel);
+    border-bottom: 1px solid var(--accent-dim);
+    padding: 0 20px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1000;
+  }
+  .hdr-left { display: flex; align-items: center; gap: 16px; }
+  .logo {
+    font-family: var(--title);
+    font-size: 16px;
+    font-weight: 900;
+    color: var(--accent-glow);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  .logo span { color: var(--text-sec); font-size: 10px; letter-spacing: 2px; display: block; margin-top: 2px; }
+  .hdr-sep { width: 1px; height: 30px; background: var(--border); }
+  .hdr-stat {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-sec);
+    line-height: 1.8;
+  }
+  .hdr-stat .val { color: var(--accent); }
+  .pulse-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+    animation: pulse-anim 2s ease-in-out infinite;
+    margin-right: 6px;
+  }
+  @keyframes pulse-anim {
+    0%,100% { opacity: 1; box-shadow: 0 0 4px var(--accent); }
+    50% { opacity: 0.3; box-shadow: none; }
+  }
+  .hdr-right { display: flex; align-items: center; gap: 12px; }
+  .hdr-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-sec);
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 5px 12px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .hdr-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .hdr-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(133,153,0,0.08); }
+  .classify-badge {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--deceased);
+    border: 1px solid var(--deceased);
+    padding: 3px 8px;
+    letter-spacing: 2px;
+    animation: blink 3s step-end infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1}50%{opacity:0.4} }
+
+  /* ── MAIN LAYOUT ── */
+  .main { display: flex; flex: 1; overflow: hidden; }
+
+  /* ── LEFT PANEL ── */
+  .left-panel {
+    width: 280px;
+    background: var(--bg-panel);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .panel-section {
+    border-bottom: 1px solid var(--border);
+    padding: 12px 16px;
+  }
+  .panel-title {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .panel-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Filter controls */
+  .filter-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 6px; }
+  .filter-btn {
+    font-family: var(--mono);
+    font-size: 9px;
+    padding: 4px 8px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-sec);
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+  .filter-btn:hover { border-color: var(--slate-light); color: var(--text-pri); }
+  .filter-btn.on { background: rgba(133,153,0,0.1); border-color: var(--accent); color: var(--accent); }
+  .filter-btn.deceased { border-color: var(--deceased); color: var(--deceased); }
+  .filter-btn.deceased.on { background: rgba(220,50,47,0.12); }
+  .filter-btn.missing { border-color: var(--missing); color: var(--missing); }
+  .filter-btn.missing.on { background: rgba(181,137,0,0.12); }
+
+  /* Node list */
+  .node-list { flex: 1; overflow-y: auto; padding: 4px 0; }
+  .node-list::-webkit-scrollbar { width: 4px; }
+  .node-list::-webkit-scrollbar-track { background: transparent; }
+  .node-list::-webkit-scrollbar-thumb { background: var(--border); }
+  .node-item {
+    padding: 10px 16px;
+    cursor: pointer;
+    border-left: 2px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .node-item:hover { background: rgba(255,255,255,0.03); }
+  .node-item.selected { background: rgba(133,153,0,0.07); border-left-color: var(--accent); }
+  .node-item.deceased { border-left-color: var(--deceased); }
+  .node-item.missing { border-left-color: var(--missing); }
+  .node-status-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 3px;
+  }
+  .node-item .name {
+    font-family: var(--body);
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text-pri);
+    line-height: 1.3;
+  }
+  .node-item .org {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-sec);
+    margin-top: 2px;
+    letter-spacing: 0.5px;
+  }
+  .node-item .status-tag {
+    font-family: var(--mono);
+    font-size: 8px;
+    padding: 1px 5px;
+    margin-top: 3px;
+    display: inline-block;
+    letter-spacing: 1px;
+  }
+  .status-tag.DECEASED { border: 1px solid var(--deceased); color: var(--deceased); }
+  .status-tag.MISSING  { border: 1px solid var(--missing); color: var(--missing); }
+  .status-tag.ACTIVE   { border: 1px solid var(--active); color: var(--active); }
+
+  /* Legend */
+  .legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .legend-line { width: 20px; height: 2px; }
+  .legend-label { font-family: var(--mono); font-size: 9px; color: var(--text-sec); letter-spacing: 1px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+  /* ── MAP CENTER ── */
+  #map-container {
+    flex: 1;
+    position: relative;
+    background: var(--bg-deep);
+  }
+  #map { width: 100%; height: 100%; }
+
+  /* Leaflet overrides */
+  .leaflet-container { background: #000b14 !important; }
+  .leaflet-control-zoom a {
+    background: var(--bg-panel) !important;
+    border: 1px solid var(--border) !important;
+    color: var(--text-sec) !important;
+  }
+  .leaflet-control-zoom a:hover { color: var(--accent) !important; border-color: var(--accent) !important; }
+  .leaflet-control-attribution { display: none; }
+
+  /* Map overlay */
+  .map-overlay {
+    position: absolute;
+    pointer-events: none;
+    z-index: 500;
+  }
+  .map-hud-tl {
+    top: 16px; left: 16px;
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-dim);
+    line-height: 2;
+    letter-spacing: 1px;
+  }
+  .map-hud-tr {
+    top: 16px; right: 16px;
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-dim);
+    line-height: 2;
+    letter-spacing: 1px;
+    text-align: right;
+  }
+  .hud-accent { color: var(--accent); }
+  .scanline {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 4px);
+    pointer-events: none;
+    z-index: 400;
+  }
+
+  /* Custom markers */
+  .custom-marker {
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    border: 2px solid;
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+    box-shadow: 0 0 12px rgba(0,0,0,0.6);
+  }
+  .custom-marker:hover { transform: scale(1.15); }
+  .marker-DECEASED {
+    background: rgba(220,50,47,0.25);
+    border-color: var(--deceased);
+    color: var(--deceased);
+    box-shadow: 0 0 10px rgba(220,50,47,0.4);
+  }
+  .marker-MISSING {
+    background: rgba(181,137,0,0.25);
+    border-color: var(--missing);
+    color: var(--missing);
+    box-shadow: 0 0 10px rgba(181,137,0,0.4);
+    animation: pulse-missing 2.5s ease-in-out infinite;
+  }
+  .marker-ACTIVE {
+    background: rgba(38,139,210,0.25);
+    border-color: var(--active);
+    color: var(--active);
+    box-shadow: 0 0 8px rgba(38,139,210,0.3);
+  }
+  @keyframes pulse-missing {
+    0%,100% { box-shadow: 0 0 10px rgba(181,137,0,0.4); }
+    50% { box-shadow: 0 0 20px rgba(181,137,0,0.8), 0 0 40px rgba(181,137,0,0.2); }
+  }
+
+  /* ── RIGHT PANEL ── */
+  .right-panel {
+    width: 320px;
+    background: var(--bg-panel);
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .detail-empty {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    color: var(--text-dim);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-align: center;
+  }
+  .detail-empty .crosshair {
+    width: 40px; height: 40px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    position: relative;
+  }
+  .detail-empty .crosshair::before,
+  .detail-empty .crosshair::after {
+    content: '';
+    position: absolute;
+    background: var(--border);
+  }
+  .detail-empty .crosshair::before { width: 1px; height: 100%; left: 50%; top: 0; }
+  .detail-empty .crosshair::after { width: 100%; height: 1px; top: 50%; left: 0; }
+
+  .detail-panel { flex: 1; overflow-y: auto; }
+  .detail-panel::-webkit-scrollbar { width: 4px; }
+  .detail-panel::-webkit-scrollbar-thumb { background: var(--border); }
+
+  .detail-header {
+    padding: 16px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .detail-status-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .detail-name {
+    font-family: var(--body);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-pri);
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .detail-id {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+  }
+  .detail-field {
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(26,58,80,0.4);
+    display: flex;
+    gap: 12px;
+  }
+  .detail-field .key {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    min-width: 90px;
+    flex-shrink: 0;
+    padding-top: 1px;
+  }
+  .detail-field .value {
+    font-family: var(--body);
+    font-size: 13px;
+    color: var(--text-pri);
+    line-height: 1.4;
+  }
+  .detail-field .value a {
+    color: var(--accent);
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 10px;
+    display: block;
+    margin-bottom: 4px;
+    transition: color 0.15s;
+  }
+  .detail-field .value a:hover { color: var(--accent-glow); }
+
+  .connections-section { padding: 12px 16px; }
+  .conn-item {
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    margin-bottom: 8px;
+    background: rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .conn-item:hover { border-color: var(--slate-light); }
+  .conn-header { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .conn-type-badge {
+    font-family: var(--mono);
+    font-size: 8px;
+    padding: 2px 6px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .badge-WORK { border: 1px solid var(--edge-work); color: var(--edge-work); }
+  .badge-ACQUAINTANCE { border: 1px solid var(--edge-acq); color: var(--edge-acq); }
+  .badge-INSTITUTIONAL { border: 1px solid var(--edge-inst); color: var(--edge-inst); }
+  .conn-name { font-size: 13px; font-weight: 600; color: var(--text-pri); }
+  .conn-label { font-family: var(--mono); font-size: 9px; color: var(--text-sec); letter-spacing: 0.5px; }
+
+  /* Timeline section */
+  .timeline { padding: 12px 16px; }
+  .timeline-item {
+    display: flex;
+    gap: 12px;
+    padding-bottom: 16px;
+    position: relative;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 14px;
+    bottom: 0;
+    width: 1px;
+    background: var(--border);
+  }
+  .timeline-item:last-child::before { display: none; }
+  .tl-dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    border: 2px solid;
+    flex-shrink: 0;
+    margin-top: 1px;
+    background: var(--bg-panel);
+    z-index: 1;
+  }
+  .tl-content {}
+  .tl-date { font-family: var(--mono); font-size: 9px; color: var(--text-dim); letter-spacing: 1px; }
+  .tl-event { font-size: 12px; color: var(--text-pri); margin-top: 2px; line-height: 1.4; }
+
+  /* Graph mode */
+  #graph-container {
+    flex: 1;
+    background: var(--bg-deep);
+    display: none;
+    position: relative;
+  }
+  #graph-svg { width: 100%; height: 100%; }
+
+  /* Mode switcher */
+  .mode-tabs {
+    display: flex;
+    background: var(--bg-mid);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .mode-tab {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .mode-tab:hover { color: var(--text-sec); }
+  .mode-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* Popup overrides */
+  .leaflet-popup-content-wrapper {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 0 !important;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.8) !important;
+    color: var(--text-pri) !important;
+  }
+  .leaflet-popup-tip { background: var(--bg-card) !important; }
+  .leaflet-popup-content { margin: 12px 16px !important; }
+  .popup-name { font-family: var(--body); font-size: 15px; font-weight: 700; color: var(--text-pri); }
+  .popup-org { font-family: var(--mono); font-size: 9px; color: var(--text-sec); letter-spacing: 1px; margin: 4px 0; }
+  .popup-status { font-family: var(--mono); font-size: 9px; margin: 6px 0; }
+  .popup-btn {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 6px;
+    background: rgba(133,153,0,0.1);
+    border: 1px solid var(--accent-dim);
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+  }
+  .popup-btn:hover { background: rgba(133,153,0,0.2); border-color: var(--accent); }
+
+  /* Tooltip */
+  .leaflet-tooltip {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 0 !important;
+    color: var(--text-sec) !important;
+    font-family: var(--mono) !important;
+    font-size: 10px !important;
+    box-shadow: none !important;
+  }
+
+  /* D3 graph styles */
+  .graph-node circle { cursor: pointer; transition: r 0.2s; }
+  .graph-node circle:hover { stroke-width: 3; }
+  .graph-node text { font-family: 'Share Tech Mono', monospace; font-size: 10px; fill: #c8d8e0; pointer-events: none; }
+  .graph-link { fill: none; }
+  .graph-link-label { font-family: 'Share Tech Mono', monospace; font-size: 8px; fill: #3a5a70; pointer-events: none; }
+
+  /* Status bar */
+  .status-bar {
+    background: var(--bg-mid);
+    border-top: 1px solid var(--border);
+    padding: 4px 16px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+    height: 26px;
+  }
+  .status-item {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+  }
+  .status-item .v { color: var(--text-sec); margin-left: 4px; }
+  .status-item .v.red { color: var(--deceased); }
+  .status-item .v.amber { color: var(--missing); }
+  .status-item .v.green { color: var(--accent); }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="hdr-left">
+    <div class="logo">
+      SHADOWGRAPH
+      <span>6 DEGREES OF NASA // v1.0</span>
+    </div>
+    <div class="hdr-sep"></div>
+    <div class="hdr-stat">
+      <div><span class="pulse-dot"></span>NODES: <span class="val">7</span></div>
+      <div>CONNECTIONS: <span class="val">8</span></div>
+    </div>
+    <div class="hdr-sep"></div>
+    <div class="hdr-stat">
+      <div>DECEASED: <span class="val" style="color:var(--deceased)">2</span></div>
+      <div>MISSING: <span class="val" style="color:var(--missing)">3</span></div>
+    </div>
+  </div>
+  <div class="hdr-right">
+    <div class="classify-badge">// UNCLASSIFIED //</div>
+    <button class="hdr-btn active" id="btn-map" onclick="switchMode('map')">MAP</button>
+    <button class="hdr-btn" id="btn-graph" onclick="switchMode('graph')">GRAPH</button>
+    <button class="hdr-btn" onclick="resetView()">RESET</button>
+  </div>
+</header>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <div class="panel-section">
+      <div class="panel-title">FILTERS</div>
+      <div class="filter-row">
+        <button class="filter-btn on" id="f-all" onclick="filterNodes('all')">ALL</button>
+        <button class="filter-btn deceased" id="f-deceased" onclick="filterNodes('deceased')">DECEASED</button>
+        <button class="filter-btn missing" id="f-missing" onclick="filterNodes('missing')">MISSING</button>
+      </div>
+      <div class="filter-row">
+        <button class="filter-btn on" id="f-work" onclick="toggleEdge('WORK')">WORK</button>
+        <button class="filter-btn on" id="f-acq" onclick="toggleEdge('ACQUAINTANCE')">ACQUAINTANCE</button>
+        <button class="filter-btn on" id="f-inst" onclick="toggleEdge('INSTITUTIONAL')">INSTITUTIONAL</button>
+      </div>
+    </div>
+
+    <div class="panel-section" style="flex:1; overflow:hidden; display:flex; flex-direction:column;">
+      <div class="panel-title">SUBJECTS</div>
+      <div class="node-list" id="node-list">
+        <!-- populated by JS -->
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <div class="panel-title">LEGEND</div>
+      <div style="margin-bottom:10px;">
+        <div class="legend-row"><div class="legend-dot" style="background:var(--deceased);box-shadow:0 0 6px var(--deceased)"></div><div class="legend-label">DECEASED — CONFIRMED</div></div>
+        <div class="legend-row"><div class="legend-dot" style="background:var(--missing);box-shadow:0 0 6px var(--missing)"></div><div class="legend-label">MISSING — UNRESOLVED</div></div>
+        <div class="legend-row"><div class="legend-dot" style="background:var(--active)"></div><div class="legend-label">STATUS — UNCONFIRMED</div></div>
+      </div>
+      <div>
+        <div class="legend-row"><div class="legend-line" style="background:var(--edge-work)"></div><div class="legend-label">WORK CONNECTION</div></div>
+        <div class="legend-row"><div class="legend-line" style="background:var(--edge-acq);height:1px;border-top:1px dashed var(--edge-acq)"></div><div class="legend-label">ACQUAINTANCE LINK</div></div>
+        <div class="legend-row"><div class="legend-line" style="background:var(--edge-inst);height:1px;border-top:1px dotted var(--edge-inst)"></div><div class="legend-label">INSTITUTIONAL</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAP + GRAPH CENTER -->
+  <div id="map-container">
+    <div id="map"></div>
+    <div class="scanline"></div>
+    <div class="map-overlay map-hud-tl">
+      <div>SYS: <span class="hud-accent">NOMINAL</span></div>
+      <div>PROJ: <span class="hud-accent">6°NASA</span></div>
+      <div>EPOCH: <span class="hud-accent" id="hud-time">--:--:--</span></div>
+    </div>
+    <div class="map-overlay map-hud-tr">
+      <div>ZOOM: <span class="hud-accent" id="hud-zoom">5</span></div>
+      <div>NODES VIS: <span class="hud-accent" id="hud-vis">7</span></div>
+    </div>
+  </div>
+
+  <div id="graph-container">
+    <svg id="graph-svg"></svg>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div class="mode-tabs">
+      <div class="mode-tab active" id="tab-intel">INTEL</div>
+      <div class="mode-tab" id="tab-timeline" onclick="switchTab('timeline')">TIMELINE</div>
+      <div class="mode-tab" id="tab-links" onclick="switchTab('links')">LINKS</div>
+    </div>
+
+    <div id="panel-empty" class="detail-empty">
+      <div class="crosshair"></div>
+      <div>SELECT A NODE<br>TO VIEW INTELLIGENCE</div>
+    </div>
+
+    <div id="panel-detail" style="display:none; flex:1; overflow-y:auto; min-height:0;">
+      <!-- populated by JS -->
+    </div>
+  </div>
+
+</div>
+
+<!-- STATUS BAR -->
+<div class="status-bar">
+  <div class="status-item">SYSTEM<span class="v green">ONLINE</span></div>
+  <div class="status-item">BACKEND<span class="v green">LOCAL</span></div>
+  <div class="status-item">MAP<span class="v">LEAFLET 1.9</span></div>
+  <div class="status-item">LAST UPDT<span class="v" id="sb-date">2026-04-05</span></div>
+  <div class="status-item" style="margin-left:auto;">INTEL SRC<span class="v green">OSINT</span></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+// ═══════════════════════════════════════
+//  DATA
+// ═══════════════════════════════════════
+const NODES = [
+  {
+    id: 'GRILLMAIR',
+    name: 'Carl Grillmair',
+    lat: 34.475, lng: -117.828,
+    status: 'DECEASED',
+    field: 'Astrophysics / Galactic Astronomy',
+    org: 'Caltech / IPAC',
+    location: 'Llano, CA (Antelope Valley)',
+    date: 'Feb 16, 2026',
+    summary: 'Research scientist at Caltech\'s Infrared Processing and Analysis Center (IPAC) for 30 years. Led projects on Hubble and Spitzer Space Telescopes. Discovered water on multiple exoplanets. NASA Exceptional Scientific Achievement Medal (2011).',
+    cause: 'Fatally shot on front porch of rural home. Suspect: Freddy Snyder (29), charged with murder and carjacking. Snyder had trespassed on property with a rifle 2 months prior; charges were dismissed.',
+    links: [
+      { label: 'Caltech Obituary', url: 'https://www.caltech.edu/about/news/caltech-mourns-the-passing-of-carl-grillmair-19592026' },
+      { label: 'LA Mag — Killing Raises Questions', url: 'https://lamag.com/crimeinla/the-killing-of-caltech-astrophysicist-carl-grillmair-and-a-string-of-unanswered-cases/' },
+      { label: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Carl_Grillmair' },
+      { label: 'ABC7 — Suspect Charged', url: 'https://abc7.com/post/man-charged-killing-caltech-astrophysicist-carl-grillmair-llano-carjacking-own-relative-burglarizing-home/18626990/' },
+    ],
+    timeline: [
+      { date: '1997', event: 'Joins Caltech\'s IPAC / Spitzer Science Center' },
+      { date: '2007', event: 'Publishes landmark paper on exoplanet water detection' },
+      { date: '2011', event: 'Awarded NASA Exceptional Scientific Achievement Medal' },
+      { date: 'Dec 20, 2025', event: 'Reports armed trespasser (Snyder) to police; charges later dismissed' },
+      { date: 'Feb 16, 2026', event: 'Found fatally shot on front porch in Llano, CA' },
+      { date: 'Feb 18, 2026', event: 'Freddy Snyder charged with murder' },
+    ]
+  },
+  {
+    id: 'LOUREIRO',
+    name: 'Nuno Loureiro',
+    lat: 42.335, lng: -71.133,
+    status: 'DECEASED',
+    field: 'Plasma Physics / Nuclear Fusion',
+    org: 'MIT — Plasma Science & Fusion Center',
+    location: 'Brookline, MA',
+    date: 'Dec 16, 2025',
+    summary: 'Herman Feshbach Professor of Physics at MIT. Director of the Plasma Science and Fusion Center (2024–2025). Expert in magnetic reconnection and fusion plasma dynamics. Presidential Early Career Award for Scientists and Engineers (2025). LANL Stanisław Ulam Distinguished Scholar (2023).',
+    cause: 'Shot at foyer of apartment building. Perpetrator identified as Cláudio Manuel Neves Valente — Portuguese national who attended IST Lisbon with Loureiro (1995–2000). Same suspect linked to Brown University mass shooting 2 days prior. Suspect died by suicide. Motive: personal grievance.',
+    links: [
+      { label: 'MIT News — Obituary', url: 'https://news.mit.edu/2025/nuno-loureiro-professor-director-plasma-science-and-fusion-center-dies-1216' },
+      { label: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Nuno_Loureiro' },
+      { label: 'CNN Report', url: 'https://www.cnn.com/2025/12/16/us/nuno-loureiro-mit-professor-shot' },
+      { label: 'NBC News', url: 'https://www.nbcnews.com/news/us-news/mit-professor-killed-shooting-home-rcna249582' },
+    ],
+    timeline: [
+      { date: '2016', event: 'Joins MIT faculty' },
+      { date: '2021', event: 'Promoted to full professor' },
+      { date: '2023', event: 'LANL Stanisław Ulam Distinguished Scholar' },
+      { date: 'May 2024', event: 'Named Director of MIT Plasma Science & Fusion Center' },
+      { date: 'Dec 15, 2025', event: 'Shot at residence in Brookline, MA' },
+      { date: 'Dec 16, 2025', event: 'Pronounced dead at Beth Israel Deaconess Medical Center' },
+      { date: 'Dec 18, 2025', event: 'Suspect linked to Brown University shooting; dies by suicide' },
+    ]
+  },
+  {
+    id: 'REZA',
+    name: 'Monica Reza',
+    lat: 34.354, lng: -117.931,
+    status: 'MISSING',
+    field: 'Materials Science / Advanced Propulsion',
+    org: 'NASA JPL (formerly Aerojet Rocketdyne)',
+    location: 'Mt. Waterman, Angeles National Forest, CA',
+    date: 'Jun 22, 2025',
+    summary: 'Technical Fellow at Aerojet Rocketdyne (to 2023), then Director of Materials & Processing Group at NASA JPL. Co-inventor of Mondaloy, a nickel-based superalloy now used in U.S. national security rocket engines replacing Russian-made RD-180. AIAA Associate Fellow.',
+    cause: 'Vanished while hiking Mount Waterman trail in Angeles National Forest. Last seen waving to companion ~30 ft away at 9:10 AM. Extensive search: helicopters, K-9 units, drones, SAR teams over multiple months. No trace found. Case transferred to LACSO Homicide Bureau – Missing Persons Unit. No body recovered.',
+    links: [
+      { label: 'NY Post — Rocket Scientist Connection', url: 'https://www.aol.com/articles/rocket-scientist-ties-missing-air-121500316.html' },
+      { label: 'Solve the Case — Official Missing Alert', url: 'https://www.solvethecase.org/case/2025-56/monica-reza' },
+      { label: 'Daily Mail — Full Investigation', url: 'https://tuzarapost.substack.com/p/mystery-of-five-missing-scientists' },
+      { label: 'Sentinel Network — Deep Dive', url: 'https://thesentinel.network/p/the-green-burial-she-was-declared' },
+    ],
+    timeline: [
+      { date: '1990s', event: 'Co-invents Mondaloy superalloy at Rocketdyne' },
+      { date: '2016', event: 'Aerojet Rocketdyne achieves AR1 engine milestone using Mondaloy' },
+      { date: '2023', event: 'Aerojet Rocketdyne acquired by L3Harris for $4.7B; Reza moves to NASA JPL' },
+      { date: 'Jun 22, 2025 9:10AM', event: 'Last seen on Mt. Waterman trail; waves to companion, vanishes' },
+      { date: 'Jun 26, 2025', event: 'Find-a-Grave memorial page created — while search still active' },
+      { date: 'Jun 30, 2025', event: 'Initial search phase suspended; case transferred to Homicide Bureau' },
+      { date: 'Aug 8, 2025', event: 'Additional search conducted; no trace found' },
+    ]
+  },
+  {
+    id: 'MCCASLAND',
+    name: 'William McCasland',
+    lat: 35.084, lng: -106.650,
+    status: 'MISSING',
+    field: 'Aerospace Engineering / Space Programs',
+    org: 'USAF (Ret.) — Former AFRL Commander',
+    location: 'Albuquerque, NM / Sandia Foothills',
+    date: 'Feb 27, 2026',
+    summary: 'Retired Air Force Major General. Former Commander of the Air Force Research Laboratory (AFRL) at Wright-Patterson AFB — overseeing ~$2.2B in S&T programs. Ph.D. in aerospace engineering from MIT. Harvard Kennedy School. Led GPS program, Space Based Laser Project, Director of Special Programs at the Pentagon. Post-retirement: consultant to Tom DeLonge\'s UAP research company (To The Stars).',
+    cause: 'Vanished from Albuquerque home in a one-hour window while wife was at appointment. Left behind: phone, prescription glasses, wearable devices. Missing: hiking boots, wallet, .38-caliber revolver, leather holster. Silver Alert issued. FBI Albuquerque Field Office joined search. Investigators found USAF sweatshirt 1.25 miles east of home. Boots found at Pagosa Springs vacation home. No confirmed sightings. No evidence of foul play confirmed — but no scenarios ruled out.',
+    links: [
+      { label: 'CNN — FBI Search', url: 'https://www.cnn.com/2026/03/11/us/retired-air-force-general-fbi-search' },
+      { label: 'CNN — Week 3', url: 'https://www.cnn.com/2026/03/17/us/fbi-search-william-mccasland-general-missing' },
+      { label: 'Military.com — FBI & Conspiracy Theories', url: 'https://www.military.com/daily-news/air-force/2026/03/15/missing-air-force-general-case-draws-fbi-and-online-conspiracy-theories.html' },
+      { label: 'Fox News — Disappearance Timeline', url: 'https://www.foxnews.com/us/retired-air-force-general-vanishes-1-hour-window-from-home-gun-wallet-missing' },
+    ],
+    timeline: [
+      { date: '2009–2013', event: 'Commander, Air Force Research Laboratory, Wright-Patterson AFB' },
+      { date: '2013', event: 'Retires from Air Force after 30+ years service' },
+      { date: 'Post-2013', event: 'Consults for Tom DeLonge\'s "To The Stars" UAP initiative' },
+      { date: 'Feb 21, 2026', event: 'Trump announces UFO/UAP file declassification order' },
+      { date: 'Feb 27, 2026', event: 'Leaves home on foot at ~11AM; never returns' },
+      { date: 'Mar 3, 2026', event: 'FBI Albuquerque joins active search' },
+      { date: 'Mar 7, 2026', event: 'USAF sweatshirt found 1.25 miles east of home' },
+    ]
+  },
+  {
+    id: 'CASIAS',
+    name: 'Melissa Casias',
+    lat: 35.881, lng: -106.403,
+    status: 'ACTIVE',
+    field: 'Administrative / Facility Operations',
+    org: 'Los Alamos National Laboratory',
+    location: 'Los Alamos, NM',
+    date: 'N/A',
+    summary: 'Employee at Los Alamos National Laboratory. The specific details of her work and role are not fully publicly documented. LANL is a DOE national security laboratory with classified nuclear research programs, conducting ~$4B/year in federally funded R&D.',
+    cause: 'No confirmed incident. Listed for connection mapping purposes based on Los Alamos affiliation.',
+    links: [],
+    timeline: [
+      { date: 'Ongoing', event: 'Employee at Los Alamos National Laboratory' },
+    ]
+  },
+  {
+    id: 'CHAVEZ',
+    name: 'Anthony Chavez',
+    lat: 35.891, lng: -106.303,
+    status: 'ACTIVE',
+    field: 'R&D Engineering',
+    org: 'Los Alamos National Laboratory',
+    location: 'Los Alamos, NM',
+    date: 'N/A',
+    summary: 'R&D Engineer at Los Alamos National Laboratory. LANL conducts research in nuclear weapons, national security, and energy science. The lab employs ~13,000 people and is managed by Triad National Security for the DOE/NNSA.',
+    cause: 'No confirmed incident. Listed for connection mapping purposes based on Los Alamos affiliation.',
+    links: [],
+    timeline: [
+      { date: 'Ongoing', event: 'R&D Engineer at Los Alamos National Laboratory' },
+    ]
+  },
+  {
+    id: 'MAIWALD',
+    name: 'Frank Maiwald',
+    lat: 34.201, lng: -118.171,
+    status: 'ACTIVE',
+    field: 'Satellite Systems / Remote Sensing',
+    org: 'NASA JPL',
+    location: 'Pasadena, CA',
+    date: 'N/A',
+    summary: 'Senior Scientist at NASA\'s Jet Propulsion Laboratory. Focus on advanced satellite systems and related instrumentation. JPL is managed by Caltech for NASA and is responsible for numerous deep space and Earth-observation missions.',
+    cause: 'No confirmed incident. Listed for connection mapping based on JPL/Caltech institutional links.',
+    links: [
+      { label: 'NASA JPL', url: 'https://www.jpl.nasa.gov' },
+    ],
+    timeline: [
+      { date: 'Ongoing', event: 'Senior Scientist, NASA JPL — Satellite Systems' },
+    ]
+  },
+];
+
+const EDGES = [
+  { source: 'MCCASLAND', target: 'REZA', type: 'WORK', label: 'AFRL oversaw Mondaloy/superalloy program; Reza\'s propulsion research funded by McCasland\'s division' },
+  { source: 'CASIAS', target: 'CHAVEZ', type: 'WORK', label: 'Co-located at LANL; site-linked within Los Alamos R&D corridor' },
+  { source: 'MAIWALD', target: 'GRILLMAIR', type: 'ACQUAINTANCE', label: 'JPL/Caltech institutional overlap; collaborative NASA programs' },
+  { source: 'LOUREIRO', target: 'CHAVEZ', type: 'ACQUAINTANCE', label: 'LANL Stanisław Ulam Distinguished Scholar 2023 — institutional connection to Los Alamos' },
+  { source: 'GRILLMAIR', target: 'LOUREIRO', type: 'ACQUAINTANCE', label: 'Both killed within ~2 months; broad science community pattern' },
+  { source: 'REZA', target: 'MAIWALD', type: 'INSTITUTIONAL', label: 'Both affiliated with NASA JPL (Reza joined post-2023)' },
+  { source: 'MCCASLAND', target: 'GRILLMAIR', type: 'INSTITUTIONAL', label: 'AFRL programs intersect with NASA space telescope infrastructure' },
+  { source: 'CASIAS', target: 'LOUREIRO', type: 'INSTITUTIONAL', label: 'LANL — MIT nuclear science research exchange programs' },
+];
+
+// ═══════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════
+let map, markers = {}, polylines = [], selectedNode = null;
+let activeFilter = 'all';
+let edgeFilters = { WORK: true, ACQUAINTANCE: true, INSTITUTIONAL: true };
+let currentMode = 'map';
+let currentTab = 'intel';
+
+// ═══════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════
+window.addEventListener('load', () => {
+  if (typeof L === 'undefined') {
+    document.getElementById('map').innerHTML =
+      '<div style="color:#dc322f;font-family:monospace;padding:40px;font-size:12px;">ERR: Leaflet failed to load. Check network/CSP.</div>';
+    return;
+  }
+  initMap();
+  buildNodeList();
+  updateClock();
+  setInterval(updateClock, 1000);
+  document.getElementById('tab-intel').addEventListener('click', () => switchTab('intel'));
+});
+
+function updateClock() {
+  const now = new Date();
+  document.getElementById('hud-time').textContent =
+    now.toUTCString().slice(17,25) + ' Z';
+}
+
+// ═══════════════════════════════════════
+//  MAP
+// ═══════════════════════════════════════
+function initMap() {
+  map = L.map('map', {
+    center: [37.5, -100],
+    zoom: 5,
+    zoomControl: true,
+  });
+
+  // Dark tile layer
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '',
+    subdomains: 'abcd',
+    maxZoom: 19,
+  }).addTo(map);
+
+  map.on('zoomend', () => {
+    document.getElementById('hud-zoom').textContent = map.getZoom();
+  });
+
+  NODES.forEach(n => addMarker(n));
+  drawEdges();
+}
+
+function getStatusColor(status) {
+  if (status === 'DECEASED') return '#dc322f';
+  if (status === 'MISSING')  return '#b58900';
+  return '#268bd2';
+}
+
+function addMarker(node) {
+  const color = getStatusColor(node.status);
+  const initials = node.name.split(' ').map(w => w[0]).join('').slice(0,2);
+
+  const icon = L.divIcon({
+    className: '',
+    html: `<div class="custom-marker marker-${node.status}" style="width:36px;height:36px;font-size:9px;">
+             <span>${initials}</span>
+           </div>`,
+    iconSize: [36, 36],
+    iconAnchor: [18, 18],
+    popupAnchor: [0, -20],
+  });
+
+  const marker = L.marker([node.lat, node.lng], { icon }).addTo(map);
+
+  marker.bindTooltip(node.name, { direction: 'top', offset: [0, -10] });
+
+  marker.on('click', () => selectNode(node.id));
+
+  markers[node.id] = marker;
+}
+
+function drawEdges() {
+  if (!map) return;
+  polylines.forEach(p => map.removeLayer(p));
+  polylines = [];
+
+  EDGES.forEach(edge => {
+    if (!edgeFilters[edge.type]) return;
+
+    const src = NODES.find(n => n.id === edge.source);
+    const tgt = NODES.find(n => n.id === edge.target);
+    if (!src || !tgt) return;
+
+    const colorMap = {
+      WORK: '#268bd2',
+      ACQUAINTANCE: '#6c71c4',
+      INSTITUTIONAL: '#2aa198',
+    };
+    const dashMap = {
+      WORK: null,
+      ACQUAINTANCE: [6, 4],
+      INSTITUTIONAL: [2, 4],
+    };
+
+    const polyline = L.polyline(
+      [[src.lat, src.lng], [tgt.lat, tgt.lng]],
+      {
+        color: colorMap[edge.type],
+        weight: 1.5,
+        opacity: 0.55,
+        dashArray: dashMap[edge.type],
+        className: `edge-${edge.type}`,
+      }
+    ).addTo(map);
+
+    polyline.bindTooltip(`<b>${edge.type}</b><br>${src.name} ↔ ${tgt.name}<br><span style="opacity:0.7;font-size:10px;">${edge.label}</span>`, {
+      sticky: true,
+      direction: 'top',
+    });
+
+    polylines.push(polyline);
+  });
+}
+
+// ═══════════════════════════════════════
+//  NODE LIST
+// ═══════════════════════════════════════
+function buildNodeList() {
+  const list = document.getElementById('node-list');
+  list.innerHTML = '';
+  const filtered = NODES.filter(n => {
+    if (activeFilter === 'deceased') return n.status === 'DECEASED';
+    if (activeFilter === 'missing') return n.status === 'MISSING';
+    return true;
+  });
+  filtered.forEach(n => {
+    const div = document.createElement('div');
+    div.className = `node-item ${n.status.toLowerCase()}`;
+    div.id = `li-${n.id}`;
+    div.innerHTML = `
+      <div class="node-status-dot" style="background:${getStatusColor(n.status)};box-shadow:0 0 5px ${getStatusColor(n.status)}"></div>
+      <div>
+        <div class="name">${n.name}</div>
+        <div class="org">${n.org}</div>
+        <span class="status-tag ${n.status}">${n.status}</span>
+      </div>`;
+    div.addEventListener('click', () => selectNode(n.id));
+    list.appendChild(div);
+  });
+}
+
+// ═══════════════════════════════════════
+//  SELECT NODE
+// ═══════════════════════════════════════
+function selectNode(id) {
+  // Deselect old
+  if (selectedNode) {
+    const oldLi = document.getElementById(`li-${selectedNode}`);
+    if (oldLi) oldLi.classList.remove('selected');
+  }
+
+  selectedNode = id;
+  const node = NODES.find(n => n.id === id);
+  if (!node) return;
+
+  // Highlight list item
+  const li = document.getElementById(`li-${id}`);
+  if (li) li.classList.add('selected');
+
+  // Fly to
+  if (currentMode === 'map' && map) {
+    map.flyTo([node.lat, node.lng], 8, { duration: 1.2 });
+  }
+
+  // Show detail panel
+  document.getElementById('panel-empty').style.display = 'none';
+  const dp = document.getElementById('panel-detail');
+  dp.style.display = 'block';
+
+  renderDetailPanel(node);
+}
+
+function renderDetailPanel(node) {
+  const dp = document.getElementById('panel-detail');
+  dp.innerHTML = '';
+
+  if (currentTab === 'intel') {
+    dp.innerHTML = buildIntelHTML(node);
+  } else if (currentTab === 'timeline') {
+    dp.innerHTML = buildTimelineHTML(node);
+  } else if (currentTab === 'links') {
+    dp.innerHTML = buildLinksHTML(node);
+  }
+}
+
+function buildIntelHTML(node) {
+  const color = getStatusColor(node.status);
+  const conns = EDGES.filter(e => e.source === node.id || e.target === node.id);
+
+  let connHTML = '';
+  conns.forEach(e => {
+    const otherId = e.source === node.id ? e.target : e.source;
+    const other = NODES.find(n => n.id === otherId);
+    connHTML += `
+      <div class="conn-item" onclick="selectNode('${other.id}')">
+        <div class="conn-header">
+          <span class="conn-type-badge badge-${e.type}">${e.type}</span>
+          <span class="conn-name">${other.name}</span>
+        </div>
+        <div class="conn-label">${e.label}</div>
+      </div>`;
+  });
+
+  return `
+    <div class="detail-header">
+      <div class="detail-status-bar">
+        <span class="status-tag ${node.status}">${node.status}</span>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--text-dim);">${node.date || 'ONGOING'}</span>
+      </div>
+      <div class="detail-name">${node.name}</div>
+      <div class="detail-id">NODE // ${node.id}</div>
+    </div>
+    <div class="detail-field">
+      <div class="key">FIELD</div>
+      <div class="value">${node.field}</div>
+    </div>
+    <div class="detail-field">
+      <div class="key">ORG</div>
+      <div class="value">${node.org}</div>
+    </div>
+    <div class="detail-field">
+      <div class="key">LOCATION</div>
+      <div class="value">${node.location}</div>
+    </div>
+    <div class="detail-field">
+      <div class="key">SUMMARY</div>
+      <div class="value" style="font-size:12px;line-height:1.5;color:var(--text-sec);">${node.summary}</div>
+    </div>
+    <div class="detail-field">
+      <div class="key">INCIDENT</div>
+      <div class="value" style="font-size:12px;line-height:1.5;color:var(--text-sec);">${node.cause}</div>
+    </div>
+    ${conns.length ? `
+    <div class="connections-section">
+      <div class="panel-title">CONNECTIONS</div>
+      ${connHTML}
+    </div>` : ''}`;
+}
+
+function buildTimelineHTML(node) {
+  let items = '';
+  node.timeline.forEach(t => {
+    const color = getStatusColor(node.status);
+    items += `
+      <div class="timeline-item">
+        <div class="tl-dot" style="border-color:${color}"></div>
+        <div class="tl-content">
+          <div class="tl-date">${t.date}</div>
+          <div class="tl-event">${t.event}</div>
+        </div>
+      </div>`;
+  });
+  return `
+    <div class="detail-header">
+      <div class="detail-name">${node.name}</div>
+      <div class="detail-id">TIMELINE // ${node.id}</div>
+    </div>
+    <div class="timeline" style="padding:16px;">${items}</div>`;
+}
+
+function buildLinksHTML(node) {
+  let linksHTML = '';
+  if (node.links.length === 0) {
+    linksHTML = '<div style="font-family:var(--mono);font-size:10px;color:var(--text-dim);padding:16px;">NO OPEN-SOURCE LINKS AVAILABLE</div>';
+  } else {
+    node.links.forEach(l => {
+      linksHTML += `
+        <div style="padding:10px 16px;border-bottom:1px solid var(--border);">
+          <a href="${l.url}" target="_blank" rel="noopener" style="color:var(--accent);font-family:var(--mono);font-size:10px;text-decoration:none;display:block;line-height:1.6;">
+            ↗ ${l.label}
+          </a>
+          <div style="font-family:var(--mono);font-size:8px;color:var(--text-dim);margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${l.url}</div>
+        </div>`;
+    });
+  }
+  return `
+    <div class="detail-header">
+      <div class="detail-name">${node.name}</div>
+      <div class="detail-id">OPEN SOURCE LINKS // ${node.id}</div>
+    </div>
+    ${linksHTML}`;
+}
+
+// ═══════════════════════════════════════
+//  TABS
+// ═══════════════════════════════════════
+function switchTab(tab) {
+  currentTab = tab;
+  ['intel','timeline','links'].forEach(t => {
+    document.getElementById(`tab-${t}`).classList.toggle('active', t === tab);
+  });
+  if (selectedNode) {
+    const node = NODES.find(n => n.id === selectedNode);
+    if (node) renderDetailPanel(node);
+  }
+}
+
+// ═══════════════════════════════════════
+//  FILTERS
+// ═══════════════════════════════════════
+function filterNodes(f) {
+  activeFilter = f;
+  ['all','deceased','missing'].forEach(x => {
+    document.getElementById(`f-${x}`).classList.toggle('on', x === f);
+  });
+
+  if (map) {
+    NODES.forEach(n => {
+      const show = f === 'all' ||
+        (f === 'deceased' && n.status === 'DECEASED') ||
+        (f === 'missing'  && n.status === 'MISSING');
+      if (markers[n.id]) {
+        if (show) { map.addLayer(markers[n.id]); }
+        else { map.removeLayer(markers[n.id]); }
+      }
+    });
+  }
+
+  const vis = NODES.filter(n => {
+    return f === 'all' ||
+      (f === 'deceased' && n.status === 'DECEASED') ||
+      (f === 'missing'  && n.status === 'MISSING');
+  }).length;
+  document.getElementById('hud-vis').textContent = vis;
+
+  buildNodeList();
+}
+
+function toggleEdge(type) {
+  edgeFilters[type] = !edgeFilters[type];
+  const key = type === 'WORK' ? 'f-work' : type === 'ACQUAINTANCE' ? 'f-acq' : 'f-inst';
+  document.getElementById(key).classList.toggle('on', edgeFilters[type]);
+  if (map) drawEdges();
+}
+
+// ═══════════════════════════════════════
+//  MODE SWITCH
+// ═══════════════════════════════════════
+function switchMode(mode) {
+  currentMode = mode;
+  document.getElementById('btn-map').classList.toggle('active', mode === 'map');
+  document.getElementById('btn-graph').classList.toggle('active', mode === 'graph');
+  document.getElementById('map-container').style.display = mode === 'map' ? 'block' : 'none';
+  document.getElementById('graph-container').style.display = mode === 'graph' ? 'block' : 'none';
+
+  if (mode === 'graph') {
+    setTimeout(initGraph, 50);
+  } else if (map) {
+    map.invalidateSize();
+  }
+}
+
+// ═══════════════════════════════════════
+//  D3 GRAPH
+// ═══════════════════════════════════════
+function initGraph() {
+  const container = document.getElementById('graph-container');
+  const svg = d3.select('#graph-svg');
+  svg.selectAll('*').remove();
+
+  const W = container.offsetWidth;
+  const H = container.offsetHeight;
+
+  const svgEl = svg.attr('width', W).attr('height', H);
+
+  // Background grid
+  const defs = svgEl.append('defs');
+  defs.append('pattern')
+    .attr('id','grid').attr('width',40).attr('height',40)
+    .attr('patternUnits','userSpaceOnUse')
+    .append('path')
+      .attr('d','M 40 0 L 0 0 0 40')
+      .attr('fill','none')
+      .attr('stroke','#1a3a50')
+      .attr('stroke-width','0.5');
+
+  svgEl.append('rect').attr('width',W).attr('height',H).attr('fill','url(#grid)').attr('opacity',0.5);
+
+  // Arrow markers
+  ['WORK','ACQUAINTANCE','INSTITUTIONAL'].forEach(type => {
+    const colorMap = { WORK:'#268bd2', ACQUAINTANCE:'#6c71c4', INSTITUTIONAL:'#2aa198' };
+    defs.append('marker')
+      .attr('id', `arrow-${type}`)
+      .attr('viewBox','0 0 10 10').attr('refX',20).attr('refY',5)
+      .attr('markerWidth',6).attr('markerHeight',6)
+      .attr('orient','auto')
+      .append('path')
+        .attr('d','M 0 0 L 10 5 L 0 10 z')
+        .attr('fill', colorMap[type]);
+  });
+
+  const gfx = svgEl.append('g');
+
+  // Zoom
+  const zoom = d3.zoom()
+    .scaleExtent([0.3, 3])
+    .on('zoom', e => gfx.attr('transform', e.transform));
+  svgEl.call(zoom);
+
+  // Force simulation
+  const nodes = NODES.map(n => ({ ...n }));
+  const links = EDGES
+    .filter(e => edgeFilters[e.type])
+    .map(e => ({ source: e.source, target: e.target, type: e.type, label: e.label }));
+
+  const sim = d3.forceSimulation(nodes)
+    .force('link', d3.forceLink(links).id(d => d.id).distance(160).strength(0.4))
+    .force('charge', d3.forceManyBody().strength(-400))
+    .force('center', d3.forceCenter(W/2, H/2))
+    .force('collision', d3.forceCollide(50));
+
+  // Edge lines
+  const colorMap = { WORK:'#268bd2', ACQUAINTANCE:'#6c71c4', INSTITUTIONAL:'#2aa198' };
+  const dashMap = { WORK:null, ACQUAINTANCE:'6,4', INSTITUTIONAL:'2,4' };
+
+  const edgeG = gfx.append('g');
+  const link = edgeG.selectAll('line')
+    .data(links).enter().append('line')
+    .attr('stroke', d => colorMap[d.type])
+    .attr('stroke-width', 1.5)
+    .attr('stroke-opacity', 0.5)
+    .attr('stroke-dasharray', d => dashMap[d.type] || null)
+    .attr('marker-end', d => `url(#arrow-${d.type})`);
+
+  // Edge labels
+  const edgeLabel = edgeG.selectAll('text')
+    .data(links).enter().append('text')
+    .attr('class','graph-link-label')
+    .attr('text-anchor','middle')
+    .attr('dy','-4')
+    .text(d => d.type);
+
+  // Nodes
+  const nodeG = gfx.append('g');
+  const node = nodeG.selectAll('g')
+    .data(nodes).enter().append('g')
+    .attr('class','graph-node')
+    .style('cursor','pointer')
+    .call(d3.drag()
+      .on('start', (e, d) => { if (!e.active) sim.alphaTarget(0.3).restart(); d.fx=d.x; d.fy=d.y; })
+      .on('drag',  (e, d) => { d.fx=e.x; d.fy=e.y; })
+      .on('end',   (e, d) => { if (!e.active) sim.alphaTarget(0); d.fx=null; d.fy=null; }))
+    .on('click', (e, d) => selectNode(d.id));
+
+  node.append('circle')
+    .attr('r', 22)
+    .attr('fill', d => {
+      const c = getStatusColor(d.status);
+      return c + '33'; // transparent version
+    })
+    .attr('stroke', d => getStatusColor(d.status))
+    .attr('stroke-width', 2);
+
+  // Pulse ring for missing
+  node.filter(d => d.status === 'MISSING').append('circle')
+    .attr('r', 22)
+    .attr('fill','none')
+    .attr('stroke', '#b58900')
+    .attr('stroke-width', 1)
+    .attr('opacity', 0.4)
+    .style('animation', 'pulse-missing 2.5s ease-in-out infinite');
+
+  // Initials
+  node.append('text')
+    .attr('text-anchor','middle').attr('dy','0.35em')
+    .attr('font-size','10px').attr('font-family',"'Share Tech Mono', monospace")
+    .attr('fill', d => getStatusColor(d.status))
+    .text(d => d.name.split(' ').map(w => w[0]).join('').slice(0,2));
+
+  // Name label
+  node.append('text')
+    .attr('text-anchor','middle').attr('y', 36)
+    .attr('font-size','10px').attr('font-family',"'Share Tech Mono', monospace")
+    .attr('fill','#c8d8e0')
+    .text(d => d.name.split(' ')[1] || d.name.split(' ')[0]);
+
+  // Status dot
+  node.append('circle')
+    .attr('cx', 16).attr('cy', -16).attr('r', 5)
+    .attr('fill', d => getStatusColor(d.status))
+    .attr('stroke','#000b14').attr('stroke-width',1.5);
+
+  sim.on('tick', () => {
+    link
+      .attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+      .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+    edgeLabel
+      .attr('x', d => (d.source.x + d.target.x)/2)
+      .attr('y', d => (d.source.y + d.target.y)/2);
+    node.attr('transform', d => `translate(${d.x},${d.y})`);
+  });
+}
+
+// ═══════════════════════════════════════
+//  RESET
+// ═══════════════════════════════════════
+function resetView() {
+  if (currentMode === 'map' && map) {
+    map.flyTo([37.5, -100], 5, { duration: 1 });
+  }
+  // Deselect
+  if (selectedNode) {
+    const li = document.getElementById(`li-${selectedNode}`);
+    if (li) li.classList.remove('selected');
+    selectedNode = null;
+  }
+  document.getElementById('panel-empty').style.display = 'flex';
+  document.getElementById('panel-detail').style.display = 'none';
+}
+</script>
+</body>
+</html>
