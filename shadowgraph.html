@@ -578,6 +578,56 @@
   .status-item .v.amber { color: var(--missing); }
   .status-item .v.green { color: var(--accent); }
 
+  /* Degree badge */
+  .degree-badge {
+    font-family: var(--mono);
+    font-size: 8px;
+    padding: 1px 5px;
+    border-radius: 2px;
+    display: inline-block;
+    letter-spacing: 1px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .deg-0 { background: rgba(220,50,47,0.15); border: 1px solid var(--deceased); color: var(--deceased); }
+  .deg-1 { background: rgba(42,161,152,0.15); border: 1px solid #2aa198; color: #2aa198; }
+  .deg-2 { background: rgba(108,113,196,0.15); border: 1px solid #6c71c4; color: #6c71c4; }
+  .deg-3 { background: rgba(101,123,131,0.15); border: 1px solid #657b83; color: #657b83; }
+
+  /* Pattern list */
+  .pattern-item {
+    padding: 7px 10px;
+    margin-bottom: 5px;
+    border-left: 3px solid;
+    background: rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .pattern-item:hover { background: rgba(255,255,255,0.04); }
+  .pattern-item.active { background: rgba(133,153,0,0.08); }
+  .pattern-name { font-family: var(--mono); font-size: 9px; letter-spacing: 1px; color: var(--text-pri); text-transform: uppercase; }
+  .pattern-count { font-family: var(--mono); font-size: 8px; color: var(--text-dim); margin-top: 2px; }
+
+  /* Pattern tag in detail panel */
+  .pattern-tag {
+    font-family: var(--mono);
+    font-size: 8px;
+    padding: 2px 6px;
+    border: 1px solid;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin: 2px 3px 2px 0;
+    cursor: pointer;
+    transition: opacity 0.15s;
+    text-transform: uppercase;
+  }
+  .pattern-tag:hover { opacity: 0.7; }
+
+  /* Cluster indicator dot in map */
+  .marker-ext1 { border-color: #2aa198; color: #2aa198; background: rgba(42,161,152,0.2); box-shadow: 0 0 8px rgba(42,161,152,0.3); }
+  .marker-ext2 { border-color: #6c71c4; color: #6c71c4; background: rgba(108,113,196,0.2); box-shadow: 0 0 8px rgba(108,113,196,0.25); }
+  .marker-ext3 { border-color: #657b83; color: #657b83; background: rgba(101,123,131,0.2); }
+
   /* Scrollbar */
   ::-webkit-scrollbar { width: 4px; height: 4px; }
   ::-webkit-scrollbar-track { background: transparent; }
@@ -595,8 +645,8 @@
     </div>
     <div class="hdr-sep"></div>
     <div class="hdr-stat">
-      <div><span class="pulse-dot"></span>NODES: <span class="val">7</span></div>
-      <div>CONNECTIONS: <span class="val">8</span></div>
+      <div><span class="pulse-dot"></span>NODES: <span class="val">18</span></div>
+      <div>CONNECTIONS: <span class="val">26</span></div>
     </div>
     <div class="hdr-sep"></div>
     <div class="hdr-stat">
@@ -629,13 +679,23 @@
         <button class="filter-btn on" id="f-acq" onclick="toggleEdge('ACQUAINTANCE')">ACQUAINTANCE</button>
         <button class="filter-btn on" id="f-inst" onclick="toggleEdge('INSTITUTIONAL')">INSTITUTIONAL</button>
       </div>
+      <div class="filter-row">
+        <button class="filter-btn on" id="f-deg-all" onclick="filterDegree('all')">ALL DEG</button>
+        <button class="filter-btn" id="f-deg-0" onclick="filterDegree(0)" style="border-color:var(--deceased);color:var(--deceased)">CORE</button>
+        <button class="filter-btn" id="f-deg-1" onclick="filterDegree(1)" style="border-color:#2aa198;color:#2aa198">1°</button>
+        <button class="filter-btn" id="f-deg-2" onclick="filterDegree(2)" style="border-color:#6c71c4;color:#6c71c4">2°</button>
+        <button class="filter-btn" id="f-deg-3" onclick="filterDegree(3)" style="border-color:#657b83;color:#657b83">3°</button>
+      </div>
     </div>
 
     <div class="panel-section" style="flex:1; overflow:hidden; display:flex; flex-direction:column;">
       <div class="panel-title">SUBJECTS</div>
-      <div class="node-list" id="node-list">
-        <!-- populated by JS -->
-      </div>
+      <div class="node-list" id="node-list"></div>
+    </div>
+
+    <div class="panel-section" style="max-height:220px;overflow-y:auto;">
+      <div class="panel-title">PATTERN CLUSTERS</div>
+      <div id="pattern-list"><!-- populated by JS --></div>
     </div>
 
     <div class="panel-section">
@@ -867,22 +927,403 @@ const NODES = [
   },
 ];
 
+// ── 1st DEGREE EXTENDED NODES ─────────────────────────────
+const NODES_EXT = [
+  {
+    id: 'ELACHI',
+    name: 'Dr. Charles Elachi',
+    lat: 34.201, lng: -118.173,
+    status: 'ACTIVE',
+    degree: 1,
+    cluster: 'AEROSPACE',
+    field: 'Remote Sensing / Planetary Science',
+    org: 'NASA JPL (Former Director, 2001–2016) / Caltech',
+    location: 'Pasadena, CA',
+    date: 'N/A',
+    patterns: ['PASADENA_TRIANGLE', 'JPL_LEADERSHIP'],
+    summary: 'Director of NASA\'s Jet Propulsion Laboratory 2001–2016. Vice President of Caltech. Spent 45 years at JPL pioneering space-based radar imaging. Led 24+ missions including Spitzer Space Telescope — the same infrared program on which GRILLMAIR worked for 30 years. Asteroid 4116 Elachi named in his honor. Now Professor Emeritus, Caltech.',
+    cause: 'No incident. 1st-degree institutional link to REZA (both served JPL under Caltech management) and to GRILLMAIR (Spitzer/IPAC overlap during Elachi directorship 2001–2016).',
+    links: [
+      { label: 'NASA JPL — Director Profile', url: 'https://www.jpl.nasa.gov/who-we-are/faces-of-leadership-the-directors-of-jpl/dr-charles-elachi-1947/' },
+      { label: 'Caltech — Retirement Announcement', url: 'https://www.caltech.edu/about/news/elachi-retire-jpl-director-48616' },
+      { label: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Charles_Elachi' },
+    ],
+    timeline: [
+      { date: '1970', event: 'Joins JPL as researcher' },
+      { date: '1982–2000', event: 'Director of Space and Earth Science Programs at JPL' },
+      { date: '2001', event: 'Named 8th Director of JPL and VP of Caltech' },
+      { date: '2003', event: 'Spitzer Space Telescope launched — GRILLMAIR\'s primary mission' },
+      { date: '2016', event: 'Retires from JPL; becomes Professor Emeritus, Caltech' },
+    ]
+  },
+  {
+    id: 'RAYMOND',
+    name: 'Gen. John W. Raymond',
+    lat: 38.869, lng: -104.757,
+    status: 'ACTIVE',
+    degree: 1,
+    cluster: 'MILITARY_SPACE',
+    field: 'Space Operations / National Security',
+    org: 'US Space Force (Ret.) — 1st Chief of Space Operations',
+    location: 'Colorado Springs, CO',
+    date: 'N/A',
+    patterns: ['POWER_AXIS', 'SPACE_COMMAND_CHAIN'],
+    summary: 'First Chief of Space Operations of the newly formed US Space Force (2019–2022). First Commander of reestablished US Space Command (2019–2020). Career missile and space operations officer spanning Air Force Space Command, GPS program leadership, and Space-Based Laser Project Office. Directly replaced Lt. Gen. Susan Helms as commander of 14th Air Force in 2014. Post-retirement: board of Axiom Space, Impulse Space, senior MD at Cerberus Capital, visiting fellow at Hoover Institution.',
+    cause: 'No incident. 1st-degree work link to MCCASLAND via overlapping Air Force Space Command command structures. Both led AFRL/Space Command programs at senior level.',
+    links: [
+      { label: 'Space Force — Official Bio', url: 'https://www.spaceforce.mil/Biographies/Display/Article/2040592/john-w-jay-raymond/' },
+      { label: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/John_W._Raymond' },
+      { label: 'CSIS Profile', url: 'https://www.csis.org/people/john-raymond' },
+      { label: 'Hoover Institution', url: 'https://www.hoover.org/profiles/general-john-w-jay-raymond' },
+    ],
+    timeline: [
+      { date: '1984', event: 'Commissioned USAF via Clemson ROTC' },
+      { date: '2014', event: 'Commands 14th Air Force — replacing Lt. Gen. Susan Helms' },
+      { date: '2016', event: 'Commands Air Force Space Command' },
+      { date: 'Dec 2019', event: 'First Chief of Space Operations, US Space Force; first Guardian' },
+      { date: '2022', event: 'Relinquishes CSO post; retires 2023' },
+    ]
+  },
+  {
+    id: 'ZUBER',
+    name: 'Dr. Maria Zuber',
+    lat: 42.360, lng: -71.092,
+    status: 'ACTIVE',
+    degree: 1,
+    cluster: 'MIT_CORE',
+    field: 'Geophysics / Planetary Science',
+    org: 'MIT — E.A. Griswold Professor; Former VP for Research (2013–2024)',
+    location: 'Cambridge, MA',
+    date: 'N/A',
+    patterns: ['MIT_OVERSIGHT', 'NASA_MISSION_LEAD'],
+    summary: 'E.A. Griswold Professor of Geophysics at MIT. Served as VP for Research 2013–2024, with direct institutional oversight of the MIT Plasma Science and Fusion Center — the unit LOUREIRO directed. Led GRAIL lunar gravity mission as PI (first woman to lead a NASA robotic mission). Co-chaired President Biden\'s Council of Advisors on Science and Technology (PCAST) 2021–2024. Held leadership roles on 10 NASA missions.',
+    cause: 'No incident. 1st-degree institutional link to LOUREIRO: as MIT VP for Research, Zuber\'s office oversaw the Plasma Science and Fusion Center that Loureiro directed from May 2024 until his murder in December 2025.',
+    links: [
+      { label: 'MIT EAPS Profile', url: 'https://eapsweb.mit.edu/people/zuber' },
+      { label: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Maria_Zuber' },
+      { label: 'NASA Science', url: 'https://science.nasa.gov/people/maria-zuber/' },
+    ],
+    timeline: [
+      { date: '1995', event: 'Joins MIT faculty' },
+      { date: '2003–2012', event: 'Head, Dept. of Earth, Atmospheric and Planetary Sciences, MIT' },
+      { date: '2013', event: 'Appointed MIT VP for Research — oversees Plasma Science & Fusion Center' },
+      { date: 'May 2024', event: 'LOUREIRO named Director of PSFC under Zuber\'s VP purview' },
+      { date: 'Dec 2025', event: 'LOUREIRO murdered; Zuber issues statements' },
+      { date: '2024', event: 'Steps down as MIT VP for Research' },
+    ]
+  },
+  {
+    id: 'HARRISON',
+    name: 'Dr. Fiona A. Harrison',
+    lat: 34.137, lng: -118.124,
+    status: 'ACTIVE',
+    degree: 1,
+    cluster: 'CALTECH_CORE',
+    field: 'High-Energy Astrophysics / X-ray Telescope',
+    org: 'Caltech — Harold A. Rosen Professor of Physics; Division Chair PMA 2015–2025',
+    location: 'Pasadena, CA',
+    date: 'N/A',
+    patterns: ['PASADENA_TRIANGLE', 'CALTECH_OVERSIGHT'],
+    summary: 'Harold A. Rosen Professor of Physics at Caltech. Division Chair of Physics, Mathematics & Astronomy (PMA) 2015–2025 — making her GRILLMAIR\'s institutional supervisor throughout IPAC\'s reporting period. Principal Investigator for NASA\'s NuSTAR mission (first focusing high-energy X-ray telescope). Second woman to lead a NASA mission. Member, National Academy of Sciences. Co-chair, Decadal Survey on Astronomy and Astrophysics.',
+    cause: 'No incident. 1st-degree institutional link to GRILLMAIR: as Caltech PMA Division Chair, Harrison oversaw Caltech\'s IPAC science center where Grillmair worked for 30 years.',
+    links: [
+      { label: 'Caltech PMA Profile', url: 'https://www.pma.caltech.edu/people/fiona-a-harrison' },
+      { label: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fiona_A._Harrison' },
+      { label: 'NAS Profile', url: 'https://www.nasonline.org/directory-entry/fiona-a-harrison-bhtvyr/' },
+    ],
+    timeline: [
+      { date: '1995', event: 'Joins Caltech faculty as Assistant Professor of Physics' },
+      { date: '2005', event: 'Named Principal Investigator for NASA NuSTAR mission' },
+      { date: '2013', event: 'Appointed Benjamin M. Rosen Professor of Physics' },
+      { date: '2015', event: 'Becomes Chair, Division of Physics, Mathematics and Astronomy — IPAC supervisor' },
+      { date: '2026', event: 'Steps down as Division Chair (10-year term ends)' },
+    ]
+  },
+  // ── 2nd DEGREE EXTENDED NODES ─────────────────────────────
+  {
+    id: 'BHATTACHARJEE',
+    name: 'Dr. Amitava Bhattacharjee',
+    lat: 40.348, lng: -74.659,
+    status: 'ACTIVE',
+    degree: 2,
+    cluster: 'PLASMA_CORE',
+    field: 'Plasma Physics / Magnetic Reconnection',
+    org: 'Princeton University / Princeton Plasma Physics Laboratory (PPPL)',
+    location: 'Princeton, NJ',
+    date: 'N/A',
+    patterns: ['PLASMA_NETWORK', 'DOE_FUSION_CHAIN'],
+    summary: 'Professor of Astrophysical Sciences at Princeton and former Head of Theory Dept. at PPPL (2012–2021). Ph.D. from Princeton in theoretical plasma physics (1981). World authority on magnetic reconnection — the exact subfield LOUREIRO specialized in at MIT\'s Plasma Science and Fusion Center. APS James Clerk Maxwell Prize winner (2022). Director, Princeton Center for Heliophysics. His research and Loureiro\'s shared a common theoretical framework on tearing modes, plasmoid instability, and reconnection dynamics.',
+    cause: 'No incident. 2nd-degree acquaintance to LOUREIRO via overlapping plasma physics research community. Magnetic reconnection is the shared technical specialty connecting the MIT and Princeton plasma programs.',
+    links: [
+      { label: 'PPPL Profile', url: 'https://www.pppl.gov/people/amitava-bhattacharjee' },
+      { label: 'Princeton CV', url: 'https://scholar.princeton.edu/amitava/cv' },
+      { label: 'APS Maxwell Prize', url: 'https://www.aps.org/programs/honors/prizes/prizerecipient.cfm?last_nm=Bhattacharjee&first_nm=Amitava&year=2022' },
+    ],
+    timeline: [
+      { date: '1981', event: 'Ph.D. in theoretical plasma physics, Princeton' },
+      { date: '2012', event: 'Joins PPPL as Head of Theory Department' },
+      { date: '2013', event: 'Founds Princeton Center for Heliophysics' },
+      { date: '2022', event: 'Wins APS James Clerk Maxwell Prize — plasma physics\'s highest honor' },
+      { date: 'Ongoing', event: 'Co-Director, Princeton Center for Heliophysics; DOE fusion program leadership' },
+    ]
+  },
+  {
+    id: 'HELMS',
+    name: 'Lt. Gen. Susan Helms',
+    lat: 34.737, lng: -120.573,
+    status: 'ACTIVE',
+    degree: 2,
+    cluster: 'MILITARY_SPACE',
+    field: 'Space Operations / Military Astronautics',
+    org: 'USAF (Ret.) / NASA Astronaut — 14th Air Force Commander',
+    location: 'Vandenberg SFB, CA (last command)',
+    date: 'N/A',
+    patterns: ['SPACE_COMMAND_CHAIN', 'POWER_AXIS'],
+    summary: 'Retired USAF Lieutenant General. Commander of 14th Air Force (Air Forces Strategic) and Joint Functional Component Command for Space at Vandenberg AFB — RAYMOND\'s predecessor in this exact role. First US military woman in space (1993). Veteran of five Space Shuttle missions and ISS Expedition 2. Held world record for longest spacewalk (8h 56m). Directly linked to MCCASLAND\'s command chain through overlapping senior space leadership roles in AF Space Command. Now at Aerospace Corporation board and Orbital Visions LLC.',
+    cause: 'No incident. 2nd-degree work link to MCCASLAND via concurrent senior AF Space Command leadership. RAYMOND assumed Helms\'s exact 14th Air Force command in 2014 upon her retirement — creating a direct command lineage through which MCCASLAND\'s AFRL programs interfaced.',
+    links: [
+      { label: 'NASA Bio', url: 'https://www.nasa.gov/people/lieutenant-general-susan-j-helms/' },
+      { label: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Susan_Helms' },
+      { label: 'Aerospace Corporation', url: 'https://aerospace.org/person/lt-gen-susan-j-helms-usaf-ret' },
+    ],
+    timeline: [
+      { date: '1980', event: 'Graduates USAF Academy (first class with women cadets)' },
+      { date: '1990', event: 'Selected as NASA astronaut' },
+      { date: '1993', event: 'First US military woman in space — STS-54' },
+      { date: '2011', event: 'Commands 14th Air Force and JFCC Space at Vandenberg' },
+      { date: '2013', event: 'Obama nominates her for AFSPC vice commander; Senate blocks over conduct ruling' },
+      { date: '2014', event: 'Retires from USAF; Raymond assumes her 14th Air Force role' },
+    ]
+  },
+  {
+    id: 'WATKINS',
+    name: 'Dr. Michael Watkins',
+    lat: 34.202, lng: -118.172,
+    status: 'ACTIVE',
+    degree: 2,
+    cluster: 'AEROSPACE',
+    field: 'Planetary Science / Mission Management',
+    org: 'NASA JPL / Caltech',
+    location: 'Pasadena, CA',
+    date: 'N/A',
+    patterns: ['PASADENA_TRIANGLE', 'JPL_LEADERSHIP'],
+    summary: 'Director of NASA\'s Jet Propulsion Laboratory (2016–2021), directly succeeding Charles Elachi. Also served as Professor of Planetary Science at Caltech. Oversaw JPL during a period when REZA was affiliated with the lab. Mission scientist on GRACE, GRACE-FO and Curiosity rover landing. His directorship bridged the Elachi era and created the environment into which REZA moved after Aerojet Rocketdyne\'s acquisition by L3Harris in 2023.',
+    cause: 'No incident. 2nd-degree institutional link to both REZA (JPL affiliation) and GRILLMAIR (IPAC oversight during his tenure as JPL director 2016–2021).',
+    links: [
+      { label: 'NASA JPL Director Profile', url: 'https://www.jpl.nasa.gov' },
+    ],
+    timeline: [
+      { date: '2016', event: 'Appointed Director of JPL, succeeding Elachi' },
+      { date: '2021', event: 'Steps down as JPL Director' },
+      { date: '2023', event: 'REZA moves to JPL post-L3Harris acquisition of Aerojet Rocketdyne' },
+    ]
+  },
+  {
+    id: 'MASON',
+    name: 'Thomas Mason',
+    lat: 35.881, lng: -106.300,
+    status: 'ACTIVE',
+    degree: 2,
+    cluster: 'LANL_CORE',
+    field: 'Nuclear Science / Laboratory Administration',
+    org: 'Los Alamos National Laboratory (Former Director)',
+    location: 'Los Alamos, NM',
+    date: 'N/A',
+    patterns: ['NM_CORRIDOR', 'DOE_CHAIN'],
+    summary: 'Former Director of Los Alamos National Laboratory (2006–2018), the largest such leadership tenure in modern LANL history. Under Mason\'s directorship, LANL managed the classified nuclear research programs and R&D corridors that CASIAS and CHAVEZ are affiliated with. LANL conducts ~$4B/year in federally funded research under DOE/NNSA. Mason\'s tenure established the institutional framework within which CHAVEZ\'s R&D engineering work and CASIAS\'s operational role exist.',
+    cause: 'No incident. 2nd-degree work link to MAIWALD, CASIAS, and CHAVEZ through LANL institutional chain of command.',
+    links: [
+      { label: 'Los Alamos National Laboratory', url: 'https://www.lanl.gov' },
+    ],
+    timeline: [
+      { date: '2006', event: 'Appointed Director of Los Alamos National Laboratory' },
+      { date: '2018', event: 'Steps down after longest modern LANL directorship' },
+    ]
+  },
+  // ── 3rd DEGREE EXTENDED NODES ─────────────────────────────
+  {
+    id: 'GRUNSFELD',
+    name: 'Dr. John Grunsfeld',
+    lat: 38.883, lng: -77.016,
+    status: 'ACTIVE',
+    degree: 3,
+    cluster: 'NASA_LEADERSHIP',
+    field: 'Astrophysics / NASA Science Mission Leadership',
+    org: 'NASA — Former Associate Administrator, Science Mission Directorate',
+    location: 'Washington, D.C.',
+    date: 'N/A',
+    patterns: ['JPL_LEADERSHIP', 'NASA_MISSION_LEAD'],
+    summary: 'NASA Associate Administrator for Science (Science Mission Directorate) 2012–2016 — the top science policy position at NASA. Astronaut and astrophysicist who serviced the Hubble Space Telescope on multiple missions. His Science Mission Directorate oversight encompassed all JPL science missions during the period when GRILLMAIR\'s Spitzer and WISE work was active. 3rd-degree link to REZA through JPL leadership chain.',
+    cause: 'No incident. 3rd-degree institutional link to REZA via JPL Leadership chain; and to GRILLMAIR via NASA Science Mission Directorate oversight of all Caltech/IPAC-managed missions.',
+    links: [
+      { label: 'NASA Profile', url: 'https://www.nasa.gov' },
+    ],
+    timeline: [
+      { date: '2012–2016', event: 'Associate Administrator, NASA Science Mission Directorate' },
+      { date: 'Ongoing', event: 'Astrophysics research and aerospace advisory roles' },
+    ]
+  },
+  {
+    id: 'LANDER',
+    name: 'Dr. Eric Lander',
+    lat: 42.363, lng: -71.097,
+    status: 'ACTIVE',
+    degree: 3,
+    cluster: 'MIT_CORE',
+    field: 'Computational Biology / Genomics',
+    org: 'Broad Institute of MIT and Harvard',
+    location: 'Cambridge, MA',
+    date: 'N/A',
+    patterns: ['MIT_OVERSIGHT', 'FEDERAL_SCIENCE_POLICY'],
+    summary: 'Co-founder and former President of the Broad Institute of MIT and Harvard. Served as Director of the White House Office of Science and Technology Policy (OSTP) under President Biden (2021–2022). As a senior MIT faculty figure, Lander\'s institutional orbit overlaps with MIT\'s broader research leadership structure — the same structure within which LOUREIRO operated at the Plasma Science and Fusion Center. Resigned as OSTP Director Feb 2022 following workplace conduct reports.',
+    cause: 'No incident. 3rd-degree institutional link to LOUREIRO via shared MIT faculty/research leadership network and federal science policy channels.',
+    links: [
+      { label: 'Broad Institute', url: 'https://www.broadinstitute.org' },
+    ],
+    timeline: [
+      { date: '2003', event: 'Co-founds Broad Institute of MIT and Harvard' },
+      { date: 'Jan 2021', event: 'Confirmed as OSTP Director — first cabinet-level science advisor' },
+      { date: 'Feb 2022', event: 'Resigns amid workplace conduct investigation' },
+      { date: 'Ongoing', event: 'Returns to Broad Institute research' },
+    ]
+  },
+  {
+    id: 'PRABHAKAR',
+    name: 'Dr. Arati Prabhakar',
+    lat: 38.897, lng: -77.037,
+    status: 'ACTIVE',
+    degree: 3,
+    cluster: 'FEDERAL_SCIENCE',
+    field: 'Engineering / Science & Technology Policy',
+    org: 'OSTP / Former DARPA Director',
+    location: 'Washington, D.C.',
+    date: 'N/A',
+    patterns: ['FEDERAL_SCIENCE_POLICY', 'DARPA_CHAIN', 'DOE_CHAIN'],
+    summary: 'Director of the White House Office of Science and Technology Policy (OSTP) under President Biden (2022–2025) — the first woman, immigrant, and person of color to hold this cabinet-level role. Former Director of DARPA (2012–2017) — the primary funder of high-risk defense research connected to institutions like LANL, MIT, and Caltech. DARPA\'s funding pipelines directly intersect with the research domains of CHAVEZ and MAIWALD (LANL/JPL advanced R&D), and Loureiro\'s fusion work received federal science funding through channels that OSTP coordinates.',
+    cause: 'No incident. 3rd-degree government link to MAIWALD via DARPA/DOE/LANL federal funding architecture; and to LOUREIRO via OSTP science mission policy frameworks.',
+    links: [
+      { label: 'OSTP Profile', url: 'https://www.whitehouse.gov/ostp/' },
+      { label: 'DARPA Director Bio', url: 'https://www.darpa.mil' },
+    ],
+    timeline: [
+      { date: '2012–2017', event: 'Director of DARPA — oversees defense research funding to LANL, JPL, MIT' },
+      { date: '2022', event: 'Confirmed as OSTP Director (first woman in this role)' },
+      { date: '2025', event: 'Departs OSTP at end of Biden administration' },
+    ]
+  },
+];
+
+// Merge all nodes
+const ALL_NODES = [...NODES, ...NODES_EXT];
+
 const EDGES = [
-  { source: 'MCCASLAND', target: 'REZA', type: 'WORK', label: 'AFRL oversaw Mondaloy/superalloy program; Reza\'s propulsion research funded by McCasland\'s division' },
+  // ── CORE EDGES (original) ────────────────────────────────
+  { source: 'MCCASLAND', target: 'REZA', type: 'WORK', label: 'AFRL oversaw Mondaloy/superalloy propulsion program; Reza\'s research directly funded by McCasland\'s division' },
   { source: 'CASIAS', target: 'CHAVEZ', type: 'WORK', label: 'Co-located at LANL; site-linked within Los Alamos R&D corridor' },
   { source: 'MAIWALD', target: 'GRILLMAIR', type: 'ACQUAINTANCE', label: 'JPL/Caltech institutional overlap; collaborative NASA programs' },
   { source: 'LOUREIRO', target: 'CHAVEZ', type: 'ACQUAINTANCE', label: 'LANL Stanisław Ulam Distinguished Scholar 2023 — institutional connection to Los Alamos' },
-  { source: 'GRILLMAIR', target: 'LOUREIRO', type: 'ACQUAINTANCE', label: 'Both killed within ~2 months; broad science community pattern' },
+  { source: 'GRILLMAIR', target: 'LOUREIRO', type: 'ACQUAINTANCE', label: 'Both killed within ~2 months (Dec 2025 / Feb 2026); science community pattern event' },
   { source: 'REZA', target: 'MAIWALD', type: 'INSTITUTIONAL', label: 'Both affiliated with NASA JPL (Reza joined post-2023)' },
   { source: 'MCCASLAND', target: 'GRILLMAIR', type: 'INSTITUTIONAL', label: 'AFRL programs intersect with NASA space telescope infrastructure' },
   { source: 'CASIAS', target: 'LOUREIRO', type: 'INSTITUTIONAL', label: 'LANL — MIT nuclear science research exchange programs' },
+  // ── 1st DEGREE EDGES ────────────────────────────────────
+  { source: 'ELACHI', target: 'REZA', type: 'INSTITUTIONAL', label: '1st° — Elachi directed JPL 2001–2016; Reza affiliated with JPL as institutional home base' },
+  { source: 'ELACHI', target: 'GRILLMAIR', type: 'INSTITUTIONAL', label: '1st° — Elachi oversaw IPAC/Spitzer mission during Grillmair\'s entire 30-year tenure at Caltech' },
+  { source: 'RAYMOND', target: 'MCCASLAND', type: 'WORK', label: '1st° — Both commanded senior Air Force Space Command programs; Raymond succeeded in USAF space leadership chain that McCasland was embedded in' },
+  { source: 'ZUBER', target: 'LOUREIRO', type: 'INSTITUTIONAL', label: '1st° — Zuber served as MIT VP for Research (2013–2024) with direct oversight of Plasma Science & Fusion Center that Loureiro directed' },
+  { source: 'HARRISON', target: 'GRILLMAIR', type: 'INSTITUTIONAL', label: '1st° — Harrison chaired Caltech PMA Division (2015–2025), the institutional parent of IPAC where Grillmair worked' },
+  // ── 2nd DEGREE EDGES ────────────────────────────────────
+  { source: 'BHATTACHARJEE', target: 'LOUREIRO', type: 'ACQUAINTANCE', label: '2nd° — Princeton PPPL plasma theory group overlaps directly with MIT PSFC on magnetic reconnection research; shared scientific domain' },
+  { source: 'HELMS', target: 'MCCASLAND', type: 'WORK', label: '2nd° — Both commanded senior Air Force space programs (Helms: 14th AF; McCasland: AFRL); RAYMOND bridged their successive commands' },
+  { source: 'HELMS', target: 'RAYMOND', type: 'WORK', label: '2nd° — Raymond assumed Helms\'s exact 14th Air Force command position upon her retirement in Jan 2014' },
+  { source: 'WATKINS', target: 'REZA', type: 'INSTITUTIONAL', label: '2nd° — Watkins directed JPL 2016–2021; Reza\'s transition to JPL post-2023 occurred within the institutional structure Watkins established' },
+  { source: 'WATKINS', target: 'ELACHI', type: 'INSTITUTIONAL', label: '2nd° — Watkins directly succeeded Elachi as JPL Director in June 2016' },
+  { source: 'MASON', target: 'CHAVEZ', type: 'WORK', label: '2nd° — Mason directed LANL 2006–2018; established the R&D corridors and organizational structure within which Chavez operates' },
+  { source: 'MASON', target: 'CASIAS', type: 'WORK', label: '2nd° — Mason directed LANL 2006–2018; Casias operates within the institutional framework Mason built' },
+  // ── 3rd DEGREE EDGES ────────────────────────────────────
+  { source: 'GRUNSFELD', target: 'REZA', type: 'INSTITUTIONAL', label: '3rd° — Grunsfeld\'s NASA Science Mission Directorate (2012–2016) oversaw all JPL science including missions REZA\'s materials work supported' },
+  { source: 'GRUNSFELD', target: 'ELACHI', type: 'INSTITUTIONAL', label: '3rd° — Grunsfeld (Science Mission Dir.) and Elachi (JPL Director) were concurrent NASA leadership; direct institutional link' },
+  { source: 'LANDER', target: 'LOUREIRO', type: 'INSTITUTIONAL', label: '3rd° — Lander and Loureiro shared the MIT institutional network; Lander\'s OSTP role shaped federal funding channels for PSFC research' },
+  { source: 'PRABHAKAR', target: 'CHAVEZ', type: 'INSTITUTIONAL', label: '3rd° — Prabhakar\'s DARPA directorship (2012–2017) created federal R&D funding pipelines that flow through LANL, directly relevant to Chavez\'s R&D work' },
+  { source: 'PRABHAKAR', target: 'LOUREIRO', type: 'INSTITUTIONAL', label: '3rd° — Prabhakar\'s OSTP directorship (2022–2025) coordinated federal science policy including DOE fusion energy programs at MIT PSFC' },
 ];
+
+// ═══════════════════════════════════════
+//  PATTERN DEFINITIONS
+// ═══════════════════════════════════════
+const PATTERNS = {
+  PASADENA_TRIANGLE: {
+    id: 'PASADENA_TRIANGLE',
+    label: 'Pasadena Triangle',
+    color: '#2aa198',
+    desc: 'Dense JPL / Caltech / USAF Research Lab concentration in the Pasadena–Antelope Valley corridor. Highest density of 1st and 2nd degree connections.',
+    nodes: ['GRILLMAIR','MAIWALD','REZA','ELACHI','HARRISON','WATKINS']
+  },
+  JPL_LEADERSHIP: {
+    id: 'JPL_LEADERSHIP',
+    label: 'JPL Leadership Chain',
+    color: '#268bd2',
+    desc: 'Institutional chain of JPL directors and program leads (Elachi → Watkins → Grunsfeld) with direct oversight of nodes REZA and GRILLMAIR.',
+    nodes: ['ELACHI','WATKINS','GRUNSFELD','REZA','GRILLMAIR','MAIWALD']
+  },
+  POWER_AXIS: {
+    id: 'POWER_AXIS',
+    label: 'Power Axis (Military–NASA)',
+    color: '#dc322f',
+    desc: 'Direct WORK connections between military command (McCasland, Raymond) and NASA/JPL assets (Reza). The operational directive layer.',
+    nodes: ['MCCASLAND','REZA','RAYMOND','HELMS']
+  },
+  SPACE_COMMAND_CHAIN: {
+    id: 'SPACE_COMMAND_CHAIN',
+    label: 'Space Command Chain',
+    color: '#b58900',
+    desc: 'Successive commanders of US Air Force Space Command and 14th Air Force programs. McCasland (AFRL) → Helms (14th AF) → Raymond (Space Force) form a continuous command lineage.',
+    nodes: ['MCCASLAND','RAYMOND','HELMS']
+  },
+  PLASMA_NETWORK: {
+    id: 'PLASMA_NETWORK',
+    label: 'Plasma Physics Network',
+    color: '#6c71c4',
+    desc: 'Theoretical plasma physics research community spanning MIT (Loureiro) and Princeton (Bhattacharjee). Shared specialization in magnetic reconnection.',
+    nodes: ['LOUREIRO','BHATTACHARJEE','ZUBER']
+  },
+  MIT_CORE: {
+    id: 'MIT_CORE',
+    label: 'MIT Institutional Core',
+    color: '#cb4b16',
+    desc: 'MIT faculty and leadership network connected to Loureiro\'s Plasma Science and Fusion Center. Includes VP-level oversight and federal science policy linkages.',
+    nodes: ['LOUREIRO','ZUBER','LANDER']
+  },
+  NM_CORRIDOR: {
+    id: 'NM_CORRIDOR',
+    label: 'New Mexico Corridor',
+    color: '#859900',
+    desc: 'Geographic and institutional cluster in New Mexico: LANL (Casias, Chavez, Mason) and Albuquerque (McCasland). Four nodes, two disappearances, one active search.',
+    nodes: ['MCCASLAND','CASIAS','CHAVEZ','MASON']
+  },
+  DOE_FUSION_CHAIN: {
+    id: 'DOE_FUSION_CHAIN',
+    label: 'DOE Fusion Chain',
+    color: '#d33682',
+    desc: 'Department of Energy fusion energy and plasma science funding chain: PSFC (Loureiro), PPPL (Bhattacharjee), and federal policy coordination (Prabhakar).',
+    nodes: ['LOUREIRO','BHATTACHARJEE','PRABHAKAR','CHAVEZ']
+  },
+  FEDERAL_SCIENCE_POLICY: {
+    id: 'FEDERAL_SCIENCE_POLICY',
+    label: 'Federal Science Policy',
+    color: '#657b83',
+    desc: '3rd-degree nodes embedded in federal science policy (OSTP, DARPA). The government oversight layer connecting academic research to national security programs.',
+    nodes: ['PRABHAKAR','LANDER','GRUNSFELD']
+  },
+};
 
 // ═══════════════════════════════════════
 //  STATE
 // ═══════════════════════════════════════
 let map, markers = {}, polylines = [], selectedNode = null;
 let activeFilter = 'all';
+let activeDegree = 'all';
+let activePattern = null;
 let edgeFilters = { WORK: true, ACQUAINTANCE: true, INSTITUTIONAL: true };
 let currentMode = 'map';
 let currentTab = 'intel';
@@ -898,6 +1339,7 @@ window.addEventListener('load', () => {
   }
   initMap();
   buildNodeList();
+  buildPatternList();
   updateClock();
   setInterval(updateClock, 1000);
   document.getElementById('tab-intel').addEventListener('click', () => switchTab('intel'));
@@ -930,7 +1372,7 @@ function initMap() {
     document.getElementById('hud-zoom').textContent = map.getZoom();
   });
 
-  NODES.forEach(n => addMarker(n));
+  ALL_NODES.forEach(n => addMarker(n));
   drawEdges();
 }
 
@@ -940,26 +1382,43 @@ function getStatusColor(status) {
   return '#268bd2';
 }
 
+function getMarkerColor(node) {
+  const deg = node.degree || 0;
+  if (deg === 0) return getStatusColor(node.status);
+  if (deg === 1) return '#2aa198';
+  if (deg === 2) return '#6c71c4';
+  return '#657b83';
+}
+
+function getDegreeLabel(deg) {
+  if (deg === 0) return 'CORE';
+  return deg + '°';
+}
+
 function addMarker(node) {
-  const color = getStatusColor(node.status);
   const initials = node.name.split(' ').map(w => w[0]).join('').slice(0,2);
+  const deg = node.degree || 0;
+  let markerClass;
+  if (deg === 0) markerClass = `marker-${node.status}`;
+  else if (deg === 1) markerClass = 'marker-ext1';
+  else if (deg === 2) markerClass = 'marker-ext2';
+  else markerClass = 'marker-ext3';
+
+  const size = deg === 0 ? 36 : deg === 1 ? 32 : deg === 2 ? 28 : 24;
 
   const icon = L.divIcon({
     className: '',
-    html: `<div class="custom-marker marker-${node.status}" style="width:36px;height:36px;font-size:9px;">
+    html: `<div class="custom-marker ${markerClass}" style="width:${size}px;height:${size}px;font-size:8px;">
              <span>${initials}</span>
            </div>`,
-    iconSize: [36, 36],
-    iconAnchor: [18, 18],
+    iconSize: [size, size],
+    iconAnchor: [size/2, size/2],
     popupAnchor: [0, -20],
   });
 
   const marker = L.marker([node.lat, node.lng], { icon }).addTo(map);
-
-  marker.bindTooltip(node.name, { direction: 'top', offset: [0, -10] });
-
+  marker.bindTooltip(`${node.name} [${deg === 0 ? 'CORE' : deg+'°'}]`, { direction: 'top', offset: [0, -10] });
   marker.on('click', () => selectNode(node.id));
-
   markers[node.id] = marker;
 }
 
@@ -971,8 +1430,8 @@ function drawEdges() {
   EDGES.forEach(edge => {
     if (!edgeFilters[edge.type]) return;
 
-    const src = NODES.find(n => n.id === edge.source);
-    const tgt = NODES.find(n => n.id === edge.target);
+    const src = ALL_NODES.find(n => n.id === edge.source);
+    const tgt = ALL_NODES.find(n => n.id === edge.target);
     if (!src || !tgt) return;
 
     const colorMap = {
@@ -1012,19 +1471,27 @@ function drawEdges() {
 function buildNodeList() {
   const list = document.getElementById('node-list');
   list.innerHTML = '';
-  const filtered = NODES.filter(n => {
-    if (activeFilter === 'deceased') return n.status === 'DECEASED';
-    if (activeFilter === 'missing') return n.status === 'MISSING';
-    return true;
+  const filtered = ALL_NODES.filter(n => {
+    const statusOk = activeFilter === 'all' ||
+      (activeFilter === 'deceased' && n.status === 'DECEASED') ||
+      (activeFilter === 'missing'  && n.status === 'MISSING');
+    const degOk = activeDegree === 'all' || (n.degree || 0) === activeDegree;
+    return statusOk && degOk;
   });
   filtered.forEach(n => {
+    const deg = n.degree || 0;
+    const degLabel = deg === 0 ? 'CORE' : deg + '°';
+    const degClass = `deg-${deg}`;
     const div = document.createElement('div');
     div.className = `node-item ${n.status.toLowerCase()}`;
     div.id = `li-${n.id}`;
     div.innerHTML = `
-      <div class="node-status-dot" style="background:${getStatusColor(n.status)};box-shadow:0 0 5px ${getStatusColor(n.status)}"></div>
-      <div>
-        <div class="name">${n.name}</div>
+      <div class="node-status-dot" style="background:${getMarkerColor(n)};box-shadow:0 0 5px ${getMarkerColor(n)}"></div>
+      <div style="flex:1;">
+        <div class="name" style="display:flex;align-items:center;gap:4px;">
+          ${n.name}
+          <span class="degree-badge ${degClass}">${degLabel}</span>
+        </div>
         <div class="org">${n.org}</div>
         <span class="status-tag ${n.status}">${n.status}</span>
       </div>`;
@@ -1044,7 +1511,7 @@ function selectNode(id) {
   }
 
   selectedNode = id;
-  const node = NODES.find(n => n.id === id);
+  const node = ALL_NODES.find(n => n.id === id);
   if (!node) return;
 
   // Highlight list item
@@ -1078,18 +1545,29 @@ function renderDetailPanel(node) {
 }
 
 function buildIntelHTML(node) {
-  const color = getStatusColor(node.status);
+  const deg = node.degree || 0;
+  const markerColor = getMarkerColor(node);
   const conns = EDGES.filter(e => e.source === node.id || e.target === node.id);
+
+  // Pattern tags for this node
+  const nodePats = Object.values(PATTERNS).filter(p => p.nodes.includes(node.id));
+  const patTagsHTML = nodePats.length ? nodePats.map(p =>
+    `<span class="pattern-tag" style="border-color:${p.color};color:${p.color};"
+       onclick="highlightPattern('${p.id}')">${p.label}</span>`
+  ).join('') : '<span style="font-family:var(--mono);font-size:9px;color:var(--text-dim);">NONE ASSIGNED</span>';
 
   let connHTML = '';
   conns.forEach(e => {
     const otherId = e.source === node.id ? e.target : e.source;
-    const other = NODES.find(n => n.id === otherId);
+    const other = ALL_NODES.find(n => n.id === otherId);
+    if (!other) return;
+    const otherDeg = other.degree || 0;
     connHTML += `
       <div class="conn-item" onclick="selectNode('${other.id}')">
         <div class="conn-header">
           <span class="conn-type-badge badge-${e.type}">${e.type}</span>
           <span class="conn-name">${other.name}</span>
+          <span class="degree-badge deg-${otherDeg}" style="margin-left:auto;">${getDegreeLabel(otherDeg)}</span>
         </div>
         <div class="conn-label">${e.label}</div>
       </div>`;
@@ -1099,10 +1577,14 @@ function buildIntelHTML(node) {
     <div class="detail-header">
       <div class="detail-status-bar">
         <span class="status-tag ${node.status}">${node.status}</span>
-        <span style="font-family:var(--mono);font-size:9px;color:var(--text-dim);">${node.date || 'ONGOING'}</span>
+        <span class="degree-badge deg-${deg}">${getDegreeLabel(deg)}</span>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--text-dim);margin-left:auto;">${node.date || 'ONGOING'}</span>
       </div>
       <div class="detail-name">${node.name}</div>
-      <div class="detail-id">NODE // ${node.id}</div>
+      <div class="detail-id" style="display:flex;align-items:center;gap:8px;">
+        NODE // ${node.id}
+        ${node.cluster ? `<span style="font-family:var(--mono);font-size:8px;color:${markerColor};border:1px solid ${markerColor};padding:1px 5px;letter-spacing:1px;">${node.cluster}</span>` : ''}
+      </div>
     </div>
     <div class="detail-field">
       <div class="key">FIELD</div>
@@ -1117,6 +1599,10 @@ function buildIntelHTML(node) {
       <div class="value">${node.location}</div>
     </div>
     <div class="detail-field">
+      <div class="key">PATTERNS</div>
+      <div class="value" style="line-height:2;">${patTagsHTML}</div>
+    </div>
+    <div class="detail-field">
       <div class="key">SUMMARY</div>
       <div class="value" style="font-size:12px;line-height:1.5;color:var(--text-sec);">${node.summary}</div>
     </div>
@@ -1126,7 +1612,7 @@ function buildIntelHTML(node) {
     </div>
     ${conns.length ? `
     <div class="connections-section">
-      <div class="panel-title">CONNECTIONS</div>
+      <div class="panel-title">CONNECTIONS (${conns.length})</div>
       ${connHTML}
     </div>` : ''}`;
 }
@@ -1184,40 +1670,53 @@ function switchTab(tab) {
     document.getElementById(`tab-${t}`).classList.toggle('active', t === tab);
   });
   if (selectedNode) {
-    const node = NODES.find(n => n.id === selectedNode);
+    const node = ALL_NODES.find(n => n.id === selectedNode);
     if (node) renderDetailPanel(node);
   }
 }
 
 // ═══════════════════════════════════════
-//  FILTERS
+//  FILTERS — unified predicate
 // ═══════════════════════════════════════
-function filterNodes(f) {
-  activeFilter = f;
-  ['all','deceased','missing'].forEach(x => {
-    document.getElementById(`f-${x}`).classList.toggle('on', x === f);
-  });
+function nodeIsVisible(n) {
+  const statusOk = activeFilter === 'all' ||
+    (activeFilter === 'deceased' && n.status === 'DECEASED') ||
+    (activeFilter === 'missing'  && n.status === 'MISSING');
+  const degOk = activeDegree === 'all' || (n.degree || 0) === activeDegree;
+  const patOk = !activePattern || PATTERNS[activePattern].nodes.includes(n.id);
+  return statusOk && degOk && patOk;
+}
 
+function applyAllFilters() {
   if (map) {
-    NODES.forEach(n => {
-      const show = f === 'all' ||
-        (f === 'deceased' && n.status === 'DECEASED') ||
-        (f === 'missing'  && n.status === 'MISSING');
+    ALL_NODES.forEach(n => {
       if (markers[n.id]) {
-        if (show) { map.addLayer(markers[n.id]); }
-        else { map.removeLayer(markers[n.id]); }
+        if (nodeIsVisible(n)) map.addLayer(markers[n.id]);
+        else map.removeLayer(markers[n.id]);
       }
     });
+    drawEdges();
   }
-
-  const vis = NODES.filter(n => {
-    return f === 'all' ||
-      (f === 'deceased' && n.status === 'DECEASED') ||
-      (f === 'missing'  && n.status === 'MISSING');
-  }).length;
+  const vis = ALL_NODES.filter(n => nodeIsVisible(n)).length;
   document.getElementById('hud-vis').textContent = vis;
-
   buildNodeList();
+}
+
+function filterNodes(f) {
+  activeFilter = f;
+  ['all','deceased','missing'].forEach(x =>
+    document.getElementById('f-'+x).classList.toggle('on', x === f));
+  applyAllFilters();
+}
+
+function filterDegree(deg) {
+  activeDegree = deg;
+  ['all',0,1,2,3].forEach(d => {
+    const key = d === 'all' ? 'f-deg-all' : 'f-deg-'+d;
+    const el = document.getElementById(key);
+    if (el) el.classList.toggle('on', d === deg);
+  });
+  applyAllFilters();
 }
 
 function toggleEdge(type) {
@@ -1225,6 +1724,35 @@ function toggleEdge(type) {
   const key = type === 'WORK' ? 'f-work' : type === 'ACQUAINTANCE' ? 'f-acq' : 'f-inst';
   document.getElementById(key).classList.toggle('on', edgeFilters[type]);
   if (map) drawEdges();
+}
+
+// ═══════════════════════════════════════
+//  PATTERN LIST + HIGHLIGHT
+// ═══════════════════════════════════════
+function buildPatternList() {
+  const el = document.getElementById('pattern-list');
+  if (!el) return;
+  el.innerHTML = '';
+  Object.values(PATTERNS).forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'pattern-item';
+    div.id = 'pat-' + p.id;
+    div.style.borderLeftColor = p.color;
+    div.innerHTML =
+      '<div class="pattern-name" style="color:'+p.color+'">'+p.label+'</div>' +
+      '<div class="pattern-count">'+p.nodes.length+' nodes \u2014 '+p.desc.slice(0,58)+'\u2026</div>';
+    div.addEventListener('click', () => highlightPattern(p.id));
+    el.appendChild(div);
+  });
+}
+
+function highlightPattern(patternId) {
+  activePattern = activePattern === patternId ? null : patternId;
+  Object.keys(PATTERNS).forEach(pid => {
+    const el = document.getElementById('pat-' + pid);
+    if (el) el.classList.toggle('active', pid === activePattern);
+  });
+  applyAllFilters();
 }
 
 // ═══════════════════════════════════════
@@ -1236,12 +1764,8 @@ function switchMode(mode) {
   document.getElementById('btn-graph').classList.toggle('active', mode === 'graph');
   document.getElementById('map-container').style.display = mode === 'map' ? 'block' : 'none';
   document.getElementById('graph-container').style.display = mode === 'graph' ? 'block' : 'none';
-
-  if (mode === 'graph') {
-    setTimeout(initGraph, 50);
-  } else if (map) {
-    map.invalidateSize();
-  }
+  if (mode === 'graph') { setTimeout(initGraph, 50); }
+  else if (map) { map.invalidateSize(); }
 }
 
 // ═══════════════════════════════════════
@@ -1251,137 +1775,117 @@ function initGraph() {
   const container = document.getElementById('graph-container');
   const svg = d3.select('#graph-svg');
   svg.selectAll('*').remove();
-
   const W = container.offsetWidth;
   const H = container.offsetHeight;
-
   const svgEl = svg.attr('width', W).attr('height', H);
 
-  // Background grid
   const defs = svgEl.append('defs');
   defs.append('pattern')
     .attr('id','grid').attr('width',40).attr('height',40)
     .attr('patternUnits','userSpaceOnUse')
-    .append('path')
-      .attr('d','M 40 0 L 0 0 0 40')
-      .attr('fill','none')
-      .attr('stroke','#1a3a50')
-      .attr('stroke-width','0.5');
-
+    .append('path').attr('d','M 40 0 L 0 0 0 40')
+      .attr('fill','none').attr('stroke','#1a3a50').attr('stroke-width','0.5');
   svgEl.append('rect').attr('width',W).attr('height',H).attr('fill','url(#grid)').attr('opacity',0.5);
 
-  // Arrow markers
+  const edgeColorMap = { WORK:'#268bd2', ACQUAINTANCE:'#6c71c4', INSTITUTIONAL:'#2aa198' };
   ['WORK','ACQUAINTANCE','INSTITUTIONAL'].forEach(type => {
-    const colorMap = { WORK:'#268bd2', ACQUAINTANCE:'#6c71c4', INSTITUTIONAL:'#2aa198' };
     defs.append('marker')
-      .attr('id', `arrow-${type}`)
-      .attr('viewBox','0 0 10 10').attr('refX',20).attr('refY',5)
-      .attr('markerWidth',6).attr('markerHeight',6)
+      .attr('id','arrow-'+type).attr('viewBox','0 0 10 10')
+      .attr('refX',22).attr('refY',5).attr('markerWidth',5).attr('markerHeight',5)
       .attr('orient','auto')
-      .append('path')
-        .attr('d','M 0 0 L 10 5 L 0 10 z')
-        .attr('fill', colorMap[type]);
+      .append('path').attr('d','M 0 0 L 10 5 L 0 10 z').attr('fill', edgeColorMap[type]);
   });
 
   const gfx = svgEl.append('g');
+  svgEl.call(d3.zoom().scaleExtent([0.2,3]).on('zoom', e => gfx.attr('transform', e.transform)));
 
-  // Zoom
-  const zoom = d3.zoom()
-    .scaleExtent([0.3, 3])
-    .on('zoom', e => gfx.attr('transform', e.transform));
-  svgEl.call(zoom);
-
-  // Force simulation
-  const nodes = NODES.map(n => ({ ...n }));
+  const visibleIds = new Set(ALL_NODES.filter(n => nodeIsVisible(n)).map(n => n.id));
+  const nodes = ALL_NODES.filter(n => visibleIds.has(n.id)).map(n => ({ ...n }));
   const links = EDGES
-    .filter(e => edgeFilters[e.type])
+    .filter(e => edgeFilters[e.type] && visibleIds.has(e.source) && visibleIds.has(e.target))
     .map(e => ({ source: e.source, target: e.target, type: e.type, label: e.label }));
 
-  const sim = d3.forceSimulation(nodes)
-    .force('link', d3.forceLink(links).id(d => d.id).distance(160).strength(0.4))
-    .force('charge', d3.forceManyBody().strength(-400))
-    .force('center', d3.forceCenter(W/2, H/2))
-    .force('collision', d3.forceCollide(50));
+  const degRadius = d => d.degree === 0 ? 26 : d.degree === 1 ? 22 : d.degree === 2 ? 18 : 14;
+  const degCharge = d => d.degree === 0 ? -500 : d.degree === 1 ? -350 : d.degree === 2 ? -250 : -180;
+  const dashMap   = { WORK:null, ACQUAINTANCE:'6,4', INSTITUTIONAL:'2,4' };
 
-  // Edge lines
-  const colorMap = { WORK:'#268bd2', ACQUAINTANCE:'#6c71c4', INSTITUTIONAL:'#2aa198' };
-  const dashMap = { WORK:null, ACQUAINTANCE:'6,4', INSTITUTIONAL:'2,4' };
+  const sim = d3.forceSimulation(nodes)
+    .force('link', d3.forceLink(links).id(d => d.id).distance(150).strength(0.4))
+    .force('charge', d3.forceManyBody().strength(d => degCharge(d)))
+    .force('center', d3.forceCenter(W/2, H/2))
+    .force('collision', d3.forceCollide(d => degRadius(d) + 22));
 
   const edgeG = gfx.append('g');
-  const link = edgeG.selectAll('line')
-    .data(links).enter().append('line')
-    .attr('stroke', d => colorMap[d.type])
-    .attr('stroke-width', 1.5)
-    .attr('stroke-opacity', 0.5)
+  const link = edgeG.selectAll('line').data(links).enter().append('line')
+    .attr('stroke', d => edgeColorMap[d.type])
+    .attr('stroke-width', d => d.type === 'WORK' ? 2 : 1.2)
+    .attr('stroke-opacity', 0.45)
     .attr('stroke-dasharray', d => dashMap[d.type] || null)
-    .attr('marker-end', d => `url(#arrow-${d.type})`);
+    .attr('marker-end', d => 'url(#arrow-'+d.type+')');
 
-  // Edge labels
-  const edgeLabel = edgeG.selectAll('text')
-    .data(links).enter().append('text')
-    .attr('class','graph-link-label')
-    .attr('text-anchor','middle')
-    .attr('dy','-4')
-    .text(d => d.type);
+  const edgeLabel = edgeG.selectAll('text').data(links).enter().append('text')
+    .attr('class','graph-link-label').attr('text-anchor','middle').attr('dy','-3')
+    .text(d => d.type.slice(0,4));
 
-  // Nodes
   const nodeG = gfx.append('g');
-  const node = nodeG.selectAll('g')
-    .data(nodes).enter().append('g')
-    .attr('class','graph-node')
-    .style('cursor','pointer')
+  const node = nodeG.selectAll('g').data(nodes).enter().append('g')
+    .attr('class','graph-node').style('cursor','pointer')
     .call(d3.drag()
-      .on('start', (e, d) => { if (!e.active) sim.alphaTarget(0.3).restart(); d.fx=d.x; d.fy=d.y; })
-      .on('drag',  (e, d) => { d.fx=e.x; d.fy=e.y; })
-      .on('end',   (e, d) => { if (!e.active) sim.alphaTarget(0); d.fx=null; d.fy=null; }))
-    .on('click', (e, d) => selectNode(d.id));
+      .on('start', (e,d) => { if (!e.active) sim.alphaTarget(0.3).restart(); d.fx=d.x; d.fy=d.y; })
+      .on('drag',  (e,d) => { d.fx=e.x; d.fy=e.y; })
+      .on('end',   (e,d) => { if (!e.active) sim.alphaTarget(0); d.fx=null; d.fy=null; }))
+    .on('click', (e,d) => selectNode(d.id));
 
   node.append('circle')
-    .attr('r', 22)
-    .attr('fill', d => {
-      const c = getStatusColor(d.status);
-      return c + '33'; // transparent version
-    })
-    .attr('stroke', d => getStatusColor(d.status))
-    .attr('stroke-width', 2);
+    .attr('r', d => degRadius(d) + 4)
+    .attr('fill', d => getMarkerColor(d) + '15').attr('stroke','none');
 
-  // Pulse ring for missing
+  node.append('circle')
+    .attr('r', d => degRadius(d))
+    .attr('fill', d => getMarkerColor(d) + '30')
+    .attr('stroke', d => getMarkerColor(d))
+    .attr('stroke-width', d => (d.degree||0) === 0 ? 2.5 : 1.5);
+
   node.filter(d => d.status === 'MISSING').append('circle')
-    .attr('r', 22)
-    .attr('fill','none')
-    .attr('stroke', '#b58900')
-    .attr('stroke-width', 1)
-    .attr('opacity', 0.4)
-    .style('animation', 'pulse-missing 2.5s ease-in-out infinite');
+    .attr('r', d => degRadius(d))
+    .attr('fill','none').attr('stroke','#b58900').attr('stroke-width',1).attr('opacity',0.4)
+    .style('animation','pulse-missing 2.5s ease-in-out infinite');
 
-  // Initials
   node.append('text')
     .attr('text-anchor','middle').attr('dy','0.35em')
-    .attr('font-size','10px').attr('font-family',"'Share Tech Mono', monospace")
-    .attr('fill', d => getStatusColor(d.status))
+    .attr('font-size', d => (d.degree||0) === 0 ? '11px' : '9px')
+    .attr('font-family',"'Share Tech Mono','Courier New',monospace")
+    .attr('fill', d => getMarkerColor(d))
     .text(d => d.name.split(' ').map(w => w[0]).join('').slice(0,2));
 
-  // Name label
   node.append('text')
-    .attr('text-anchor','middle').attr('y', 36)
-    .attr('font-size','10px').attr('font-family',"'Share Tech Mono', monospace")
-    .attr('fill','#c8d8e0')
-    .text(d => d.name.split(' ')[1] || d.name.split(' ')[0]);
+    .attr('text-anchor','middle').attr('y', d => degRadius(d) + 13)
+    .attr('font-size', d => (d.degree||0) === 0 ? '10px' : '9px')
+    .attr('font-family',"'Share Tech Mono','Courier New',monospace")
+    .attr('fill','#7a9db5')
+    .text(d => d.name.split(' ').slice(-1)[0]);
 
-  // Status dot
   node.append('circle')
-    .attr('cx', 16).attr('cy', -16).attr('r', 5)
-    .attr('fill', d => getStatusColor(d.status))
+    .attr('cx', d => degRadius(d) - 2).attr('cy', d => -(degRadius(d) - 2)).attr('r', d => (d.degree||0)===0 ? 5 : 4)
+    .attr('fill', d => (d.degree||0)===0 ? getStatusColor(d.status) : getMarkerColor(d))
     .attr('stroke','#000b14').attr('stroke-width',1.5);
 
   sim.on('tick', () => {
-    link
-      .attr('x1', d => d.source.x).attr('y1', d => d.source.y)
-      .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
-    edgeLabel
-      .attr('x', d => (d.source.x + d.target.x)/2)
-      .attr('y', d => (d.source.y + d.target.y)/2);
-    node.attr('transform', d => `translate(${d.x},${d.y})`);
+    link.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y)
+        .attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
+    edgeLabel.attr('x',d=>(d.source.x+d.target.x)/2).attr('y',d=>(d.source.y+d.target.y)/2);
+    node.attr('transform', d => 'translate('+d.x+','+d.y+')');
+  });
+
+  // Degree legend
+  const legData = [['CORE','#dc322f'],['1\u00b0','#2aa198'],['2\u00b0','#6c71c4'],['3\u00b0','#657b83']];
+  const leg = svgEl.append('g').attr('transform','translate(16,'+(H-84)+')');
+  legData.forEach(([lbl,col],i) => {
+    leg.append('circle').attr('cx',6).attr('cy',i*18).attr('r',5)
+      .attr('fill',col+'33').attr('stroke',col).attr('stroke-width',1.5);
+    leg.append('text').attr('x',16).attr('y',i*18+4)
+      .attr('font-family',"'Share Tech Mono','Courier New',monospace")
+      .attr('font-size','9px').attr('fill','#7a9db5').text(lbl);
   });
 }
 
@@ -1389,12 +1893,18 @@ function initGraph() {
 //  RESET
 // ═══════════════════════════════════════
 function resetView() {
-  if (currentMode === 'map' && map) {
-    map.flyTo([37.5, -100], 5, { duration: 1 });
-  }
-  // Deselect
+  activeFilter = 'all';
+  activeDegree = 'all';
+  activePattern = null;
+  ['all','deceased','missing'].forEach(x =>
+    document.getElementById('f-'+x)?.classList.toggle('on', x === 'all'));
+  ['f-deg-all','f-deg-0','f-deg-1','f-deg-2','f-deg-3'].forEach((id,i) =>
+    document.getElementById(id)?.classList.toggle('on', i === 0));
+  document.querySelectorAll('.pattern-item').forEach(el => el.classList.remove('active'));
+  if (currentMode === 'map' && map) { map.flyTo([37.5,-100], 5, { duration:1 }); }
+  applyAllFilters();
   if (selectedNode) {
-    const li = document.getElementById(`li-${selectedNode}`);
+    const li = document.getElementById('li-'+selectedNode);
     if (li) li.classList.remove('selected');
     selectedNode = null;
   }
