@@ -645,12 +645,12 @@
     </div>
     <div class="hdr-sep"></div>
     <div class="hdr-stat">
-      <div><span class="pulse-dot"></span>NODES: <span class="val">18</span></div>
-      <div>CONNECTIONS: <span class="val">26</span></div>
+      <div><span class="pulse-dot"></span>NODES: <span class="val">20</span></div>
+      <div>CONNECTIONS: <span class="val">32</span></div>
     </div>
     <div class="hdr-sep"></div>
     <div class="hdr-stat">
-      <div>DECEASED: <span class="val" style="color:var(--deceased)">2</span></div>
+      <div>DECEASED: <span class="val" style="color:var(--deceased)">5</span></div>
       <div>MISSING: <span class="val" style="color:var(--missing)">3</span></div>
     </div>
   </div>
@@ -757,7 +757,7 @@
   <div class="status-item">SYSTEM<span class="v green">ONLINE</span></div>
   <div class="status-item">BACKEND<span class="v green">LOCAL</span></div>
   <div class="status-item">MAP<span class="v">LEAFLET 1.9</span></div>
-  <div class="status-item">LAST UPDT<span class="v" id="sb-date">2026-04-05</span></div>
+  <div class="status-item">LAST UPDT<span class="v" id="sb-date">2026-04-07</span></div>
   <div class="status-item" style="margin-left:auto;">INTEL SRC<span class="v green">OSINT</span></div>
 </div>
 
@@ -911,23 +911,77 @@ const NODES = [
     id: 'MAIWALD',
     name: 'Frank Maiwald',
     lat: 34.201, lng: -118.171,
-    status: 'ACTIVE',
-    field: 'Satellite Systems / Remote Sensing',
-    org: 'NASA JPL',
-    location: 'Pasadena, CA',
-    date: 'N/A',
-    summary: 'Senior Scientist at NASA\'s Jet Propulsion Laboratory. Focus on advanced satellite systems and related instrumentation. JPL is managed by Caltech for NASA and is responsible for numerous deep space and Earth-observation missions.',
-    cause: 'No confirmed incident. Listed for connection mapping based on JPL/Caltech institutional links.',
+    status: 'DECEASED',
+    field: 'Remote Sensing / Satellite Instrumentation',
+    org: 'NASA JPL — Technical Group Supervisor',
+    location: 'Los Angeles, CA',
+    date: 'Jul 4, 2024',
+    summary: 'Technical Group Supervisor at NASA\'s Jet Propulsion Laboratory. Born June 24, 1963 in Ratingen, Germany. Educated at University of Cologne. Managed development of the SBG-VSWIR instrument (visible shortwave infrared spectrometer for the Surface Biology and Geology mission) and previously oversaw delivery of instruments for the AMR-C program. Contributed to AMR/SWOT, COWVR, AMR/Jason 3, and HIFI. JPL Principal — an award reserved for scientists making outstanding individual contributions. 13 months before his death, led a breakthrough study on detecting biosignatures from orbit relevant to Europa, Enceladus, and Ceres. Held a long-standing coworker relationship with Michael David Hicks at JPL.',
+    cause: 'Died July 4, 2024 in Los Angeles at age 61. Cause of death never made public. No autopsy was performed. NASA issued no public statement. Only public record is a single online obituary. No news coverage at time of death. The first chronological event in the current pattern — nearly a year before the next incident.',
     links: [
-      { label: 'NASA JPL', url: 'https://www.jpl.nasa.gov' },
+      { label: 'Legacy.com Obituary', url: 'https://www.legacy.com/us/obituaries/legacyremembers/frank-maiwald-obituary?id=55630404' },
+      { label: 'Daily Mail — Eight Scientists', url: 'https://www.sott.net/article/505504-Mystery-of-scientists-dead-or-missing-rises-to-EIGHT-as-two-more-men-tied-to-Americas-most-coveted-secrets-join-the-list' },
+      { label: 'Sentinel Network — The Blind Spot', url: 'https://thesentinel.network/p/the-blind-spot-rocks-are-falling' },
     ],
     timeline: [
-      { date: 'Ongoing', event: 'Senior Scientist, NASA JPL — Satellite Systems' },
+      { date: '1999', event: 'Joins NASA JPL as researcher' },
+      { date: 'Jun 2023', event: 'Lead researcher on biosignature detection breakthrough (Europa / Enceladus / Ceres)' },
+      { date: 'Jul 4, 2024', event: 'Dies in Los Angeles at age 61. Cause undisclosed. No autopsy. No NASA statement.' },
+      { date: 'Jul 17, 2024', event: 'Single online obituary posted — only public record of his death' },
+    ]
+  },
+  {
+    id: 'HICKS',
+    name: 'Michael David Hicks',
+    lat: 34.260, lng: -118.051,
+    status: 'DECEASED',
+    field: 'Planetary Science / Asteroid & Comet Research',
+    org: 'NASA JPL — Research Scientist',
+    location: 'Sunland, CA',
+    date: 'Jul 30, 2023',
+    patterns: ['PASADENA_TRIANGLE', 'JPL_LEADERSHIP'],
+    summary: 'Research Scientist at NASA\'s Jet Propulsion Laboratory from 1998 to 2022. Born 1964 in Dayton, Ohio. Ph.D. in Lunar and Planetary Science from the University of Arizona (1997). Specialty in physical properties of comets and asteroids. Science team member on the DART Project (asteroid deflection), Near Earth Asteroid Tracking (NEAT), Dawn Mission, and Deep Space 1 Mission (comet flyby 2001). Author of over 80 peer-reviewed scientific papers. Long-standing JPL coworker of Frank Maiwald. Regular observing runs at Mount Palomar Observatory. Died one year after departing JPL.',
+    cause: 'Died July 30, 2023 in Sunland, CA at age 59. Cause of death never made public. No record of an autopsy being performed. No institutional acknowledgment from NASA or JPL. Series of online obituaries noted no prior health issues — death appeared sudden, approximately one year after leaving JPL in 2022. Earliest-dated death in the current pattern.',
+    links: [
+      { label: 'University of Arizona — In Memoriam', url: 'https://www.lpl.arizona.edu/about/memoriam/michael-hicks' },
+      { label: 'LPL News — 1964–2023', url: 'https://www.lpl.arizona.edu/news/2023/fall/michael-david-hicks-1964-2023' },
+      { label: 'Daily Mail — Ninth Scientist', url: 'https://www.dailymail.co.uk/sciencetech/article-15709875/nasa-jet-propulsion-lab-scientists-deaths.html' },
+      { label: 'AAS DPS Obituary', url: 'https://dps.aas.org/tag/obituary/' },
+    ],
+    timeline: [
+      { date: '1997', event: 'Earns Ph.D. in Lunar and Planetary Science, University of Arizona' },
+      { date: '1998', event: 'Joins NASA JPL as postdoctoral research associate' },
+      { date: '2001', event: 'Deep Space 1 Mission comet flyby — Hicks on science team' },
+      { date: '2022', event: 'Departs NASA JPL after 24 years' },
+      { date: 'Jul 30, 2023', event: 'Dies suddenly in Sunland, CA at age 59. Cause undisclosed. No autopsy.' },
+    ]
+  },
+  {
+    id: 'THOMAS',
+    name: 'Jason Thomas',
+    lat: 42.505, lng: -71.075,
+    status: 'DECEASED',
+    field: 'Chemical Biology / Cancer Research',
+    org: 'Novartis — Assistant Director, Chemical Biology',
+    location: 'Wakefield, MA',
+    date: 'Dec 12, 2025',
+    patterns: ['FEDERAL_SCIENCE_POLICY'],
+    summary: 'Assistant Director of Chemical Biology at Novartis, a global pharmaceutical company with active Department of Defense contracts. Age 45 at time of disappearance. Research focused on chemogenetic approaches, small-molecule drug discovery, targeted protein degradation, and pre-mRNA processing inhibitors targeting AML, Ewing\'s sarcoma, breast cancer, and ovarian cancer. Married to Kristen Bartoli. Described by colleagues as "one of the kindest people." Novartis has held active contracts with the US Department of War (Defense) and previously worked with HHS. Disappeared the night of December 12, 2025 after returning from a social outing — the first such outing after the deaths of both of his parents weeks prior.',
+    cause: 'Disappeared night of December 12, 2025 from Wakefield, MA. Left behind keys, wallet, phone, and Apple Watch in the mailbox — described as completely out of character. Never returned from late-night walk. Wakefield Police launched search including K-9 units, drones, and multiple agencies. Lake Quannapowitt had been frozen most of the winter. Body recovered from Lake Quannapowitt on March 17, 2026 after spring thaw. Medical examiner has not released final cause of death. No foul play currently suspected. Independent investigators note his DoD contract work and left-behind devices as anomalous.',
+    links: [
+      { label: 'Boston.com — Body Recovered', url: 'https://www.boston.com/news/local-news/2026/03/17/body-pulled-from-wakefield-lake-believed-to-be-that-of-missing-man/' },
+      { label: 'NBC Dateline — Missing in America', url: 'https://www.nbcnews.com/dateline/missing-in-america/jason-thomas-missing-wakefield-massachusetts-rcna263785' },
+      { label: 'Daily Voice — Wakefield', url: 'https://dailyvoice.com/ma/wakefield/body-of-jason-thomas-found-in-wakefield-lake-3-months-later/' },
+    ],
+    timeline: [
+      { date: 'Nov 2025', event: 'Both parents die within hours of each other — Thomas\'s first major personal loss' },
+      { date: 'Dec 12, 2025', event: 'Returns home from first social outing since parents\' deaths; leaves on foot for a walk, never returns. Leaves keys, wallet, phone, Apple Watch in mailbox.' },
+      { date: 'Dec 13, 2025', event: 'Wife reports him missing to Wakefield PD. Large-scale search launched.' },
+      { date: 'Winter 2026', event: 'Lake Quannapowitt freezes over; search suspended pending thaw' },
+      { date: 'Mar 17, 2026', event: 'Body recovered from Lake Quannapowitt after spring thaw. Cause of death pending.' },
     ]
   },
 ];
-
-// ── 1st DEGREE EXTENDED NODES ─────────────────────────────
 const NODES_EXT = [
   {
     id: 'ELACHI',
@@ -1240,7 +1294,13 @@ const EDGES = [
   { source: 'WATKINS', target: 'ELACHI', type: 'INSTITUTIONAL', label: '2nd° — Watkins directly succeeded Elachi as JPL Director in June 2016' },
   { source: 'MASON', target: 'CHAVEZ', type: 'WORK', label: '2nd° — Mason directed LANL 2006–2018; established the R&D corridors and organizational structure within which Chavez operates' },
   { source: 'MASON', target: 'CASIAS', type: 'WORK', label: '2nd° — Mason directed LANL 2006–2018; Casias operates within the institutional framework Mason built' },
-  // ── 3rd DEGREE EDGES ────────────────────────────────────
+  // ── HICKS & THOMAS EDGES ────────────────────────────────
+  { source: 'HICKS', target: 'MAIWALD', type: 'WORK', label: 'Long-standing JPL coworkers — both were research scientists at JPL simultaneously; Hicks 1998–2022, Maiwald 1999–2024' },
+  { source: 'HICKS', target: 'GRILLMAIR', type: 'WORK', label: 'Both JPL/Caltech corridor scientists working on NASA asteroid and comet programs — shared institutional infrastructure' },
+  { source: 'HICKS', target: 'REZA', type: 'INSTITUTIONAL', label: 'Both research scientists at NASA JPL — HICKS departed 2022, REZA joined JPL post-2023; same lab and mission structure' },
+  { source: 'HICKS', target: 'ELACHI', type: 'INSTITUTIONAL', label: '1st° — Elachi directed JPL 2001–2016; oversaw HICKS\'s science work on DART, NEAT, Dawn, and Deep Space 1 missions during that period' },
+  { source: 'THOMAS', target: 'LOUREIRO', type: 'ACQUAINTANCE', label: 'Both Massachusetts researchers with federal program ties who died/disappeared Dec 2025–Mar 2026; pattern proximity — Loureiro (Dec 15) and Thomas (Dec 12) vanished within 3 days' },
+  { source: 'THOMAS', target: 'LANDER', type: 'INSTITUTIONAL', label: '3rd° — Thomas\'s Novartis chemical biology work intersects with MIT/Broad Institute research network; DOD contract overlap with federal science policy chain' },
   { source: 'GRUNSFELD', target: 'REZA', type: 'INSTITUTIONAL', label: '3rd° — Grunsfeld\'s NASA Science Mission Directorate (2012–2016) oversaw all JPL science including missions REZA\'s materials work supported' },
   { source: 'GRUNSFELD', target: 'ELACHI', type: 'INSTITUTIONAL', label: '3rd° — Grunsfeld (Science Mission Dir.) and Elachi (JPL Director) were concurrent NASA leadership; direct institutional link' },
   { source: 'LANDER', target: 'LOUREIRO', type: 'INSTITUTIONAL', label: '3rd° — Lander and Loureiro shared the MIT institutional network; Lander\'s OSTP role shaped federal funding channels for PSFC research' },
@@ -1256,15 +1316,15 @@ const PATTERNS = {
     id: 'PASADENA_TRIANGLE',
     label: 'Pasadena Triangle',
     color: '#2aa198',
-    desc: 'Dense JPL / Caltech / USAF Research Lab concentration in the Pasadena–Antelope Valley corridor. Highest density of 1st and 2nd degree connections.',
-    nodes: ['GRILLMAIR','MAIWALD','REZA','ELACHI','HARRISON','WATKINS']
+    desc: 'Dense JPL / Caltech / USAF Research Lab concentration in the Pasadena–Antelope Valley corridor.',
+    nodes: ['GRILLMAIR','MAIWALD','REZA','HICKS','ELACHI','HARRISON','WATKINS']
   },
   JPL_LEADERSHIP: {
     id: 'JPL_LEADERSHIP',
     label: 'JPL Leadership Chain',
     color: '#268bd2',
-    desc: 'Institutional chain of JPL directors and program leads (Elachi → Watkins → Grunsfeld) with direct oversight of nodes REZA and GRILLMAIR.',
-    nodes: ['ELACHI','WATKINS','GRUNSFELD','REZA','GRILLMAIR','MAIWALD']
+    desc: 'Institutional chain of JPL directors and program leads with direct oversight of core nodes.',
+    nodes: ['ELACHI','WATKINS','GRUNSFELD','REZA','GRILLMAIR','MAIWALD','HICKS']
   },
   POWER_AXIS: {
     id: 'POWER_AXIS',
@@ -1277,22 +1337,22 @@ const PATTERNS = {
     id: 'SPACE_COMMAND_CHAIN',
     label: 'Space Command Chain',
     color: '#b58900',
-    desc: 'Successive commanders of US Air Force Space Command and 14th Air Force programs. McCasland (AFRL) → Helms (14th AF) → Raymond (Space Force) form a continuous command lineage.',
+    desc: 'Successive commanders of US Air Force Space Command. McCasland (AFRL) → Helms (14th AF) → Raymond (Space Force) form a continuous command lineage.',
     nodes: ['MCCASLAND','RAYMOND','HELMS']
   },
   PLASMA_NETWORK: {
     id: 'PLASMA_NETWORK',
     label: 'Plasma Physics Network',
     color: '#6c71c4',
-    desc: 'Theoretical plasma physics research community spanning MIT (Loureiro) and Princeton (Bhattacharjee). Shared specialization in magnetic reconnection.',
+    desc: 'Theoretical plasma physics community spanning MIT (Loureiro) and Princeton (Bhattacharjee). Shared specialization in magnetic reconnection.',
     nodes: ['LOUREIRO','BHATTACHARJEE','ZUBER']
   },
   MIT_CORE: {
     id: 'MIT_CORE',
     label: 'MIT Institutional Core',
     color: '#cb4b16',
-    desc: 'MIT faculty and leadership network connected to Loureiro\'s Plasma Science and Fusion Center. Includes VP-level oversight and federal science policy linkages.',
-    nodes: ['LOUREIRO','ZUBER','LANDER']
+    desc: 'MIT faculty and leadership network connected to Loureiro\'s Plasma Science and Fusion Center. Federal science policy linkages.',
+    nodes: ['LOUREIRO','ZUBER','LANDER','THOMAS']
   },
   NM_CORRIDOR: {
     id: 'NM_CORRIDOR',
@@ -1313,7 +1373,14 @@ const PATTERNS = {
     label: 'Federal Science Policy',
     color: '#657b83',
     desc: '3rd-degree nodes embedded in federal science policy (OSTP, DARPA). The government oversight layer connecting academic research to national security programs.',
-    nodes: ['PRABHAKAR','LANDER','GRUNSFELD']
+    nodes: ['PRABHAKAR','LANDER','GRUNSFELD','THOMAS']
+  },
+  INCIDENT_TIMELINE: {
+    id: 'INCIDENT_TIMELINE',
+    label: 'Incident Timeline (2023–2026)',
+    color: '#dc322f',
+    desc: 'All confirmed deceased and missing subjects ordered chronologically. HICKS (Jul 2023) is the earliest-dated event; McCasland (Feb 2026) is the most recent.',
+    nodes: ['HICKS','MAIWALD','CHAVEZ','REZA','CASIAS','THOMAS','LOUREIRO','GRILLMAIR','MCCASLAND']
   },
 };
 
