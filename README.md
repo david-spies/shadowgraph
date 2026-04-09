@@ -238,9 +238,10 @@ This tool was developed for open-source intelligence research and educational vi
 
 | Version | Date | Notes |
 |---|---|---|
-| v1.0 | 2026-04-05 | Initial release —---  7 nodes,  8 connections, 8 edges, map + graph modes |
+| v1.0 | 2026-04-05 | Initial release ————— 7 nodes,  8 connections, 8 edges, map + graph modes |
 | v1.1 | 2026-04-06 | subsequent release — 18 nodes, 26 connections, 8 edges, map + graph modes |
 | v1.2 | 2026-04-07 | subsequent release — 20 nodes, 32 connections, 8 edges, map + graph modes |
+| v1.3 | 2026-04-08 | subsequent release — 29 nodes, 65 connections, 8 edges, map + graph modes |
 ---
 
 *SHADOWGRAPH // 6°NASA // BUILD STABLE // OSINT ONLY*
