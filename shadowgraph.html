@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SHADOWGRAPH v1.0 // 6°NASA</title>
+<title>SHADOWGRAPH v1.3 // 6°NASA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
@@ -589,10 +589,13 @@
     margin-left: 6px;
     vertical-align: middle;
   }
-  .deg-0 { background: rgba(220,50,47,0.15); border: 1px solid var(--deceased); color: var(--deceased); }
-  .deg-1 { background: rgba(42,161,152,0.15); border: 1px solid #2aa198; color: #2aa198; }
+  .deg-0 { background: rgba(220,50,47,0.15);  border: 1px solid var(--deceased); color: var(--deceased); }
+  .deg-1 { background: rgba(42,161,152,0.15);  border: 1px solid #2aa198; color: #2aa198; }
   .deg-2 { background: rgba(108,113,196,0.15); border: 1px solid #6c71c4; color: #6c71c4; }
   .deg-3 { background: rgba(101,123,131,0.15); border: 1px solid #657b83; color: #657b83; }
+  .deg-4 { background: rgba(181,137,0,0.15);   border: 1px solid #b58900; color: #b58900; }
+  .deg-5 { background: rgba(38,139,210,0.15);  border: 1px solid #268bd2; color: #268bd2; }
+  .deg-6 { background: rgba(133,153,0,0.15);   border: 1px solid #859900; color: #b8cc00; }
 
   /* Pattern list */
   .pattern-item {
@@ -641,12 +644,12 @@
   <div class="hdr-left">
     <div class="logo">
       SHADOWGRAPH
-      <span>6 DEGREES OF NASA // v1.0</span>
+      <span>6 DEGREES OF NASA // v1.3</span>
     </div>
     <div class="hdr-sep"></div>
     <div class="hdr-stat">
-      <div><span class="pulse-dot"></span>NODES: <span class="val">20</span></div>
-      <div>CONNECTIONS: <span class="val">32</span></div>
+      <div><span class="pulse-dot"></span>NODES: <span class="val">29</span></div>
+      <div>CONNECTIONS: <span class="val">65</span></div>
     </div>
     <div class="hdr-sep"></div>
     <div class="hdr-stat">
@@ -685,6 +688,9 @@
         <button class="filter-btn" id="f-deg-1" onclick="filterDegree(1)" style="border-color:#2aa198;color:#2aa198">1°</button>
         <button class="filter-btn" id="f-deg-2" onclick="filterDegree(2)" style="border-color:#6c71c4;color:#6c71c4">2°</button>
         <button class="filter-btn" id="f-deg-3" onclick="filterDegree(3)" style="border-color:#657b83;color:#657b83">3°</button>
+        <button class="filter-btn" id="f-deg-4" onclick="filterDegree(4)" style="border-color:#b58900;color:#b58900">4°</button>
+        <button class="filter-btn" id="f-deg-5" onclick="filterDegree(5)" style="border-color:#268bd2;color:#268bd2">5°</button>
+        <button class="filter-btn" id="f-deg-6" onclick="filterDegree(6)" style="border-color:#859900;color:#b8cc00">6°</button>
       </div>
     </div>
 
@@ -757,7 +763,7 @@
   <div class="status-item">SYSTEM<span class="v green">ONLINE</span></div>
   <div class="status-item">BACKEND<span class="v green">LOCAL</span></div>
   <div class="status-item">MAP<span class="v">LEAFLET 1.9</span></div>
-  <div class="status-item">LAST UPDT<span class="v" id="sb-date">2026-04-07</span></div>
+  <div class="status-item">LAST UPDT<span class="v" id="sb-date">2026-04-08</span></div>
   <div class="status-item" style="margin-left:auto;">INTEL SRC<span class="v green">OSINT</span></div>
 </div>
 
@@ -1265,6 +1271,278 @@ const NODES_EXT = [
       { date: '2025', event: 'Departs OSTP at end of Biden administration' },
     ]
   },
+
+  // ── 4th DEGREE EXTENDED NODES ─────────────────────────────
+  {
+    id: 'LESHIN',
+    name: 'Dr. Laurie Leshin',
+    lat: 34.202, lng: -118.174,
+    status: 'ACTIVE',
+    degree: 4,
+    cluster: 'AEROSPACE',
+    field: 'Geochemistry / Planetary Science / JPL Administration',
+    org: 'NASA JPL (Director 2022–2025) / Caltech / ASU',
+    location: 'Pasadena, CA',
+    date: 'N/A',
+    patterns: ['JPL_LEADERSHIP','PASADENA_TRIANGLE','PLANETARY_DEFENSE'],
+    summary: 'First woman to serve as Director of NASA\'s Jet Propulsion Laboratory (May 2022 – June 2025) and simultaneously VP of Caltech. Ph.D. in geochemistry from Caltech (1994). Former Director of Science at NASA Goddard Space Flight Center (2005–2008). Two White House appointments. Under her JPL directorship: launched EMIT, SWOT, Psyche, PREFIRE, Europa Clipper, and SPHEREx; advanced the NEO Surveyor asteroid-hunting mission — the same planetary defense infrastructure that HICKS and GRILLMAIR contributed to. Oversaw JPL when Hicks departed (2022) and when Reza joined (post-2023). Stepped down June 2025 for personal reasons; now University Professor of Space Futures at ASU.',
+    cause: 'No incident. 4th-degree institutional link: served as JPL Director during the overlap period between HICKS\'s departure (2022), MAIWALD\'s death (2024), and REZA\'s arrival at JPL (post-2023) and disappearance (Jun 2025).',
+    links: [
+      { label: 'JPL Director Profile', url: 'https://www.jpl.nasa.gov/who-we-are/faces-of-leadership-the-directors-of-jpl/dr-laurie-leshin/' },
+      { label: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Laurie_Leshin' },
+      { label: 'Caltech Appointment', url: 'https://www.admissions.caltech.edu/explore-more/news/caltech-names-laurie-leshin-ms-89-phd-95-director-of-jpl' },
+    ],
+    timeline: [
+      { date: '2022', event: 'Appointed first female Director of JPL; succeeds Michael Watkins' },
+      { date: '2022', event: 'HICKS departs JPL one year before Leshin arrives' },
+      { date: 'Jul 4, 2024', event: 'MAIWALD dies at JPL — no public statement issued by Leshin\'s JPL' },
+      { date: 'Post-2023', event: 'REZA joins JPL under Leshin\'s directorship' },
+      { date: 'Jun 2025', event: 'REZA vanishes on Mt. Waterman — JPL makes no public statement' },
+      { date: 'Jun 1, 2025', event: 'Leshin steps down as JPL Director' },
+    ]
+  },
+  {
+    id: 'JOHNSON_L',
+    name: 'Lindley Johnson',
+    lat: 38.900, lng: -77.040,
+    status: 'ACTIVE',
+    degree: 4,
+    cluster: 'PLANETARY_DEFENSE',
+    field: 'Planetary Defense / Near-Earth Object Programs',
+    org: 'NASA HQ — Planetary Defense Coordination Office (PDCO)',
+    location: 'Washington, D.C.',
+    date: 'N/A',
+    patterns: ['PLANETARY_DEFENSE','JPL_LEADERSHIP','PASADENA_TRIANGLE'],
+    summary: 'NASA\'s Planetary Defense Officer Emeritus; founded and led the Planetary Defense Coordination Office (PDCO) established January 2016. Prior to NASA: 23 years USAF active duty, retired as Lieutenant Colonel, worked on national security space systems. As NEO Observations Program Manager, oversaw discovery of over 36,000 near-Earth asteroids and comets — the exact program HICKS contributed to. Program Executive for NASA\'s Deep Space 1 mission (which HICKS served on). DART mission (HICKS\'s science team) was under his PDCO umbrella. Asteroid 5905 (1989 CJ1) named "Johnson" in his honor. Now in phased retirement.',
+    cause: 'No incident. 4th-degree institutional link: as PDCO director and NEO program manager, Johnson oversaw the planetary defense programs — DART, NEAT, NEO Surveyor — that HICKS and GRILLMAIR were directly embedded in.',
+    links: [
+      { label: 'NASA Science Profile', url: 'https://science.nasa.gov/people/lindley-johnson/' },
+      { label: 'KU Physics Profile', url: 'https://physics.ku.edu/people/johnson-lindley' },
+      { label: 'PDCO Team Page', url: 'https://www.nasa.gov/planetarydefense/organization' },
+    ],
+    timeline: [
+      { date: '23 yrs USAF', event: 'Active duty, national security space systems, retired as Lt. Col.' },
+      { date: 'Post-USAF', event: 'Joins NASA; Program Executive for Deep Space 1 (HICKS\'s mission)' },
+      { date: 'Jan 2016', event: 'Establishes NASA Planetary Defense Coordination Office; named Planetary Defense Officer' },
+      { date: '2022', event: 'DART mission success — the program HICKS served as science team member on' },
+      { date: 'Recent', event: 'Entering phased retirement as Planetary Defense Officer Emeritus' },
+    ]
+  },
+  {
+    id: 'BURCHETT',
+    name: 'Rep. Tim Burchett',
+    lat: 35.960, lng: -83.920,
+    status: 'ACTIVE',
+    degree: 4,
+    cluster: 'CONGRESSIONAL_OVERSIGHT',
+    field: 'U.S. Congress / UAP Oversight / Government Transparency',
+    org: 'U.S. House of Representatives — Tennessee 2nd District',
+    location: 'Knoxville, TN',
+    date: 'N/A',
+    patterns: ['CONGRESSIONAL_OVERSIGHT','UAP_NETWORK'],
+    summary: 'Republican U.S. Representative from Tennessee\'s 2nd Congressional District (2019–present). Member of the House Oversight Committee\'s UAP subcommittee and the House Task Force on Declassification of Federal Secrets. Primary congressional voice on the pattern of scientist deaths and disappearances. Publicly warned the FBI about the cases of HICKS, MAIWALD, REZA, MCCASLAND, LOUREIRO, GRILLMAIR, CASIAS, CHAVEZ, and THOMAS. Stated publicly: "For the record, I\'m not suicidal." Has attended classified briefings on UAP from multiple intelligence agencies. Called the deaths "no coincidence." Requested FBI involvement. Close associate of Rep. Eric Burlison on this investigation.',
+    cause: 'No incident. 4th-degree congressional oversight link to the entire pattern — Burchett is the primary elected official publicly connecting and investigating the cases.',
+    links: [
+      { label: 'Official Website', url: 'https://burchett.house.gov/' },
+      { label: 'Congress.gov Profile', url: 'https://www.congress.gov/member/tim-burchett/B001309' },
+      { label: 'GovTrack Profile', url: 'https://www.govtrack.us/congress/members/tim_burchett/412817' },
+      { label: 'Newsmax Interview Apr 2026', url: 'https://www.westernjournal.com/watch-country-come-unglued-tim-burchett-reveals-alien-life-briefing-attended-2-weeks-ago/' },
+    ],
+    timeline: [
+      { date: 'Jan 2019', event: 'Elected to U.S. House, begins oversight work on UAP' },
+      { date: '2023', event: 'Spearheads rare bipartisan congressional UFO hearings' },
+      { date: 'Mar 2026', event: 'Publicly ties REZA and MCCASLAND disappearances; calls for investigation' },
+      { date: 'Apr 2026', event: 'Reveals classified briefing: "This country would have come unglued." States he is "not suicidal."' },
+    ]
+  },
+  {
+    id: 'BURLISON',
+    name: 'Rep. Eric Burlison',
+    lat: 37.215, lng: -93.291,
+    status: 'ACTIVE',
+    degree: 4,
+    cluster: 'CONGRESSIONAL_OVERSIGHT',
+    field: 'U.S. Congress / FBI Investigation / Government Oversight',
+    org: 'U.S. House of Representatives — Missouri 7th District',
+    location: 'Springfield, MO',
+    date: 'N/A',
+    patterns: ['CONGRESSIONAL_OVERSIGHT','UAP_NETWORK'],
+    summary: 'Republican U.S. Representative from Missouri\'s 7th Congressional District (2023–present). Member of the House Oversight and Accountability Committee; has attended classified UAP hearings. Formally requested FBI involvement in the scientist disappearances. Posted publicly: "The disappearance of multiple scientists and military personnel with ties to advanced research is deeply concerning. I\'ve already requested FBI involvement." Has stated McCasland "has a lot of information" on UAP. Appeared on the UAP-focused podcast "Weaponized" (March 13, 2026). Sent letter to FBI regarding suspicious suicide of a colleague of UAP whistleblowers David Grusch and Jake Barber. Member of the House DOGE subcommittee. B.A. Philosophy, M.B.A. — Southwest Missouri State University.',
+    cause: 'No incident. 4th-degree congressional oversight link — actively coordinating with FBI and demanding federal investigation into the pattern of incidents affecting core nodes.',
+    links: [
+      { label: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Eric_Burlison' },
+      { label: 'OAN Report Apr 2026', url: 'https://www.oann.com/newsroom/rep-eric-burlison-calls-for-fbi-probe-into-deeply-concerning-scientist-and-military-personnel-disappearances-and-deaths/' },
+      { label: 'Newsweek — FBI Push', url: 'https://www.newsweek.com/congressman-calls-for-fbi-help-over-missing-general-scientists-11764096' },
+    ],
+    timeline: [
+      { date: 'Jan 2023', event: 'Elected to U.S. House of Representatives' },
+      { date: 'Mar 13, 2026', event: 'Appears on "Weaponized" podcast; calls McCasland disappearance "really disturbing"' },
+      { date: 'Mar 29, 2026', event: 'Posts publicly requesting FBI investigation into scientist disappearances' },
+      { date: 'Apr 2026', event: 'Continues pressing FBI for answers; references additional cases involving UAP whistleblower colleagues' },
+    ]
+  },
+  {
+    id: 'SWECKER',
+    name: 'Chris Swecker',
+    lat: 35.227, lng: -80.843,
+    status: 'ACTIVE',
+    degree: 4,
+    cluster: 'INTEL_OVERSIGHT',
+    field: 'Law Enforcement / Counterintelligence / Security Analysis',
+    org: 'FBI (Ret.) — Assistant Director, Criminal Investigative Division',
+    location: 'Charlotte, NC',
+    date: 'N/A',
+    patterns: ['CONGRESSIONAL_OVERSIGHT','INTEL_OVERSIGHT'],
+    summary: 'Born July 14, 1956 in Ferrol, Spain. Served 24 years in the FBI; retired 2006 as Assistant Director, Criminal Investigative Division — overseeing all FBI criminal and cyber investigations. FBI On-Scene Commander in Iraq (2003), leading counter-intelligence, terror financing, and IED investigations. Managed capture of Olympic bomber Eric Rudolph, dismantled a Hezbollah terror financing cell. Post-FBI: Global Security Director at Bank of America (2006–2009); founded Chris Swecker Enterprises (security consulting). Appointed by NC Governor as Chairman, Governor\'s Crime Commission (2013). Primary law enforcement commentator on the scientist death pattern. Told Daily Mail: "You can say these are all suspicious, and these are scientists who have worked in critical technology." Named China, Russia, Pakistan, India, Iran, North Korea as foreign intelligence threats targeting U.S. scientists.',
+    cause: 'No incident. 4th-degree intel oversight link — publicly identified as the lead law-enforcement voice contextualizing the death/disappearance pattern as potential foreign intelligence operations targeting critical technology holders.',
+    links: [
+      { label: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Chris_Swecker' },
+      { label: 'Fox News Profile', url: 'https://www.foxnews.com/person/s/chris-swecker' },
+      { label: 'FBI Press Release 2004', url: 'https://www.fbi.gov/news/pressrel/press-releases/fbi-director-names-special-agent-chris-swecker-assistant-director-for-criminal-investigative-division' },
+    ],
+    timeline: [
+      { date: '1982', event: 'Joins FBI' },
+      { date: '1999–2005', event: 'SAC North Carolina — captures Eric Rudolph; dismantles Hezbollah cell' },
+      { date: '2003', event: 'FBI On-Scene Commander, Iraq operations' },
+      { date: '2004–2006', event: 'Assistant Director, Criminal Investigative Division — oversees all FBI criminal/cyber cases' },
+      { date: '2006', event: 'Retires from FBI; joins Bank of America as Global Security Director' },
+      { date: 'Apr 2026', event: 'Publicly declares pattern "suspicious" — says foreign intel targeting of U.S. science has been ongoing since Cold War' },
+    ]
+  },
+  // ── 5th DEGREE EXTENDED NODES ─────────────────────────────
+  {
+    id: 'DELONGE',
+    name: 'Tom DeLonge',
+    lat: 32.715, lng: -117.157,
+    status: 'ACTIVE',
+    degree: 5,
+    cluster: 'UAP_NETWORK',
+    field: 'UAP Advocacy / Aerospace Research / Entertainment',
+    org: 'To The Stars Inc. — Founder & CEO',
+    location: 'San Diego, CA',
+    date: 'N/A',
+    patterns: ['UAP_NETWORK'],
+    summary: 'Co-founder and CEO of To The Stars Inc. (formerly To The Stars Academy of Arts & Science), a San Diego-based public benefit corporation. Best known as co-founder/guitarist of Blink-182 and Angels & Airwaves. Founded TTSA in 2017 with ex-CIA officer Jim Semivan and parapsychologist Harold Puthoff. The organization assembled a team of ex-Pentagon, CIA, and aerospace officials to investigate UAP. In 2016 WikiLeaks-released emails, DeLonge corresponded with John Podesta and held a virtual meeting that included MCCASLAND as "The General." TTSA released the GIMBAL, FLIR, and GOFAST Navy UAP footage that triggered the 2020 Pentagon declassification and 2023 Congressional UAP hearings. TTSA held a U.S. Army cooperative research agreement (2019). MCCASLAND served as an informal military consultant to DeLonge after his 2013 retirement.',
+    cause: 'No incident. 5th-degree link to MCCASLAND: verified via 2016 Podesta emails showing DeLonge, McCasland, and Lockheed\'s Rob Weiss in joint meeting. McCasland was DeLonge\'s primary active-duty-era military contact in the UAP research network.',
+    links: [
+      { label: 'To The Stars Inc. — Wikipedia', url: 'https://en.wikipedia.org/wiki/To_The_Stars_Inc.' },
+      { label: 'War Zone — TTSA Origin Story', url: 'https://www.twz.com/28377/tom-delonges-origin-story-for-to-the-stars-academy-describes-a-government-info-operation' },
+      { label: 'Rolling Stone — TTSA Launch', url: 'https://www.rollingstone.com/music/music-news/tom-delonge-announces-stars-academy-for-outer-edges-of-science-research-125580/' },
+    ],
+    timeline: [
+      { date: '2014', event: 'Leaves Blink-182 to focus on UAP research; begins contacting senior military officials' },
+      { date: '2016', event: 'Podesta emails reveal meeting with MCCASLAND and Lockheed Skunk Works director Rob Weiss' },
+      { date: 'Oct 2017', event: 'Founds To The Stars Academy with ex-CIA and Pentagon officials' },
+      { date: '2017', event: 'Releases GIMBAL/FLIR/GOFAST Navy UAP footage' },
+      { date: '2019', event: 'TTSA signs $750K cooperative research agreement with U.S. Army' },
+      { date: 'Post-2013', event: 'MCCASLAND serves as informal UAP consultant for TTSA after his retirement' },
+    ]
+  },
+  {
+    id: 'ELIZONDO',
+    name: 'Luis Elizondo',
+    lat: 38.868, lng: -77.054,
+    status: 'ACTIVE',
+    degree: 5,
+    cluster: 'UAP_NETWORK',
+    field: 'Intelligence / UAP Program Management / Counterintelligence',
+    org: 'Pentagon AATIP (Former) / To The Stars (Former) / Independent',
+    location: 'Washington, D.C.',
+    date: 'N/A',
+    patterns: ['UAP_NETWORK','INTEL_OVERSIGHT'],
+    summary: 'Former senior intelligence official and special agent. Led or served as senior member of the Pentagon\'s Advanced Aerospace Threat Identification Program (AATIP) — the classified DOD program investigating UAP that Senator Harry Reid confirmed he ran. University of Miami graduate: microbiology and immunology. Army veteran; later served as counterintelligence agent, Special Agent-In-Charge supervising terrorism and espionage investigations globally; ran clandestine operations in Latin America and the Middle East. Resigned from Pentagon Oct 2017 to protest excessive secrecy. Joined TTSA (DeLonge\'s company); released three Navy UAP videos now officially declassified. Publicly warned after MCCASLAND\'s disappearance: "I hope and pray this is not one of those cases where a former senior military officer was specifically targeted." Author of "Imminent: Inside the Pentagon\'s Hunt for UFOs" (2024). Filed Inspector General complaint over Pentagon attempts to discredit him.',
+    cause: 'No incident. 5th-degree link: connected to MCCASLAND via TTSA (DeLonge\'s company) — both served as senior military contacts to DeLonge. Elizondo publicly commented on McCasland\'s disappearance as a national security concern.',
+    links: [
+      { label: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Luis_Elizondo' },
+      { label: 'Official Site', url: 'https://luiselizondo-official.com/' },
+      { label: 'Newsweek — UAP Op-Ed', url: 'https://www.newsweek.com/i-worked-pentagon-americans-have-right-know-about-uaps-1941089' },
+      { label: 'CNN — McCasland Comment', url: 'https://www.cnn.com/2026/03/11/us/retired-air-force-general-fbi-search' },
+    ],
+    timeline: [
+      { date: 'Army service', event: 'U.S. Army; later counterintelligence Special Agent-In-Charge' },
+      { date: '~2009', event: 'Recruited to Pentagon AATIP program' },
+      { date: 'Oct 2017', event: 'Resigns from Pentagon in protest over UAP secrecy' },
+      { date: '2017', event: 'Joins To The Stars Academy; facilitates release of Navy UAP footage' },
+      { date: 'Nov 2024', event: 'Testifies before joint House Oversight Subcommittee on UAP' },
+      { date: 'Mar 2026', event: 'Publicly comments on McCasland\'s disappearance as national security concern' },
+    ]
+  },
+  {
+    id: 'GALLAGHER',
+    name: 'Dave Gallagher',
+    lat: 34.203, lng: -118.175,
+    status: 'ACTIVE',
+    degree: 5,
+    cluster: 'AEROSPACE',
+    field: 'Electrical Engineering / Optical Systems / JPL Administration',
+    org: 'NASA JPL — 11th Director (June 2025–present)',
+    location: 'Pasadena, CA',
+    date: 'N/A',
+    patterns: ['JPL_LEADERSHIP','PASADENA_TRIANGLE'],
+    summary: 'Appointed 11th Director of NASA\'s Jet Propulsion Laboratory in June 2025, succeeding Laurie Leshin. Joined JPL in 1989; over 36 years held numerous senior leadership positions: Director and Deputy Director for Astronomy, Physics, and Space Technology; manager of JPL\'s Advanced Optical Systems Program Office; managed the Spitzer Space Telescope (the same program HICKS contributed to); led the team that built the Wide Field/Planetary Camera 2 (WF/PC-2) that corrected the Hubble Space Telescope\'s flawed mirror. Electrical engineer. Became JPL Director at the same time the pattern of deaths and disappearances among JPL-affiliated scientists was receiving congressional and FBI attention.',
+    cause: 'No incident. 5th-degree institutional link: inherited directorship of JPL in June 2025 — the same month REZA vanished (Jun 22) — and now administers the institution at the center of the pattern.',
+    links: [
+      { label: 'JPL — Gallagher Appointment', url: 'https://www.jpl.nasa.gov/news/dave-gallagher-named-11th-director-of-jpl-as-laurie-leshin-steps-down/' },
+      { label: 'Caltech PMA News', url: 'https://www.pma.caltech.edu/news/dave-gallagher-named-11th-jpl-director' },
+    ],
+    timeline: [
+      { date: '1989', event: 'Joins JPL as engineer' },
+      { date: 'Various', event: 'Manages Spitzer Space Telescope; builds Hubble WF/PC-2 correction camera' },
+      { date: 'Various', event: 'Director/Deputy Director for Astronomy, Physics, and Space Technology' },
+      { date: 'Jun 2, 2025', event: 'Becomes 11th JPL Director — days before REZA\'s disappearance' },
+    ]
+  },
+  // ── 6th DEGREE EXTENDED NODES ─────────────────────────────
+  {
+    id: 'CHESLEY',
+    name: 'Dr. Steve Chesley',
+    lat: 34.201, lng: -118.170,
+    status: 'ACTIVE',
+    degree: 6,
+    cluster: 'PLANETARY_DEFENSE',
+    field: 'Planetary Science / Orbital Mechanics / DART Science',
+    org: 'NASA JPL — Center for Near-Earth Object Studies (CNEOS)',
+    location: 'Pasadena, CA',
+    date: 'N/A',
+    patterns: ['PLANETARY_DEFENSE','PASADENA_TRIANGLE','JPL_LEADERSHIP'],
+    summary: 'Senior scientist at NASA\'s JPL and a key figure in the Center for Near-Earth Object Studies (CNEOS). Led the JPL science investigation team for the DART mission — the same mission HICKS served on as science team member. Directed radar observations using the 70-meter Goldstone Deep Space Station antenna to measure Dimorphos\'s orbital change post-impact. CNEOS is the institutional home for Near-Earth Object tracking, the same program space that connects HICKS\'s NEAT and Dawn mission work. The direct JPL scientific successor to the DART program that HICKS contributed to before his death.',
+    cause: 'No incident. 6th-degree science chain link: Chesley led JPL\'s DART science team that HICKS was embedded in. Their work represents the same planetary defense and NEO characterization domain.',
+    links: [
+      { label: 'NASA — DART JPL Team', url: 'https://www.jpl.nasa.gov/news/nasas-asteroid-striking-dart-mission-team-has-jpl-members/' },
+      { label: 'NASA — DART Mission', url: 'https://science.nasa.gov/planetary-defense-dart/' },
+    ],
+    timeline: [
+      { date: 'Ongoing', event: 'Senior Scientist, JPL CNEOS — Near-Earth Object tracking' },
+      { date: '2022', event: 'Leads JPL DART science investigation team; HICKS also on science team' },
+      { date: 'Post-2022', event: 'Continues DART post-impact analysis and NEO Surveyor development' },
+    ]
+  },
+  {
+    id: 'CHABOT',
+    name: 'Dr. Nancy Chabot',
+    lat: 39.166, lng: -76.894,
+    status: 'ACTIVE',
+    degree: 6,
+    cluster: 'PLANETARY_DEFENSE',
+    field: 'Planetary Science / DART Mission Leadership',
+    org: 'Johns Hopkins Applied Physics Laboratory (APL) — DART Coordination Lead',
+    location: 'Laurel, MD',
+    date: 'N/A',
+    patterns: ['PLANETARY_DEFENSE'],
+    summary: 'Planetary scientist at Johns Hopkins University Applied Physics Laboratory (APL) and DART coordination lead. APL designed and managed the DART spacecraft for NASA. While JPL (HICKS\'s institution) provided navigation, science, and communications support, CHABOT led the overall science coordination effort for the mission. Stated after impact: "DART has given us some fascinating data about both asteroid properties and the effectiveness of a kinetic impactor as a planetary defense technology." Her work represents the institutional counterpart to HICKS\'s JPL-based DART science team work. APL and JPL together formed the backbone of the DART planetary defense test.',
+    cause: 'No incident. 6th-degree mission chain link: Chabot (APL) and Hicks (JPL) worked on opposite institutional ends of the same DART planetary defense mission.',
+    links: [
+      { label: 'Space.com — DART Guide', url: 'https://www.space.com/dart-asteroid-mission' },
+      { label: 'NASA — DART Mission', url: 'https://science.nasa.gov/planetary-defense-dart/' },
+      { label: 'DART Mission Site', url: 'https://dart.jhuapl.edu/' },
+    ],
+    timeline: [
+      { date: '2017–2022', event: 'Leads science coordination for DART mission development and execution' },
+      { date: 'Sep 26, 2022', event: 'DART successfully deflects Dimorphos — HICKS on JPL science team for mission' },
+      { date: 'Post-2022', event: 'Continues DART data analysis and planetary defense research' },
+    ]
+  },
+
 ];
 
 // Merge all nodes
@@ -1306,6 +1584,39 @@ const EDGES = [
   { source: 'LANDER', target: 'LOUREIRO', type: 'INSTITUTIONAL', label: '3rd° — Lander and Loureiro shared the MIT institutional network; Lander\'s OSTP role shaped federal funding channels for PSFC research' },
   { source: 'PRABHAKAR', target: 'CHAVEZ', type: 'INSTITUTIONAL', label: '3rd° — Prabhakar\'s DARPA directorship (2012–2017) created federal R&D funding pipelines that flow through LANL, directly relevant to Chavez\'s R&D work' },
   { source: 'PRABHAKAR', target: 'LOUREIRO', type: 'INSTITUTIONAL', label: '3rd° — Prabhakar\'s OSTP directorship (2022–2025) coordinated federal science policy including DOE fusion energy programs at MIT PSFC' },
+  // ── 4th DEGREE EDGES ────────────────────────────────────
+  { source: 'LESHIN', target: 'REZA', type: 'INSTITUTIONAL', label: '4th° — Leshin directed JPL 2022–2025; Reza joined JPL in this window and disappeared Jun 2025 under Leshin\'s watch; JPL issued no public statement' },
+  { source: 'LESHIN', target: 'MAIWALD', type: 'INSTITUTIONAL', label: '4th° — Maiwald died Jul 4 2024 while Leshin was JPL Director; no cause disclosed, no JPL acknowledgment under her leadership' },
+  { source: 'LESHIN', target: 'GRILLMAIR', type: 'INSTITUTIONAL', label: '4th° — Grillmair at IPAC/Caltech during Leshin\'s JPL directorship; both within the Caltech-JPL institutional family' },
+  { source: 'LESHIN', target: 'WATKINS', type: 'INSTITUTIONAL', label: '4th° — Leshin directly succeeded Watkins as JPL Director (May 2022)' },
+  { source: 'JOHNSON_L', target: 'HICKS', type: 'WORK', label: '4th° — Johnson\'s PDCO/NEO program umbrella oversaw DART, NEAT, and NEO Surveyor — all missions HICKS served as science team member on' },
+  { source: 'JOHNSON_L', target: 'GRILLMAIR', type: 'WORK', label: '4th° — Grillmair contributed to NEOWISE and NEO Surveyor at IPAC/Caltech, both under NASA\'s planetary defense/NEO program that Johnson led' },
+  { source: 'JOHNSON_L', target: 'LESHIN', type: 'INSTITUTIONAL', label: '4th° — Johnson\'s PDCO at NASA HQ coordinated with Leshin\'s JPL on planetary defense missions' },
+  { source: 'BURCHETT', target: 'MCCASLAND', type: 'ACQUAINTANCE', label: '4th° — Burchett cited McCasland\'s disappearance as part of a pattern; attended classified briefings on UAP that McCasland had historically fed into' },
+  { source: 'BURCHETT', target: 'GRILLMAIR', type: 'ACQUAINTANCE', label: '4th° — Burchett publicly connected Grillmair\'s murder to the broader pattern of scientist deaths' },
+  { source: 'BURCHETT', target: 'LOUREIRO', type: 'ACQUAINTANCE', label: '4th° — Burchett referenced Loureiro\'s murder in March 2026 as part of the same disturbing pattern' },
+  { source: 'BURLISON', target: 'MCCASLAND', type: 'ACQUAINTANCE', label: '4th° — Burlison formally requested FBI investigation specifically citing McCasland\'s disappearance; stated McCasland "has a lot of information" on UAP' },
+  { source: 'BURLISON', target: 'REZA', type: 'ACQUAINTANCE', label: '4th° — Burlison cited Reza\'s disappearance alongside McCasland\'s as the two cases most urgently requiring FBI scrutiny' },
+  { source: 'BURLISON', target: 'BURCHETT', type: 'WORK', label: '4th° — Both Republican congressmen jointly pressing FBI investigation; Burlison and Burchett publicly coordinated their oversight demands' },
+  { source: 'SWECKER', target: 'GRILLMAIR', type: 'ACQUAINTANCE', label: '4th° — Swecker publicly identified Grillmair\'s death as part of a pattern of foreign intelligence targeting of scientists with critical technology knowledge' },
+  { source: 'SWECKER', target: 'MCCASLAND', type: 'ACQUAINTANCE', label: '4th° — Swecker named McCasland\'s case in the broader foreign intelligence threat context' },
+  { source: 'SWECKER', target: 'BURCHETT', type: 'ACQUAINTANCE', label: '4th° — Both named by Daily Mail as key voices on the scientist pattern; Swecker provided law enforcement context to Burchett\'s congressional concerns' },
+  // ── 5th DEGREE EDGES ────────────────────────────────────
+  { source: 'DELONGE', target: 'MCCASLAND', type: 'WORK', label: '5th° — Verified via 2016 Podesta emails: DeLonge, McCasland, and Lockheed Skunk Works\' Rob Weiss held a joint meeting; McCasland served as informal UAP military consultant to TTSA post-retirement' },
+  { source: 'DELONGE', target: 'RAYMOND', type: 'ACQUAINTANCE', label: '5th° — Both senior figures in the military-UAP disclosure network; Raymond succeeded commanders in the same chain McCasland and DeLonge interacted with' },
+  { source: 'ELIZONDO', target: 'MCCASLAND', type: 'ACQUAINTANCE', label: '5th° — Both connected to TTSA/DeLonge UAP network; both served as senior military contacts; Elizondo publicly commented on McCasland\'s disappearance as a national security concern' },
+  { source: 'ELIZONDO', target: 'DELONGE', type: 'WORK', label: '5th° — Elizondo joined To The Stars Academy after leaving Pentagon; key figure in DeLonge\'s UAP research team' },
+  { source: 'ELIZONDO', target: 'BURCHETT', type: 'ACQUAINTANCE', label: '5th° — Both public advocates for UAP transparency; Elizondo\'s congressional testimony influenced the oversight hearings Burchett participated in' },
+  { source: 'GALLAGHER', target: 'REZA', type: 'INSTITUTIONAL', label: '5th° — Gallagher became JPL Director June 2, 2025 — 20 days before Reza vanished Jun 22; current JPL director during active investigation period' },
+  { source: 'GALLAGHER', target: 'LESHIN', type: 'INSTITUTIONAL', label: '5th° — Gallagher directly succeeded Leshin as JPL Director June 2025' },
+  { source: 'GALLAGHER', target: 'GRILLMAIR', type: 'INSTITUTIONAL', label: '5th° — Gallagher managed the Spitzer Space Telescope — same program GRILLMAIR worked on at IPAC for decades' },
+  // ── 6th DEGREE EDGES ────────────────────────────────────
+  { source: 'CHESLEY', target: 'HICKS', type: 'WORK', label: '6th° — Both on the DART mission science team at JPL; Chesley led the JPL DART science investigation that Hicks contributed to' },
+  { source: 'CHESLEY', target: 'JOHNSON_L', type: 'INSTITUTIONAL', label: '6th° — Chesley\'s CNEOS work at JPL sits under the PDCO umbrella that Johnson established and directed' },
+  { source: 'CHESLEY', target: 'GRILLMAIR', type: 'INSTITUTIONAL', label: '6th° — Both JPL/IPAC scientists in the Near-Earth Object and planetary defense research corridor at Caltech' },
+  { source: 'CHABOT', target: 'HICKS', type: 'WORK', label: '6th° — Chabot (APL) and Hicks (JPL) both served as science team members on the DART planetary defense mission from their respective institutions' },
+  { source: 'CHABOT', target: 'CHESLEY', type: 'WORK', label: '6th° — Chabot led APL DART science coordination; Chesley led JPL DART science investigation — direct institutional counterparts on the same mission' },
+
 ];
 
 // ═══════════════════════════════════════
@@ -1382,6 +1693,35 @@ const PATTERNS = {
     desc: 'All confirmed deceased and missing subjects ordered chronologically. HICKS (Jul 2023) is the earliest-dated event; McCasland (Feb 2026) is the most recent.',
     nodes: ['HICKS','MAIWALD','CHAVEZ','REZA','CASIAS','THOMAS','LOUREIRO','GRILLMAIR','MCCASLAND']
   },
+  PLANETARY_DEFENSE: {
+    id: 'PLANETARY_DEFENSE',
+    label: 'Planetary Defense Network',
+    color: '#268bd2',
+    desc: 'NASA PDCO, DART mission, NEO programs. Links HICKS, GRILLMAIR, JOHNSON_L, LESHIN, CHESLEY, CHABOT across planetary defense and asteroid tracking programs.',
+    nodes: ['HICKS','GRILLMAIR','JOHNSON_L','LESHIN','CHESLEY','CHABOT','ELACHI','WATKINS']
+  },
+  CONGRESSIONAL_OVERSIGHT: {
+    id: 'CONGRESSIONAL_OVERSIGHT',
+    label: 'Congressional Oversight',
+    color: '#b58900',
+    desc: 'Elected officials and law enforcement publicly investigating the pattern of scientist deaths and disappearances. BURCHETT and BURLISON leading congressional push for FBI involvement.',
+    nodes: ['BURCHETT','BURLISON','SWECKER','MCCASLAND','REZA','GRILLMAIR','LOUREIRO']
+  },
+  UAP_NETWORK: {
+    id: 'UAP_NETWORK',
+    label: 'UAP Research Network',
+    color: '#6c71c4',
+    desc: 'The civilian and ex-military UAP disclosure network: DeLonge\'s TTSA, Elizondo\'s AATIP, McCasland\'s post-retirement consulting role. Verified via WikiLeaks Podesta emails.',
+    nodes: ['MCCASLAND','DELONGE','ELIZONDO','RAYMOND','BURCHETT','BURLISON']
+  },
+  INTEL_OVERSIGHT: {
+    id: 'INTEL_OVERSIGHT',
+    label: 'Intel & Law Enforcement',
+    color: '#dc322f',
+    desc: 'Former intelligence and law enforcement figures who have publicly contextualized the pattern as potential foreign intelligence operations against critical technology holders.',
+    nodes: ['SWECKER','ELIZONDO','BURCHETT','BURLISON','MCCASLAND']
+  },
+
 };
 
 // ═══════════════════════════════════════
@@ -1454,7 +1794,10 @@ function getMarkerColor(node) {
   if (deg === 0) return getStatusColor(node.status);
   if (deg === 1) return '#2aa198';
   if (deg === 2) return '#6c71c4';
-  return '#657b83';
+  if (deg === 3) return '#657b83';
+  if (deg === 4) return '#b58900';
+  if (deg === 5) return '#268bd2';
+  return '#859900';  // deg 6
 }
 
 function getDegreeLabel(deg) {
@@ -1778,7 +2121,7 @@ function filterNodes(f) {
 
 function filterDegree(deg) {
   activeDegree = deg;
-  ['all',0,1,2,3].forEach(d => {
+  ['all',0,1,2,3,4,5,6].forEach(d => {
     const key = d === 'all' ? 'f-deg-all' : 'f-deg-'+d;
     const el = document.getElementById(key);
     if (el) el.classList.toggle('on', d === deg);
@@ -1945,7 +2288,15 @@ function initGraph() {
   });
 
   // Degree legend
-  const legData = [['CORE','#dc322f'],['1\u00b0','#2aa198'],['2\u00b0','#6c71c4'],['3\u00b0','#657b83']];
+  const legData = [
+    ['CORE','#dc322f'],
+    ['1\u00b0','#2aa198'],
+    ['2\u00b0','#6c71c4'],
+    ['3\u00b0','#657b83'],
+    ['4\u00b0','#b58900'],
+    ['5\u00b0','#268bd2'],
+    ['6\u00b0','#859900'],
+  ];
   const leg = svgEl.append('g').attr('transform','translate(16,'+(H-84)+')');
   legData.forEach(([lbl,col],i) => {
     leg.append('circle').attr('cx',6).attr('cy',i*18).attr('r',5)
@@ -1965,7 +2316,7 @@ function resetView() {
   activePattern = null;
   ['all','deceased','missing'].forEach(x =>
     document.getElementById('f-'+x)?.classList.toggle('on', x === 'all'));
-  ['f-deg-all','f-deg-0','f-deg-1','f-deg-2','f-deg-3'].forEach((id,i) =>
+  ['f-deg-all','f-deg-0','f-deg-1','f-deg-2','f-deg-3','f-deg-4','f-deg-5','f-deg-6'].forEach((id,i) =>
     document.getElementById(id)?.classList.toggle('on', i === 0));
   document.querySelectorAll('.pattern-item').forEach(el => el.classList.remove('active'));
   if (currentMode === 'map' && map) { map.flyTo([37.5,-100], 5, { duration:1 }); }
