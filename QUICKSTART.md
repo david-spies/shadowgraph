@@ -1,4 +1,4 @@
-# QUICKSTART — SHADOWGRAPH v1.0
+# QUICKSTART — SHADOWGRAPH v1.3
 
 ```
 ╔══════════════════════════════════════════╗
