@@ -648,13 +648,13 @@
     </div>
     <div class="hdr-sep"></div>
     <div class="hdr-stat">
-      <div><span class="pulse-dot"></span>NODES: <span class="val">29</span></div>
-      <div>CONNECTIONS: <span class="val">65</span></div>
+      <div><span class="pulse-dot"></span>NODES: <span class="val">31</span></div>
+      <div>CONNECTIONS: <span class="val">73</span></div>
     </div>
     <div class="hdr-sep"></div>
     <div class="hdr-stat">
       <div>DECEASED: <span class="val" style="color:var(--deceased)">5</span></div>
-      <div>MISSING: <span class="val" style="color:var(--missing)">3</span></div>
+      <div>MISSING: <span class="val" style="color:var(--missing)">4</span></div>
     </div>
   </div>
   <div class="hdr-right">
@@ -763,7 +763,7 @@
   <div class="status-item">SYSTEM<span class="v green">ONLINE</span></div>
   <div class="status-item">BACKEND<span class="v green">LOCAL</span></div>
   <div class="status-item">MAP<span class="v">LEAFLET 1.9</span></div>
-  <div class="status-item">LAST UPDT<span class="v" id="sb-date">2026-04-08</span></div>
+  <div class="status-item">LAST UPDT<span class="v" id="sb-date">2026-04-17</span></div>
   <div class="status-item" style="margin-left:auto;">INTEL SRC<span class="v green">OSINT</span></div>
 </div>
 
@@ -985,6 +985,35 @@ const NODES = [
       { date: 'Dec 13, 2025', event: 'Wife reports him missing to Wakefield PD. Large-scale search launched.' },
       { date: 'Winter 2026', event: 'Lake Quannapowitt freezes over; search suspended pending thaw' },
       { date: 'Mar 17, 2026', event: 'Body recovered from Lake Quannapowitt after spring thaw. Cause of death pending.' },
+    ]
+  },
+  {
+    id: 'GARCIA',
+    name: 'Steven Garcia',
+    lat: 35.048, lng: -106.741,
+    status: 'MISSING',
+    field: 'Nuclear Weapons / Asset Security / Property Management',
+    org: 'Kansas City National Security Campus (KCNSC) — Government Contractor',
+    location: 'Albuquerque, NM',
+    date: 'Aug 28, 2025',
+    patterns: ['NM_CORRIDOR','NUCLEAR_WEAPONS_COMPLEX','INCIDENT_TIMELINE'],
+    summary: 'Government contractor, age 48, at the Kansas City National Security Campus (KCNSC) Albuquerque (New Mexico Operations) facility. KCNSC is managed by Honeywell Federal Manufacturing and Technologies for DOE/NNSA and manufactures over 80% of all non-nuclear components for the entire U.S. nuclear weapons stockpile. Garcia served as a property custodian with top secret clearance and broad access across the entire facility, overseeing tens to hundreds of millions of dollars in classified and unclassified nuclear weapons component assets. KCNSC Albuquerque works directly with LANL, Sandia National Laboratories, and Kirtland Air Force Base — the same New Mexico nuclear defense nexus as CASIAS, CHAVEZ, and MCCASLAND. Behavioral signature of disappearance is identical to MCCASLAND: both walked out of Albuquerque homes on foot carrying only a handgun, leaving all electronics and identification behind.',
+    cause: 'Disappeared August 28, 2025. Last seen on surveillance cameras leaving Albuquerque home at Cattail Court SW just after 9AM wearing green camouflage shirt and shorts, carrying only a handgun. Left behind phone, wallet, keys, and car. Albuquerque police warned he may be a danger to himself. Anonymous source disputed mental health issues: He was a very stable person. KCNSC launched internal investigation reviewing his work computers and files — no leads found. Named as the 10th person connected to U.S. nuclear or space research to die or disappear mysteriously. White House officially notified April 2026; Trump stated pretty serious stuff on Apr 16, 2026.',
+    links: [
+      { label: 'Daily Mail — 10th Nuclear Official', url: 'https://arutzshevatuzarapost.substack.com/p/exclusive-missing-nuclear-official' },
+      { label: 'Newsweek — Garcia vs McCasland', url: 'https://www.newsweek.com/missing-government-security-man-compared-to-neil-mccasland-case-11828116' },
+      { label: 'NewsNation — Pattern Analysis', url: 'https://www.newsnationnow.com/space/ufo/steven-garcia-disappearance-neil-mccasland/' },
+      { label: 'KCNSC New Mexico Operations (Official)', url: 'https://kcnsc.doe.gov/about-us/new-mexico-operations/' },
+      { label: 'Wikipedia — KCNSC', url: 'https://en.wikipedia.org/wiki/Kansas_City_National_Security_Campus' },
+    ],
+    timeline: [
+      { date: 'Career', event: 'Government contractor at KCNSC Albuquerque — property custodian, TS clearance, oversight of tens-hundreds of millions in classified nuclear weapons component assets' },
+      { date: 'Aug 28, 2025 9AM', event: 'Walks out of Albuquerque home carrying only a handgun. Leaves phone, wallet, keys, car. Captured on surveillance camera. Never returns.' },
+      { date: 'Aug 28, 2025', event: 'Albuquerque police issue warning: may be a danger to himself. Source disputes: He was a very stable person.' },
+      { date: 'Post Aug 2025', event: 'KCNSC internal investigation — reviews work computers and files. No leads found.' },
+      { date: 'Apr 14, 2026', event: 'Identified as 10th person connected to U.S. nuclear/space secrets to disappear or die mysteriously.' },
+      { date: 'Apr 16, 2026', event: 'Fox News Peter Doocy presses White House; Leavitt commits to agency consultation.' },
+      { date: 'Apr 17, 2026', event: 'Trump South Lawn: I just left a meeting on that subject. Pretty serious stuff. We are going to look at it.' },
     ]
   },
 ];
@@ -1543,6 +1572,32 @@ const NODES_EXT = [
     ]
   },
 
+  {
+    id: 'LEAVITT',
+    name: 'Karoline Leavitt',
+    lat: 38.897, lng: -77.038,
+    status: 'ACTIVE',
+    degree: 4,
+    cluster: 'CONGRESSIONAL_OVERSIGHT',
+    field: 'White House Communications / Government Response',
+    org: 'White House Press Secretary (2025-present)',
+    location: 'Washington, D.C.',
+    date: 'N/A',
+    patterns: ['CONGRESSIONAL_OVERSIGHT','INCIDENT_TIMELINE'],
+    summary: 'White House Press Secretary under President Trump (2025-present). On April 16, 2026, Fox News Senior White House Correspondent Peter Doocy pressed Leavitt at the daily briefing: There are now 10 American scientists who have either gone missing or died since mid-2024. They all reportedly had access to classified nuclear or aerospace material. Is anybody investigating this to see if these things are connected? Leavitt acknowledged awareness of the reports and committed to consulting relevant agencies. Her response marked the first formal White House acknowledgment that the pattern warranted governmental scrutiny. One day later on April 17, President Trump confirmed he had already held a meeting on the subject and called it pretty serious stuff.',
+    cause: 'No incident. First White House official to formally acknowledge the pattern on record. Her Apr 16, 2026 briefing answer directly triggered presidential-level engagement the following day.',
+    links: [
+      { label: 'Newsweek — White House Investigating', url: 'https://www.newsweek.com/white-house-investigating-wave-mystery-dead-scientists-11836410' },
+      { label: 'Fox News — Leavitt Vows Probe', url: 'https://www.foxnews.com/us/mystery-clouds-deaths-disappearances-scientists-ufo-research-ties-timeline' },
+      { label: 'RedState — Trump Investigates', url: 'https://redstate.com/jenvanlaar/2026/04/16/trump-on-missing-scientists-n2201364' },
+      { label: 'Newsweek — Trump Serious Stuff', url: 'https://www.newsweek.com/donald-trump-issues-warning-on-missing-dead-scientists-serious-stuff-11841332' },
+    ],
+    timeline: [
+      { date: 'Apr 16, 2026', event: 'Peter Doocy presses at daily briefing on 10 dead/missing scientists with classified access. Leavitt acknowledges the report; commits to consulting relevant agencies.' },
+      { date: 'Apr 16, 2026', event: 'Leavitt: If true, of course, that is definitely something I think this government and administration would deem worth looking into.' },
+      { date: 'Apr 17, 2026', event: 'Trump confirms on South Lawn before departing for Las Vegas: I just left a meeting on that subject. Pretty serious stuff. Some of them were very important people.' },
+    ]
+  },
 ];
 
 // Merge all nodes
@@ -1617,6 +1672,16 @@ const EDGES = [
   { source: 'CHABOT', target: 'HICKS', type: 'WORK', label: '6th° — Chabot (APL) and Hicks (JPL) both served as science team members on the DART planetary defense mission from their respective institutions' },
   { source: 'CHABOT', target: 'CHESLEY', type: 'WORK', label: '6th° — Chabot led APL DART science coordination; Chesley led JPL DART science investigation — direct institutional counterparts on the same mission' },
 
+  // ── GARCIA + WHITE HOUSE EDGES ──────────────────────────
+  { source: 'GARCIA', target: 'MCCASLAND', type: 'ACQUAINTANCE', label: 'Geographic and behavioral signature match: both walked out of Albuquerque homes on foot carrying only a handgun, left all electronics behind, never returned. KCNSC-LANL-Kirtland AFB nexus directly links their institutional orbits.' },
+  { source: 'GARCIA', target: 'CASIAS', type: 'ACQUAINTANCE', label: 'Three NM nuclear facility personnel (GARCIA-CASIAS-CHAVEZ) all disappeared on foot in 2025 leaving devices behind — identical physical signature. KCNSC and LANL both operate under the DOE/NNSA Albuquerque nuclear complex.' },
+  { source: 'GARCIA', target: 'CHAVEZ', type: 'ACQUAINTANCE', label: 'Garcia (KCNSC), Chavez (LANL), and Casias (LANL) all disappeared from New Mexico nuclear defense corridor within the same 4-month window (May-Aug 2025). KCNSC and LANL collaborate directly under NNSA/Kirtland AFB umbrella.' },
+  { source: 'GARCIA', target: 'MASON', type: 'INSTITUTIONAL', label: '2nd degree — KCNSC NM Operations and LANL (Mason directorship) both operate under DOE/NNSA nuclear security enterprise; share facilities, contractors, and Kirtland AFB oversight.' },
+  { source: 'LEAVITT', target: 'GARCIA', type: 'ACQUAINTANCE', label: '4th degree — Garcia being named the 10th missing/dead scientist triggered the White House briefing question Leavitt answered on Apr 16, 2026; her response initiated formal White House investigation.' },
+  { source: 'LEAVITT', target: 'BURCHETT', type: 'INSTITUTIONAL', label: '4th degree — Congressional pressure from Burchett and Burlison preceded and prompted the White House press briefing question; Leavitt response was direct institutional reaction to congressional demands.' },
+  { source: 'LEAVITT', target: 'BURLISON', type: 'INSTITUTIONAL', label: '4th degree — Burlison formally requested FBI investigation; Leavitt White House response followed within days as congressional pressure intensified.' },
+  { source: 'LEAVITT', target: 'SWECKER', type: 'ACQUAINTANCE', label: '4th degree — Swecker public comments informed the White House briefing question framing; both operating in the public response layer to the scientist pattern.' },
+
 ];
 
 // ═══════════════════════════════════════
@@ -1670,7 +1735,7 @@ const PATTERNS = {
     label: 'New Mexico Corridor',
     color: '#859900',
     desc: 'Geographic and institutional cluster in New Mexico: LANL (Casias, Chavez, Mason) and Albuquerque (McCasland). Four nodes, two disappearances, one active search.',
-    nodes: ['MCCASLAND','CASIAS','CHAVEZ','MASON']
+    nodes: ['MCCASLAND','CASIAS','CHAVEZ','GARCIA','MASON']
   },
   DOE_FUSION_CHAIN: {
     id: 'DOE_FUSION_CHAIN',
@@ -1691,7 +1756,7 @@ const PATTERNS = {
     label: 'Incident Timeline (2023–2026)',
     color: '#dc322f',
     desc: 'All confirmed deceased and missing subjects ordered chronologically. HICKS (Jul 2023) is the earliest-dated event; McCasland (Feb 2026) is the most recent.',
-    nodes: ['HICKS','MAIWALD','CHAVEZ','REZA','CASIAS','THOMAS','LOUREIRO','GRILLMAIR','MCCASLAND']
+    nodes: ['HICKS','MAIWALD','CHAVEZ','REZA','CASIAS','GARCIA','THOMAS','LOUREIRO','GRILLMAIR','MCCASLAND']
   },
   PLANETARY_DEFENSE: {
     id: 'PLANETARY_DEFENSE',
@@ -1722,6 +1787,14 @@ const PATTERNS = {
     nodes: ['SWECKER','ELIZONDO','BURCHETT','BURLISON','MCCASLAND']
   },
 
+
+  NUCLEAR_WEAPONS_COMPLEX: {
+    id: 'NUCLEAR_WEAPONS_COMPLEX',
+    label: 'Nuclear Weapons Complex',
+    color: '#dc322f',
+    desc: 'NM nuclear defense cluster: KCNSC (Garcia), LANL (Casias, Chavez, Mason), Kirtland AFB (McCasland). All under DOE/NNSA/AFRL. Five disappearances from this corridor since May 2025.',
+    nodes: ['GARCIA','CASIAS','CHAVEZ','MCCASLAND','MASON']
+  },
 };
 
 // ═══════════════════════════════════════
