@@ -5,7 +5,7 @@
 
 ```
 ╔═══════════════════════════════════════════════════════════╗
-║  SHADOWGRAPH v1.3  //  6°NASA  //  OSINT CORRELATION MAP  ║
+║  SHADOWGRAPH v1.4  //  6°NASA  //  OSINT CORRELATION MAP  ║
 ║  STATUS: UNCLASSIFIED  //  BUILD: STABLE  //  LOCAL ONLY  ║
 ╚═══════════════════════════════════════════════════════════╝
 ```
