@@ -1,6 +1,6 @@
 <img width="1136" height="640" alt="ShadowGraph_v3" src="https://github.com/user-attachments/assets/a2b45dbe-190f-4c3c-b8e7-7813f83a3d4f" />
 
-# SHADOWGRAPH v1.3
+# SHADOWGRAPH v1.4
 ### 6 Degrees of NASA — Geospatial Intelligence Visualization Tool
 
 ```
@@ -242,6 +242,7 @@ This tool was developed for open-source intelligence research and educational vi
 | v1.1 | 2026-04-06 | subsequent release — 18 nodes, 26 connections, 8 edges, map + graph modes |
 | v1.2 | 2026-04-07 | subsequent release — 20 nodes, 32 connections, 8 edges, map + graph modes |
 | v1.3 | 2026-04-08 | subsequent release — 29 nodes, 65 connections, 8 edges, map + graph modes |
+| v1.4 | 2026-04-19 | subsequent release — 35 nodes, 83 connections, 8 edges, map + graph modes |
 ---
 
 *SHADOWGRAPH // 6°NASA // BUILD STABLE // OSINT ONLY*
