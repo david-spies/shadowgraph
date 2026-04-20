@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SHADOWGRAPH v1.3 // 6°NASA</title>
+<title>SHADOWGRAPH v1.4 // 6°NASA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
@@ -644,16 +644,16 @@
   <div class="hdr-left">
     <div class="logo">
       SHADOWGRAPH
-      <span>6 DEGREES OF NASA // v1.3</span>
+      <span>6 DEGREES OF NASA // v1.4</span>
     </div>
     <div class="hdr-sep"></div>
     <div class="hdr-stat">
-      <div><span class="pulse-dot"></span>NODES: <span class="val">31</span></div>
-      <div>CONNECTIONS: <span class="val">73</span></div>
+      <div><span class="pulse-dot"></span>NODES: <span class="val">35</span></div>
+      <div>CONNECTIONS: <span class="val">83</span></div>
     </div>
     <div class="hdr-sep"></div>
     <div class="hdr-stat">
-      <div>DECEASED: <span class="val" style="color:var(--deceased)">5</span></div>
+      <div>DECEASED: <span class="val" style="color:var(--deceased)">6</span></div>
       <div>MISSING: <span class="val" style="color:var(--missing)">4</span></div>
     </div>
   </div>
@@ -763,7 +763,7 @@
   <div class="status-item">SYSTEM<span class="v green">ONLINE</span></div>
   <div class="status-item">BACKEND<span class="v green">LOCAL</span></div>
   <div class="status-item">MAP<span class="v">LEAFLET 1.9</span></div>
-  <div class="status-item">LAST UPDT<span class="v" id="sb-date">2026-04-17</span></div>
+  <div class="status-item">LAST UPDT<span class="v" id="sb-date">2026-04-19</span></div>
   <div class="status-item" style="margin-left:auto;">INTEL SRC<span class="v green">OSINT</span></div>
 </div>
 
@@ -1016,8 +1016,66 @@ const NODES = [
       { date: 'Apr 17, 2026', event: 'Trump South Lawn: I just left a meeting on that subject. Pretty serious stuff. We are going to look at it.' },
     ]
   },
+  {
+    id: 'ESKRIDGE',
+    name: 'Amy Eskridge',
+    lat: 34.730, lng: -86.586,
+    status: 'DECEASED',
+    field: 'Aerospace / Anti-Gravity Propulsion / UAP Research',
+    org: 'Institute for Exotic Science / HoloChron Engineering — Huntsville, AL',
+    location: 'Huntsville, AL',
+    date: 'Jun 11, 2022',
+    patterns: ['INCIDENT_TIMELINE','UAP_NETWORK','ANTIGRAVITY_UAP'],
+    summary: 'Age 34. Double major chemistry/biology, University of Alabama Huntsville; master\'s in electrical engineering. Co-founded The Institute for Exotic Science in Huntsville, Alabama as a public-benefit corporation — its stated mission: "a public-facing persona to disclose anti-gravity technology." Co-founded HoloChron Engineering / HoloChron LLC with her father Richard Eskridge (retired NASA Marshall Space Flight Center plasma physicist). In 2018 presented "A Historical Perspective on Anti-Gravity Technology" for HoloChron Engineering at HAL5 Huntsville, covering historical and modern gravity modification experiments including alleged TR3B black projects. In 2020 stated she needed NASA authorization before releasing foundational anti-gravity research. In a 2020 podcast interview with Jeremy Rys (Alien Scientist), stated escalating threats for 4-5 years: "I need to disclose soon, man." Warned: "If you stick your neck out in public, at least someone notices if your head gets chopped off." Before her death, worked with retired British intelligence officer Franc Milburn to document harassment and directed energy attacks. Milburn concluded death was NOT suicide; his findings were submitted to Congress in 2023. Journalist Michael Shellenberger testified before Congress at a UAP hearing that a private aerospace company murdered Eskridge because she was involved in the UAP conversation. Father Richard Eskridge publicly stated he does not believe her death was suspicious.',
+    cause: 'Died June 11, 2022, Huntsville, Alabama. Official ruling: self-inflicted gunshot wound to the head. Neither Huntsville police nor the medical examiner released a public investigative report or detailed case files. After her death, the Institute for Exotic Science website went offline. Supporters contested the suicide ruling; Franc Milburn submitted independent findings to Congress (2023) concluding murder and documenting alleged directed energy weapon attacks causing microwave burns. Journalist Michael Shellenberger testified at a UAP hearing that a private aerospace company murdered her. NNSA stated it is looking into the matter re: employees of labs, plants, and sites. No official connection to the other 10 cases has been confirmed.',
+    links: [
+      { label: 'Newsweek — Eskridge Profile', url: 'https://www.newsweek.com/who-is-amy-eskridge-scientist-death-queried-us-expert-mysteries-11843659' },
+      { label: 'Yahoo — 11th Case Emerges', url: 'https://www.yahoo.com/news/articles/11th-scientist-death-emerges-string-153720038.html' },
+      { label: 'HAL5 — Anti-Gravity Presentation 2018', url: 'https://www.hal5.org/PDF/HAL5-Dec2018-Talk-AntiGravity.pdf' },
+      { label: 'British Brief — Case Analysis', url: 'https://www.britbrief.co.uk/tech/space/anti-gravity-scientists-death-sparks-conspiracy-theories.html' },
+      { label: 'Legal Insurrection — Congress Context', url: 'https://legalinsurrection.com/2026/04/11th-scientist-added-to-list-of-missing-dead-officials-with-access-to-us-secrets/' },
+    ],
+    timeline: [
+      { date: '2018', event: 'Presents "A Historical Perspective on Anti-Gravity Technology" for HoloChron Engineering at HAL5 Huntsville with father Richard Eskridge' },
+      { date: '~2017–2022', event: 'Works with Franc Milburn (retired British intelligence) to document escalating harassment, threats, and alleged directed energy weapon attacks' },
+      { date: '2020', event: 'Podcast interview with Jeremy Rys: states threats escalating for 4–5 years; says "I need to disclose soon, man." Warns about publishing foundational anti-gravity research pending NASA authorization' },
+      { date: '2020', event: 'States she co-founded the Institute for Exotic Science as "a public-facing persona to disclose anti-gravity technology" — believing public visibility offered personal protection' },
+      { date: 'Jun 11, 2022', event: 'Died in Huntsville, Alabama. Official ruling: self-inflicted gunshot wound. No public investigation or autopsy details released by police or medical examiner.' },
+      { date: 'Post-2022', event: 'Institute for Exotic Science website goes offline. Father Richard Eskridge publicly states he does not believe her death is suspicious.' },
+      { date: '2023', event: 'Franc Milburn submits independent findings to Congress concluding murder, documenting alleged directed energy weapon attacks. Journalist Michael Shellenberger testifies at UAP hearing attributing her death to a private aerospace company.' },
+      { date: 'Apr 17, 2026', event: 'Named as 11th case in the pattern of scientist deaths and disappearances by Daily Mail and major outlets as White House investigation launched.' },
+    ]
+  },
 ];
 const NODES_EXT = [
+  {
+    id: 'RICHARD_ESKRIDGE',
+    name: 'Richard Eskridge',
+    lat: 34.729, lng: -86.585,
+    status: 'ACTIVE',
+    degree: 1,
+    cluster: 'AEROSPACE',
+    field: 'Plasma Physics / Magnetic Target Fusion / Advanced Propulsion',
+    org: 'NASA Marshall Space Flight Center (Ret.) / HoloChron Engineering / Institute for Exotic Science',
+    location: 'Huntsville, AL',
+    date: 'N/A',
+    patterns: ['ANTIGRAVITY_UAP','PLASMA_NETWORK'],
+    summary: 'Retired NASA engineer and plasma physicist who spent his career at NASA Marshall Space Flight Center (MSFC), Huntsville, Alabama. Specialized in plasma accelerators, magnetic target fusion (MTF), and plasmoid propulsion. Published extensively on the NASA MSFC pulsed electromagnetic plasma accelerator (PEPA-0) and field-reversed configuration (FRC) thrusters. Cited by 157+ researchers in plasma propulsion science. Publicly co-presented gravity modification research at HAL5 (Huntsville) in 2018 alongside daughter Amy, as CTO of HoloChron Engineering. Served as CTO and co-founder of the Institute for Exotic Science. After Amy\'s death, publicly stated he does not believe her death is suspicious. His plasma physics work at MSFC directly overlaps with the domain of MIT\'s Nuno Loureiro (MIT PSFC), creating an institutional resonance across the pattern.',
+    cause: 'No incident. 1st-degree family and institutional link: father and co-founder of Amy Eskridge\'s research entities. His NASA MSFC plasma physics career connects the Eskridge case to the broader plasma/fusion research thread (Loureiro, MIT PSFC). Publicly disputes suspicion around daughter\'s death.',
+    links: [
+      { label: 'ResearchGate — Richard Eskridge Profile', url: 'https://www.researchgate.net/profile/Richard-Eskridge' },
+      { label: 'HAL5 Presentation 2018', url: 'https://www.hal5.org/PDF/HAL5-Dec2018-Talk-AntiGravity.pdf' },
+      { label: 'NewsNation — Father Speaks', url: 'https://www.newsnationnow.com/space/ufo/father-dead-scientist-denies-suspicious/' },
+    ],
+    timeline: [
+      { date: 'Career (NASA)', event: 'Plasma physicist at NASA Marshall Space Flight Center — research on pulsed electromagnetic plasma accelerator (PEPA-0), magnetic target fusion (MTF), field-reversed configuration (FRC) thrusters' },
+      { date: '2018', event: 'Co-presents gravity modification / anti-gravity technology with daughter Amy at HAL5 Huntsville via HoloChron Engineering; listed as CTO and co-founder' },
+      { date: 'Jun 2022', event: 'Daughter Amy Eskridge dies. Richard Eskridge publicly states he does not believe the death is suspicious.' },
+      { date: 'Post-2022', event: 'Institute for Exotic Science ceases operations; HoloChron Engineering activity drops from public record' },
+      { date: 'Apr 2026', event: 'Named in reporting on Amy Eskridge as 11th case; his NASA MSFC plasma career cited as connecting link to Loureiro/fusion domain' },
+    ]
+  },
+
   {
     id: 'ELACHI',
     name: 'Dr. Charles Elachi',
@@ -1128,6 +1186,34 @@ const NODES_EXT = [
       { date: '2026', event: 'Steps down as Division Chair (10-year term ends)' },
     ]
   },
+  {
+    id: 'MILBURN',
+    name: 'Franc Milburn',
+    lat: 51.507, lng: -0.127,
+    status: 'ACTIVE',
+    degree: 2,
+    cluster: 'INTEL_OVERSIGHT',
+    field: 'Intelligence / Counter-Harassment Investigation / UAP',
+    org: 'Retired British Intelligence Officer / Independent Investigator',
+    location: 'United Kingdom',
+    date: 'N/A',
+    patterns: ['ANTIGRAVITY_UAP','INTEL_OVERSIGHT','CONGRESSIONAL_OVERSIGHT'],
+    summary: 'Retired British intelligence officer who partnered with Amy Eskridge before her death to formally document the escalating harassment and threats she experienced. Milburn and Eskridge jointly documented multiple alleged physical and psychological attacks, including an incident in which an unknown suspect fired a directed energy weapon at her, causing microwave burns across her body. After her death, Milburn concluded that she had NOT died by suicide. In 2023, independent investigators submitted his findings to Congress. Milburn stated on Coast to Coast AM: "Somebody was after her work. It was either one of two main objectives. One, trying to get her to desist from doing the work, and two, with these attacks... to actually stop her, to debilitate her so she was unable to do the work." His congressional submission is the primary formal intelligence-grade documentation challenging the suicide ruling.',
+    cause: 'No incident. 2nd-degree investigative link: Milburn is the primary intelligence-grade investigator of the Eskridge case whose findings reached Congress. His work directly connects to the CONGRESSIONAL_OVERSIGHT layer (Burchett, Burlison) that is pressing the broader pattern investigation.',
+    links: [
+      { label: 'BroBible — Milburn Findings', url: 'https://brobible.com/sports/article/scientist-11th-person-secret-research-missing-die/' },
+      { label: 'Gateway Pundit — Congress Submission', url: 'https://www.thegatewaypundit.com/2026/04/too-coincidental-string-dead-missing-scientists-hits-11/' },
+      { label: 'British Brief — DEW Attack Documentation', url: 'https://www.britbrief.co.uk/tech/space/anti-gravity-scientists-death-sparks-conspiracy-theories.html' },
+    ],
+    timeline: [
+      { date: 'Pre-2022', event: 'Partners with Amy Eskridge to formally document instances of harassment, surveillance, and alleged physical attacks including claimed directed energy weapon incident causing microwave burns' },
+      { date: 'Jun 2022', event: 'Eskridge dies. Milburn investigates and concludes death was NOT suicide.' },
+      { date: '2023', event: 'Independent investigators submit Milburn\'s findings to Congress. Milburn states publicly the motive was suppression of her work.' },
+      { date: '2023', event: 'Journalist Michael Shellenberger includes Eskridge case with Milburn\'s findings in written UAP testimony to House Oversight Committee' },
+      { date: 'Coast to Coast AM', event: 'Milburn: "Somebody was after her work... to actually stop her, to debilitate her so she was unable to do the work."' },
+    ]
+  },
+
   // ── 2nd DEGREE EXTENDED NODES ─────────────────────────────
   {
     id: 'BHATTACHARJEE',
@@ -1229,6 +1315,31 @@ const NODES_EXT = [
       { date: '2018', event: 'Steps down after longest modern LANL directorship' },
     ]
   },
+  {
+    id: 'SHELLENBERGER',
+    name: 'Michael Shellenberger',
+    lat: 37.871, lng: -122.273,
+    status: 'ACTIVE',
+    degree: 3,
+    cluster: 'CONGRESSIONAL_OVERSIGHT',
+    field: 'Investigative Journalism / UAP Congressional Testimony',
+    org: 'Public — Journalist / Author / Congressional Witness',
+    location: 'California',
+    date: 'N/A',
+    patterns: ['ANTIGRAVITY_UAP','CONGRESSIONAL_OVERSIGHT','UAP_NETWORK'],
+    summary: 'Investigative journalist and author who testified before a public hearing on Unidentified Anomalous Phenomena (UAP) before the House Oversight Committee. In his written testimony (November 2024), Shellenberger included an appendix entry on Amy Eskridge — labeled "PUBLIC DOMAIN" — stating that retired British intelligence officer Franc Milburn claims Eskridge was targeted with directed-energy weapons and murdered "because she was involved in the UAP conversation." He attributed her killing to "a private aerospace company in the U.S." His congressional testimony formally introduced the Eskridge case into the UAP oversight record, connecting her death to the broader disclosure debate at the congressional level. Also known for reporting on government surveillance, censorship, and national security.',
+    cause: 'No incident. 3rd-degree testimony link: Shellenberger formally entered Milburn\'s Eskridge findings into the congressional UAP hearing record, creating the institutional bridge between the Eskridge case and the congressional oversight layer (Burchett, Burlison).',
+    links: [
+      { label: 'NaturalNews — Shellenberger Testimony', url: 'https://www.naturalnews.com/2026-04-18-death-scientist-researching-anti-gravity-broader-pattern.html' },
+      { label: 'Legal Insurrection — UAP Hearing Context', url: 'https://legalinsurrection.com/2026/04/11th-scientist-added-to-list-of-missing-dead-officials-with-access-to-us-secrets/' },
+      { label: 'RevLox — Testimony Analysis', url: 'https://www.revlox.com/paranormal/the-scientist-the-silence-and-the-story-the-internet-built/' },
+    ],
+    timeline: [
+      { date: 'Nov 2024', event: 'Submits written testimony to House Oversight Committee UAP hearing. Appendix includes Eskridge entry attributing her death to a private aerospace company involved in UAP programs, citing Milburn\'s findings.' },
+      { date: 'Apr 2026', event: 'Eskridge named 11th case; Shellenberger\'s 2024 congressional testimony cited as the formal record connecting her death to the UAP oversight investigation.' },
+    ]
+  },
+
   // ── 3rd DEGREE EXTENDED NODES ─────────────────────────────
   {
     id: 'GRUNSFELD',
@@ -1682,6 +1793,18 @@ const EDGES = [
   { source: 'LEAVITT', target: 'BURLISON', type: 'INSTITUTIONAL', label: '4th degree — Burlison formally requested FBI investigation; Leavitt White House response followed within days as congressional pressure intensified.' },
   { source: 'LEAVITT', target: 'SWECKER', type: 'ACQUAINTANCE', label: '4th degree — Swecker public comments informed the White House briefing question framing; both operating in the public response layer to the scientist pattern.' },
 
+  // ── ESKRIDGE NETWORK EDGES ──────────────────────────────
+  { source: 'ESKRIDGE', target: 'MCCASLAND', type: 'ACQUAINTANCE', label: 'Both cited in the same UAP/advanced-tech pattern (cases 5 and 11). McCasland served as informal UAP consultant post-retirement; Eskridge sought NASA authorization for anti-gravity disclosure. Both connected to DeLonge\'s UAP network.' },
+  { source: 'ESKRIDGE', target: 'DELONGE', type: 'ACQUAINTANCE', label: 'Both central to the UAP disclosure network. Eskridge co-founded Institute for Exotic Science as a public UAP/anti-gravity disclosure platform; DeLonge\'s TTSA operated in the same disclosure ecosystem. Both warned publicly about dangers of their work.' },
+  { source: 'ESKRIDGE', target: 'RICHARD_ESKRIDGE', type: 'WORK', label: '1st degree — Father-daughter co-founders of both HoloChron Engineering and the Institute for Exotic Science. Richard served as CTO; Amy as CEO\/President. Jointly presented anti-gravity research at HAL5 (2018).' },
+  { source: 'ESKRIDGE', target: 'MILBURN', type: 'WORK', label: '2nd degree — Milburn formally investigated and documented Eskridge\'s harassment claims; concluded her death was not suicide. Submitted findings to Congress 2023. The primary intelligence-grade record challenging the official ruling.' },
+  { source: 'RICHARD_ESKRIDGE', target: 'LOUREIRO', type: 'ACQUAINTANCE', label: '1st–2nd degree bridge — Both plasma physicists: Richard at NASA MSFC (plasmoid propulsion, magnetic target fusion); Loureiro at MIT PSFC (magnetic reconnection, fusion energy). Shared domain: advanced plasma-based propulsion and fusion.' },
+  { source: 'MILBURN', target: 'SHELLENBERGER', type: 'WORK', label: '2nd–3rd degree — Milburn\'s findings were included in Shellenberger\'s 2024 House Oversight UAP testimony, formally entering them into the congressional record as "PUBLIC DOMAIN" evidence.' },
+  { source: 'MILBURN', target: 'BURCHETT', type: 'INSTITUTIONAL', label: '2nd–4th degree — Milburn\'s 2023 congressional submission reached the same oversight committee that Burchett sits on. Burchett\'s public statements reference the broader suppression-of-researchers pattern that Milburn documented.' },
+  { source: 'MILBURN', target: 'BURLISON', type: 'INSTITUTIONAL', label: '2nd–4th degree — Milburn\'s findings submitted to Congress in 2023 via the same oversight pathway Burlison later activated in 2026 when requesting FBI investigation into the broader pattern.' },
+  { source: 'SHELLENBERGER', target: 'BURCHETT', type: 'INSTITUTIONAL', label: '3rd–4th degree — Both operating in the congressional UAP oversight space. Shellenberger testified before committees; Burchett is a sitting member of the House Oversight UAP subcommittee that received the testimony.' },
+  { source: 'SHELLENBERGER', target: 'ELIZONDO', type: 'ACQUAINTANCE', label: '3rd–5th degree — Both active in the UAP transparency and disclosure public network. Shellenberger\'s congressional testimony and Elizondo\'s AATIP work operate in the same congressional oversight ecosystem.' },
+
 ];
 
 // ═══════════════════════════════════════
@@ -1721,7 +1844,7 @@ const PATTERNS = {
     label: 'Plasma Physics Network',
     color: '#6c71c4',
     desc: 'Theoretical plasma physics community spanning MIT (Loureiro) and Princeton (Bhattacharjee). Shared specialization in magnetic reconnection.',
-    nodes: ['LOUREIRO','BHATTACHARJEE','ZUBER']
+    nodes: ['LOUREIRO','BHATTACHARJEE','ZUBER','RICHARD_ESKRIDGE']
   },
   MIT_CORE: {
     id: 'MIT_CORE',
@@ -1756,7 +1879,7 @@ const PATTERNS = {
     label: 'Incident Timeline (2023–2026)',
     color: '#dc322f',
     desc: 'All confirmed deceased and missing subjects ordered chronologically. HICKS (Jul 2023) is the earliest-dated event; McCasland (Feb 2026) is the most recent.',
-    nodes: ['HICKS','MAIWALD','CHAVEZ','REZA','CASIAS','GARCIA','THOMAS','LOUREIRO','GRILLMAIR','MCCASLAND']
+    nodes: ['ESKRIDGE','HICKS','MAIWALD','CHAVEZ','REZA','CASIAS','GARCIA','THOMAS','LOUREIRO','GRILLMAIR','MCCASLAND']
   },
   PLANETARY_DEFENSE: {
     id: 'PLANETARY_DEFENSE',
@@ -1770,21 +1893,21 @@ const PATTERNS = {
     label: 'Congressional Oversight',
     color: '#b58900',
     desc: 'Elected officials and law enforcement publicly investigating the pattern of scientist deaths and disappearances. BURCHETT and BURLISON leading congressional push for FBI involvement.',
-    nodes: ['BURCHETT','BURLISON','SWECKER','MCCASLAND','REZA','GRILLMAIR','LOUREIRO']
+    nodes: ['BURCHETT','BURLISON','SWECKER','SHELLENBERGER','MCCASLAND','REZA','GRILLMAIR','LOUREIRO']
   },
   UAP_NETWORK: {
     id: 'UAP_NETWORK',
     label: 'UAP Research Network',
     color: '#6c71c4',
     desc: 'The civilian and ex-military UAP disclosure network: DeLonge\'s TTSA, Elizondo\'s AATIP, McCasland\'s post-retirement consulting role. Verified via WikiLeaks Podesta emails.',
-    nodes: ['MCCASLAND','DELONGE','ELIZONDO','RAYMOND','BURCHETT','BURLISON']
+    nodes: ['ESKRIDGE','MCCASLAND','DELONGE','ELIZONDO','RAYMOND','BURCHETT','BURLISON']
   },
   INTEL_OVERSIGHT: {
     id: 'INTEL_OVERSIGHT',
     label: 'Intel & Law Enforcement',
     color: '#dc322f',
     desc: 'Former intelligence and law enforcement figures who have publicly contextualized the pattern as potential foreign intelligence operations against critical technology holders.',
-    nodes: ['SWECKER','ELIZONDO','BURCHETT','BURLISON','MCCASLAND']
+    nodes: ['SWECKER','ELIZONDO','MILBURN','BURCHETT','BURLISON','MCCASLAND']
   },
 
 
@@ -1795,6 +1918,14 @@ const PATTERNS = {
     desc: 'NM nuclear defense cluster: KCNSC (Garcia), LANL (Casias, Chavez, Mason), Kirtland AFB (McCasland). All under DOE/NNSA/AFRL. Five disappearances from this corridor since May 2025.',
     nodes: ['GARCIA','CASIAS','CHAVEZ','MCCASLAND','MASON']
   },
+  ANTIGRAVITY_UAP: {
+    id: 'ANTIGRAVITY_UAP',
+    label: 'Anti-Gravity / UAP Disclosure Network',
+    color: '#d33682',
+    desc: 'The Eskridge-centered anti-gravity and UAP disclosure cluster. Amy Eskridge co-founded the Institute for Exotic Science to publicly disclose anti-gravity research; her father Richard Eskridge (NASA MSFC plasma physicist) served as CTO. Franc Milburn (British intelligence) investigated and submitted findings to Congress. Michael Shellenberger formally entered findings into congressional UAP testimony. Overlaps with DeLonge\'s TTSA disclosure network and McCasland\'s UAP consulting role.',
+    nodes: ['ESKRIDGE','RICHARD_ESKRIDGE','MILBURN','SHELLENBERGER','DELONGE','MCCASLAND','ELIZONDO']
+  },
+
 };
 
 // ═══════════════════════════════════════
