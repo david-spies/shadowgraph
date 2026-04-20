@@ -492,7 +492,6 @@ For **fully offline operation**, see `QUICKSTART.md` → Section 4: Offline Mode
 | Version | Date | Nodes | Edges | Patterns | Notes |
 |---|---|---|---|---|---|
 | **v1.4** | **2026-04-19** | **36** | **78** | **16** | **Eskridge (Case 11) + Richard Eskridge (1°) + Milburn (2°) + Shellenberger (3°). ANTIGRAVITY_UAP pattern. Header corrected.** |
-| v1.4 | 2026-04-19 | 36 | 78 | 16 | Amy Eskridge (Case 11) full integration. |
 | v1.3 | 2026-04-17 | 32 | 68 | 15 | Garcia (Case 10) + Leavitt (4°). NUCLEAR_WEAPONS_COMPLEX pattern. |
 | v1.2 | 2026-04-08 | 29 | 60 | 14 | 4°–6° degree nodes. Degree filter buttons extended to 6°. |
 | v1.1 | 2026-04-08 | 29 | 60 | 14 | Syntax fix. Degree filters corrected. |
