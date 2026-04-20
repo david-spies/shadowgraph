@@ -1,3 +1,5 @@
+<img width="1108" height="620" alt="ShadowGraph_Map_04" src="https://github.com/user-attachments/assets/319153ef-46c8-4f64-94ff-0f4761bde378" />
+
 # SHADOWGRAPH v1.4
 ### 6 Degrees of NASA — Geospatial Intelligence Visualization Tool
 
