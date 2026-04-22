@@ -1,5 +1,3 @@
-<img width="1108" height="620" alt="ShadowGraph_Map_04" src="https://github.com/user-attachments/assets/319153ef-46c8-4f64-94ff-0f4761bde378" />
-
 # SHADOWGRAPH v1.4
 ### 6 Degrees of NASA — Geospatial Intelligence Visualization Tool
 
@@ -10,6 +8,26 @@
 ║  36 NODES  //  78 EDGES  //  16 PATTERNS  //  2026-04-19      ║
 ╚═══════════════════════════════════════════════════════════════╝
 ```
+
+---
+
+<!-- PROJECT IDENTITY -->
+![ShadowGraph](https://img.shields.io/badge/ShadowGraph-v1.4-0d1117?style=for-the-badge) ![Build](https://img.shields.io/badge/build-stable-2aa198?style=for-the-badge) ![Classification](https://img.shields.io/badge/classification-UNCLASSIFIED-268bd2?style=for-the-badge) ![Architecture](https://img.shields.io/badge/architecture-6%C2%B0NASA-6c71c4?style=for-the-badge)
+
+<!-- DATASET STATS -->
+![Nodes](https://img.shields.io/badge/nodes-36-859900?style=flat-square) ![Edges](https://img.shields.io/badge/edges-78-268bd2?style=flat-square) ![Patterns](https://img.shields.io/badge/patterns-16-6c71c4?style=flat-square) ![Degrees](https://img.shields.io/badge/degrees-0%C2%B0%E2%80%936%C2%B0-657b83?style=flat-square) ![Updated](https://img.shields.io/badge/updated-2026--04--19-586e75?style=flat-square)
+
+<!-- CASE STATUS -->
+![Cases](https://img.shields.io/badge/cases-11-dc322f?style=flat-square) ![Deceased](https://img.shields.io/badge/deceased-6-dc322f?style=flat-square) ![Missing](https://img.shields.io/badge/missing-3-b58900?style=flat-square) ![Active Monitored](https://img.shields.io/badge/active%20monitored-2-657b83?style=flat-square) ![Institutions](https://img.shields.io/badge/institutions-JPL%20%7C%20LANL%20%7C%20MIT%20%7C%20KCNSC-2aa198?style=flat-square)
+
+<!-- TECH STACK -->
+![HTML5](https://img.shields.io/badge/HTML-5-e34c26?style=flat-square&logo=html5&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-ES2022-f7df1e?style=flat-square&logo=javascript&logoColor=black) ![Leaflet](https://img.shields.io/badge/Leaflet.js-1.9.4-199900?style=flat-square&logo=leaflet&logoColor=white) ![D3](https://img.shields.io/badge/D3.js-7.8.5-f68e45?style=flat-square&logo=d3dotjs&logoColor=white) ![CDN](https://img.shields.io/badge/CDN-cdnjs-2aa198?style=flat-square)
+
+<!-- DEPLOYMENT -->
+![Deployment](https://img.shields.io/badge/deployment-single%20file%20HTML-073642?style=flat-square) ![Backend](https://img.shields.io/badge/backend-optional%20Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white) ![Database](https://img.shields.io/badge/database-client%20side%20only-586e75?style=flat-square) ![Cookies](https://img.shields.io/badge/cookies-none-657b83?style=flat-square) ![localStorage](https://img.shields.io/badge/localStorage-none-657b83?style=flat-square)
+
+<!-- RESEARCH INTEGRITY -->
+![Sources](https://img.shields.io/badge/sources-OSINT%20only-268bd2?style=flat-square) ![Data](https://img.shields.io/badge/data-publicly%20available-2aa198?style=flat-square) ![Classification](https://img.shields.io/badge/data%20class-UNCLASSIFIED-859900?style=flat-square) ![Connections](https://img.shields.io/badge/connections-unconfirmed%20by%20govt-b58900?style=flat-square) ![Maintained](https://img.shields.io/badge/maintained-active-2aa198?style=flat-square)
 
 ---
 
@@ -497,7 +515,7 @@ For **fully offline operation**, see `QUICKSTART.md` → Section 4: Offline Mode
 | v1.3 | 2026-04-17 | 32 | 68 | 15 | Garcia (Case 10) + Leavitt (4°). NUCLEAR_WEAPONS_COMPLEX pattern. |
 | v1.2 | 2026-04-08 | 29 | 60 | 14 | 4°–6° degree nodes. Degree filter buttons extended to 6°. |
 | v1.1 | 2026-04-08 | 29 | 60 | 14 | Syntax fix. Degree filters corrected. |
-| v1.0 | 2026-04-05 |  7 |  8 |  0 | Initial release. |
+| v1.0 | 2026-04-05 | 7 | 8 | 0 | Initial release. |
 
 ---
 
