@@ -1,3 +1,11 @@
+<div align="center">
+
+<img src="assets/shadowgraph_banner.png" alt="Shadowgraph — Geospatial Intelligence Visualization Tool" width="100%"/>
+
+<br/>
+
+</div>
+
 # SHADOWGRAPH v1.4
 ### 6 Degrees of NASA — Geospatial Intelligence Visualization Tool
 
